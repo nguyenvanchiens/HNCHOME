@@ -6,8 +6,10 @@ namespace HNCHOME.Controllers
 {
     public class PermissionController : BaseController
     {
-        public PermissionController(HNCDbContext dbContext) : base(dbContext)
+        private readonly IPermissionRepository _res;
+        public PermissionController(HNCDbContext dbContext, IPermissionRepository res) : base(dbContext)
         {
+            _res = res;
         }
 
 
@@ -76,46 +78,35 @@ namespace HNCHOME.Controllers
         [HttpGet]
         public Permission Get(Guid id)
         {
-            var result = _dbContext.Permissions.Where(x => x.PermissionId == id).First();
+            var result = _res.GetById(id);
             return result;
         }
         [HttpPost]
         public JsonResult Create(Permission permission)
         {
-            permission.PermissionId = Guid.NewGuid();
             permission.CreatedDate = DateTime.Now;
-            _dbContext.Permissions.Add(permission);
-            var result = _dbContext.SaveChanges();
-            return Json(result);
+            _res.Insert(permission);
+            _res.Save();
+            return Json("oke");
         }
         [HttpPost]
         public JsonResult Edit(Permission permission)
         {
-            var permision = _dbContext.Permissions.Where(x=>x.PermissionId== permission.PermissionId).First();
-            permision.PermissionName = permission.PermissionName;
-            permision.ParentId = permission.ParentId;
-            _dbContext.Permissions.Update(permision);
-            var result = _dbContext.SaveChanges();
-            return Json(result);
+            _res.Update(permission);
+            _res.Save();
+            return Json("oke");
         }
         [HttpPost]
         public JsonResult Delete(Guid id)
         {
-            var permision = _dbContext.Permissions.Where(x => x.PermissionId == id).First();
-            _dbContext.Permissions.Remove(permision);
-            var result = _dbContext.SaveChanges();
-            return Json(result);
+            _res.Delete(id);
+            _res.Save();
+            return Json("oke");
         }
         [HttpGet]
         public JsonResult GetAllPermission()
         {
-            var result = _dbContext.Permissions.Select(x => new Permission()
-            {
-                PermissionId = x.PermissionId,
-                PermissionName = x.PermissionName,
-                ParentId = x.ParentId,
-                CreatedDate = x.CreatedDate,
-            }).ToList();
+            var result = _res.GetAll();
             return Json(result);
         }
     }

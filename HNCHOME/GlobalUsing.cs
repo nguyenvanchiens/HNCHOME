@@ -10,3 +10,4 @@ global using HNCHOME.Common;
 global using HNCHOME.Areas.Admin.Controllers;
 global using HNCHOME.Areas.Admin.Models;
 global using HNCHOME.Areas.Admin.Models.ViewModel;
+global using HNCHOME.Service.Repository;
