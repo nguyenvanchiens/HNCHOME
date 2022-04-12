@@ -1,0 +1,113 @@
+.footer {
+    position: relative;
+    height: 120vh;
+    width: 100vw;
+    background-color: #2e3192;
+}
+
+.footer__footer {
+    position: relative;
+    display: flex;
+    height: 100%;
+    width: 100%;
+    top: 100px;
+}
+
+.footer__HNC {
+    position: relative;
+    height: 100%;
+    width: 73%;
+    display: flex;
+    margin: auto;
+}
+
+.HNC__HNC-online {
+    position: relative;
+    display: block;
+    width: 50%;
+    height: 27%;
+    background-color: aquamarine
+}
+
+.HNC__HNC-online h1 {
+    color: white;
+    font-size: 3em;
+    font-weight: 470;
+}
+
+.HNC__HNC-online a {
+    text-decoration: none;
+}
+
+.subtext {
+    height: fit-content;
+    background-color: blue;
+    margin-top: 60px;
+    position: relative;
+}
+
+.subtext span {
+    color: white;
+    font-size: 18px;
+    margin-top: 100px;
+}
+
+.HNC__HNCMUA__sub_img {
+    position: relative;
+    width: 50%;
+    display: flex;
+    height: fit-content;
+}
+
+.HNC__HNCMUA__sub_img .HNC__HNCMUA__sub_img--img {
+    width: 75%;
+}
+
+.HNC__HNCMUA {
+    position: relative;
+    display: block;
+    width: 50%;
+    height: 33.3%;
+    background-color: rgb(255, 189, 127)
+}
+
+.HNC__img {
+    position: relative;
+    height: fit-content;
+    width: 100%;
+    display: flex;
+    margin-top: 10px;
+}
+
+.HNC-online__delevery-img {
+    position: relative;
+    width: 50%;
+    height: 200px;
+    margin-top: -29.5%;
+}
+
+.HNC-online__delevery-img img {
+    position: relative;
+    width: 100%;
+    height: 5%;
+    height: fit-content;
+    /* margin-top: -59%; */
+}
+
+.HNC-online__delevery-img img:nth-child(2) {
+    margin-left: 20px;
+}
+
+.HNC__HNCMUA__text {}
+
+.HNC__HNCMUA__img {}
+
+.footer__conact-info {}
+
+.footer__guideline {}
+
+.footer__customer-suport {}
+
+.footer__image {}
+
+.footer__copyright {}

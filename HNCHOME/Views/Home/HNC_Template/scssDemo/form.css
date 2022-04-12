@@ -1,0 +1,98 @@
+.body__search-form {
+    position: absolute;
+    width: 100vw;
+    height: 100h;
+    /* background-color: black; */
+    z-index: -1;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    /* opacity: 0; */
+}
+
+.body__background-blur {
+    position: absolute;
+    width: 100vw;
+    height: 100h;
+    background-color: black;
+    z-index: -1;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    opacity: 0;
+}
+
+#search__form {
+    height: 20%;
+    margin-top: 250px !important;
+    width: 55%;
+}
+
+#search__form i {
+    color: black;
+}
+
+#search__form input {
+    outline: none;
+    border: none;
+    z-index: 2;
+}
+
+#search__form button {
+    color: white;
+    display: block;
+    /* outline: none; */
+    /* border: none; */
+    font-size: 2.5rem;
+    margin-top: -20px;
+    margin-left: -30px;
+    font-weight: 500;
+}
+
+#search-data {
+    width: 100%;
+}
+
+#searh-container {
+    width: 100%;
+    height: fit-content;
+}
+
+#search-input {
+    width: 95%;
+    line-height: inherit;
+    z-index: 0;
+}
+
+#search-data i {
+    transform: scale(1.5, 1.5);
+}
+
+#password {
+    width: 96%;
+    margin-left: 2%;
+    height: 35px;
+    outline: none;
+    box-shadow: none;
+}
+
+.fancyformcontainer button {
+    box-shadow: none;
+    border: 1px black solid;
+    background-color: white;
+    color: black;
+}
+
+.fancyformcontainer button:hover {
+    background-color: #2e3192;
+    color: white;
+    transition: 0.6s;
+    border: 1px #2e3192 solid;
+}
+
+.fancyformcontainer button:not(hover) {
+    border: 1px black solid;
+    background-color: white;
+    color: black;
+    transition: 0.6s;
+}
