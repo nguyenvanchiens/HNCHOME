@@ -1,4 +1,4 @@
-﻿using HNCHOME.ViewModel;
+﻿using HNCHOME.Areas.Admin.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

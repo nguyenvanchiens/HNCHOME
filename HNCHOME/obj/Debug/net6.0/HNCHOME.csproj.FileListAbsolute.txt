@@ -246,3 +246,5 @@ C:\HNCHOME\HNCHOME\bin\Debug\net6.0\System.Drawing.Common.dll
 C:\HNCHOME\HNCHOME\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
 C:\HNCHOME\HNCHOME\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
 C:\HNCHOME\HNCHOME\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
+C:\HNCHOME\HNCHOME\obj\Debug\net6.0\scopedcss\Areas\Admin\Views\Shared\_Layout.cshtml.rz.scp.css
+C:\HNCHOME\HNCHOME\bin\Debug\net6.0\web.config

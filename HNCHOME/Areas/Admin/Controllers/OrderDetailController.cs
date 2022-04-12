@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using HNCHOME.Areas.Admin.Controllers;
+using Microsoft.AspNetCore.Mvc;
 using OfficeOpenXml;
 
 namespace HNCHOME.Controllers

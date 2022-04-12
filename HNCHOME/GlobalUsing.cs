@@ -1,7 +1,12 @@
 ﻿global using System.ComponentModel.DataAnnotations;
 global using System.ComponentModel.DataAnnotations.Schema;
 global using Microsoft.EntityFrameworkCore;
+global using HNCHOME.Service.Interface;
+global using HNCHOME.Areas.Admin.Service.Interface;
+global using HNCHOME.Areas.Admin.Service.Repository;
 global using HNCHOME.Models;
 global using HNCHOME.Data;
 global using HNCHOME.Common;
-global using HNCHOME.Controllers;
+global using HNCHOME.Areas.Admin.Controllers;
+global using HNCHOME.Areas.Admin.Models;
+global using HNCHOME.Areas.Admin.Models.ViewModel;
