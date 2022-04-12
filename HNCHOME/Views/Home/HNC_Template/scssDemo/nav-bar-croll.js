@@ -10,7 +10,7 @@ $(window).bind("scroll", function() {
         $(".menu__nav").css("margin", "auto");
         $(".menu__nav").css("width", "100%");
         $(".nav__img img").css({
-            "padding-left": "10vw",
+            "padding-left": "17vw",
         });
     }
 })
@@ -26,5 +26,8 @@ $(window).bind("scroll", function() {
         $(".menu__nav").css("top", "30px");
         $(".menu__nav").css("width", "80%");
         $(".menu__nav").css("margin-left", "11%");
+        $(".nav__img img").css({
+            "padding-left": "30px",
+        });
     }
 })
