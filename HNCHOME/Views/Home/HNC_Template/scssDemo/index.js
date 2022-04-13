@@ -1,6 +1,5 @@
 $(document).ready(
     $('#carouselExampleControls img').click(function() { return false; }),
-    // $("#carouselExampleControls").css("height","100vh"),
     $("#search-home-icon").bind("click", function() {
         if (counter == 0) {
             $(".collaspe").css("display", "none");
@@ -86,8 +85,7 @@ $(document).ready(
     $(".fancyformcontainer button").css("box-shadow", "none"),
     $(".fancyformcontainer input").css("box-shadow", "none"),
     $("#select2").click(function() {
-        // $("#select2").css("border", "1px solid #2e3192");
-        // $("#select2").css("outline", "solid 1px gray");
+
     }),
     $("#lang-img li a img").click(function() {
         $("#lang").attr("src", $(this).attr("src"));

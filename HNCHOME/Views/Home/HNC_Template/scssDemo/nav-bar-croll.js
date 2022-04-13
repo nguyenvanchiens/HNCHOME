@@ -1,6 +1,3 @@
-function unbindScroll() {
-
-}
 $(window).bind("scroll", function() {
     var windowLocation = window.pageYOffset;
     if (windowLocation >= 150) {
@@ -10,8 +7,16 @@ $(window).bind("scroll", function() {
         $(".menu__nav").css("margin", "auto");
         $(".menu__nav").css("width", "100%");
         $(".nav__img img").css({
-            "padding-left": "10vw",
+            "padding-left": "17vw",
         });
+        $(".menu__nav .nav__img").css({
+            "width": "26.7%",
+        });
+        if (window.innerWidth <= 1200) {
+            $(".menu__nav .nav__img").css({
+                "width": "30%"
+            })
+        }
     }
 })
 $(window).bind("scroll", function() {
@@ -26,5 +31,8 @@ $(window).bind("scroll", function() {
         $(".menu__nav").css("top", "30px");
         $(".menu__nav").css("width", "80%");
         $(".menu__nav").css("margin-left", "11%");
+        $(".nav__img img").css({
+            "padding-left": "30px",
+        });
     }
 })

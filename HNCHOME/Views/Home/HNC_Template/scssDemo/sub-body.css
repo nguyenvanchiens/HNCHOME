@@ -238,16 +238,6 @@
     }
 }
 
-
-/* @media screen and (max-width: 1449px) {
-    .card-news h3 a {
-        font-size: 14px;
-    }
-    .card-news a {
-        margin-left: 47%;
-    }
-} */
-
 @media screen and (min-width: 1024px) and (max-width: 1238px) {
     .card-news__text>a {
         font-size: 14px;

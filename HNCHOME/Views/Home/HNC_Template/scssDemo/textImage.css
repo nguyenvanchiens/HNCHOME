@@ -27,7 +27,6 @@ body {
     top: 70px;
     width: 53%;
     box-shadow: 1px -1px 10px gray;
-    /* overflow-y: scroll; */
 }
 
 .collaspe>ul {
@@ -160,52 +159,6 @@ h5 {
     font-size: 260%;
     line-height: 150%;
 }
-
-
-/* @media only screen and (max-width: 575px) {
-    .navbar-nav>li {
-        font-size: 10px;
-    }
-}
-
-@media only screen and (max-width: 767px) {
-    .navbar-nav>li {
-        font-size: 8px;
-    }
-    .menu__nav {
-        height: fit-content;
-    }
-    .emty {
-        width: 1%;
-    }
-}
-
-@media only screen and (max-width: 991px) {
-    .navbar-nav>li {
-        font-size: 10px;
-    }
-    .menu__nav {
-        height: fit-content;
-    }
-    .emty {
-        width: 1%;
-    }
-} */
-
-
-/* @media only screen and (max-width: 1060) {
-    .navbar-nav>li {
-        /* font-size: 1px !important; */
-
-
-/* }
-    .menu__nav {
-        height: fit-content;
-    }
-    .emty {
-        width: 0% !important;
-    }
-} */
 
 .collaspe>ul>li:hover:last-child>.sub-collaspe>ul {
     transition: 4s !important;
