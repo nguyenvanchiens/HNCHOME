@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="bootstrap" Version="5.1.3" />
     <PackageReference Include="EPPlus" Version="5.8.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.4">
@@ -30,6 +31,68 @@
     <Folder Include="ExcelTemplate\" />
     <Folder Include="Common\" />
     <Folder Include="wwwroot\Admin\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\css\bootstrapHeaderForm.css" />
+    <None Include="wwwroot\css\footer.css" />
+    <None Include="wwwroot\css\form.css" />
+    <None Include="wwwroot\css\group-company.css" />
+    <None Include="wwwroot\css\index.css" />
+    <None Include="wwwroot\css\index.css.map" />
+    <None Include="wwwroot\css\index.scss" />
+    <None Include="wwwroot\css\sub-body.css" />
+    <None Include="wwwroot\css\textImage.css" />
+    <None Include="wwwroot\img\10199.jpg" />
+    <None Include="wwwroot\img\1140f45611b3e3edbaa2.jpg" />
+    <None Include="wwwroot\img\appStore.jpg" />
+    <None Include="wwwroot\img\Artboard 3-100.jpg" />
+    <None Include="wwwroot\img\Car.png" />
+    <None Include="wwwroot\img\Chuyen-phat-nhanh-noi-dia.jpg" />
+    <None Include="wwwroot\img\fast500 %281%29.png" />
+    <None Include="wwwroot\img\fast500.png" />
+    <None Include="wwwroot\img\gPlay.jpg" />
+    <None Include="wwwroot\img\HNC HOP NHAT INTERNATIONAL JOINT STOCK COMPANY Australia163.jpg" />
+    <None Include="wwwroot\img\HNC HOP NHAT INTERNATIONAL JOINT STOCK COMPANY Germany560.jpg" />
+    <None Include="wwwroot\img\HNC HOP NHAT INTERNATIONAL JOINT STOCK COMPANY Office VietNam370.jpg" />
+    <None Include="wwwroot\img\HNC HOP NHAT INTERNATIONAL JOINT STOCK COMPANY USA659.jpg" />
+    <None Include="wwwroot\img\HNC HOP NHAT INTERNATIONAL JOINT STOCK COMPANY Warehouse USA878.jpg" />
+    <None Include="wwwroot\img\HNC-HOP-NHAT-Logistic431.jpg" />
+    <None Include="wwwroot\img\iata_logo %281%29.png" />
+    <None Include="wwwroot\img\iata_logo %282%29.png" />
+    <None Include="wwwroot\img\iata_logo.png" />
+    <None Include="wwwroot\img\jstrans_logo %281%29.png" />
+    <None Include="wwwroot\img\jstrans_logo.png" />
+    <None Include="wwwroot\img\Logo-HNC-TV.png" />
+    <None Include="wwwroot\img\logo_alibaba %281%29.png" />
+    <None Include="wwwroot\img\logo_alibaba.png" />
+    <None Include="wwwroot\img\logo_amazon %281%29.png" />
+    <None Include="wwwroot\img\logo_amazon.png" />
+    <None Include="wwwroot\img\logo_ocs %281%29.png" />
+    <None Include="wwwroot\img\logo_ocs %282%29.png" />
+    <None Include="wwwroot\img\logo_ocs.png" />
+    <None Include="wwwroot\img\Profit 500 %281%29.png" />
+    <None Include="wwwroot\img\Profit 500.png" />
+    <None Include="wwwroot\img\Qua-canh-hang-hoa %281%29.jpg" />
+    <None Include="wwwroot\img\Qua-canh-hang-hoa.jpg" />
+    <None Include="wwwroot\img\Shopping-card.png" />
+    <None Include="wwwroot\img\TA636.png" />
+    <None Include="wwwroot\img\Top10 %281%29.png" />
+    <None Include="wwwroot\img\Top10.png" />
+    <None Include="wwwroot\img\top5 %281%29.png" />
+    <None Include="wwwroot\img\top5.png" />
+    <None Include="wwwroot\img\vla_logo_1 %281%29.png" />
+    <None Include="wwwroot\img\vla_logo_1.png" />
+    <None Include="wwwroot\img\vn.png" />
+    <None Include="wwwroot\img\VNR500 %281%29.png" />
+    <None Include="wwwroot\img\VNR500.png" />
+    <None Include="wwwroot\img\wca_ecommerce_logo %281%29.png" />
+    <None Include="wwwroot\img\wca_ecommerce_logo.png" />
+    <None Include="wwwroot\img\wca_logo %281%29.png" />
+    <None Include="wwwroot\img\wca_logo.png" />
+    <None Include="wwwroot\js\index.js" />
+    <None Include="wwwroot\js\jquery-2.1.1.js" />
+    <None Include="wwwroot\js\nav-bar-croll.js" />
   </ItemGroup>
 
   <ItemGroup>
