@@ -1,12 +1,15 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using HNCHOME.Areas.Admin.Controllers;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HNCHOME.Controllers
 {
     public class PostController : BaseController
     {
-        public PostController(HNCDbContext dbContext) : base(dbContext)
+        private readonly IPostRepository _postRepository;
+        public PostController(HNCDbContext dbContext, IPostRepository postRepository) : base(dbContext)
         {
+            _postRepository = postRepository;
         }
 
         // GET: PostController
@@ -19,7 +22,7 @@ namespace HNCHOME.Controllers
         // GET: PostController/Details/5
         public Post Details(Guid id)
         {
-            var post = _dbContext.Posts.Where(x=>x.PostId == id).FirstOrDefault();
+            var post = _postRepository.GetById(id);
             return post;
         }
 
@@ -32,24 +35,17 @@ namespace HNCHOME.Controllers
         [HttpPost]
         public JsonResult Create(Post post)
         {
-            try
-            {
-                post.PostId = Guid.NewGuid();
-                post.CreatedDate = new DateTime();
-                _dbContext.Posts.Add(post);
-               var result = _dbContext.SaveChanges();
-                return Json(result);
-            }
-            catch(Exception ex)
-            {
-                throw ex;
-            }
+              post.CreatedDate = new DateTime();
+              _postRepository.Insert(post);
+            _postRepository.Save();
+              return Json("oke");
+           
         }
 
         // GET: PostController/Edit/5
         public ActionResult Edit(Guid id)
         {
-            var result = _dbContext.Posts.Where(x=>x.PostId==id).First();
+            var result = _postRepository.GetById(id);
             return View(result);
         }
 
@@ -57,35 +53,18 @@ namespace HNCHOME.Controllers
         [HttpPut]
         public JsonResult Edit(Guid id, Post post)
         {
-            var entity = _dbContext.Posts.Where(x => x.PostId == id).First();
-            entity.Language = post.Language;
-            entity.Title = post.Title;
-            entity.Content = post.Content;
-            entity.Description = post.Description;
-            entity.Tag = post.Tag;
-            entity.isComment = post.isComment;
-            entity.StartDate = post.StartDate;
-            entity.EndDate = post.EndDate;
-            entity.LimitedDate = post.LimitedDate;
-            entity.SeoTitle = post.SeoTitle;
-            entity.MetaTitle = post.MetaTitle;
-            entity.MetaKeyword = post.MetaKeyword;
-            entity.MetaDescription = post.MetaDescription;
-            entity.LinkImage = post.LinkImage;
-            entity.isShowHome = post.isShowHome;
-            _dbContext.Posts.Update(entity);
-            var result = _dbContext.SaveChanges();
-            return Json(result);
+            _postRepository.Update(post);
+            _postRepository.Save();
+            return Json("oke");
         }
 
         // POST: PostController/Delete/5
         [HttpPost]
         public JsonResult Delete(Guid id)
         {        
-              var post = _dbContext.Posts.Where(x=>x.PostId==id).First();
-              _dbContext.Posts.Remove(post);
-              var result = _dbContext.SaveChanges();
-              return Json(result);          
+              _postRepository.Delete(id);
+            _postRepository.Save();
+              return Json("oke");          
         }
     }
 }

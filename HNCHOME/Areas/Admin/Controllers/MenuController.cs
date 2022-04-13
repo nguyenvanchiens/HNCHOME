@@ -1,13 +1,15 @@
-﻿using HNCHOME.ViewModel;
+﻿using HNCHOME.Areas.Admin.Controllers;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HNCHOME.Controllers
 {
     public class MenuController : BaseController
     {
+        private readonly IMenuRepository _menuRepository;
         private List<Menu> menuList = new List<Menu>();
-        public MenuController(HNCDbContext dbContext) : base(dbContext)
+        public MenuController(HNCDbContext dbContext,IMenuRepository menuRepository) : base(dbContext)
         {
+            _menuRepository = menuRepository;
         }
 
         public IActionResult Index()
@@ -27,42 +29,29 @@ namespace HNCHOME.Controllers
         }
         public JsonResult Get(Guid id)
         {
-            var menu = _dbContext.Menus.Find(id);
+            var menu = _menuRepository.GetById(id);
             return Json(menu);
         }
         [HttpPost]
         public JsonResult Create(Menu menu)
         {
-            menu.MenuId = Guid.NewGuid();
-            menu.Title = menu.Title;
-            menu.Link = menu.Link;
-            menu.ParentId = menu.ParentId;
-            menu.LanguageId = menu.LanguageId;
-            _dbContext.Menus.Add(menu);
-            _dbContext.SaveChanges();
-            return Json(menu);
+            _menuRepository.Insert(menu);
+            _menuRepository.Save();
+            return Json("Oke");
         }
         [HttpPost]
         public JsonResult Edit(Menu menu)
         {
-            var entity = _dbContext.Menus.Where(x=>x.MenuId==menu.MenuId).First();
-            entity.Title = menu.Title;
-            entity.Link = menu.Link;
-            entity.ParentId = menu.ParentId;
-            _dbContext.Menus.Update(entity);
-            _dbContext.SaveChanges();
-            return Json(entity);
+            _menuRepository.Update(menu);
+            _menuRepository.Save();
+            return Json("Oke");
         }
         [HttpPost]
         public JsonResult Delete(Guid id)
         {
-            var menu = _dbContext.Menus.ToList();
-            var entity = menu.Where(x => x.MenuId == id).First();
-          
-            _dbContext.Menus.Remove(entity);
-            //_dbContext.Menus.RemoveRange(childrentMenu);
-           _dbContext.SaveChanges();
-            return Json(entity);
+            _menuRepository.Delete(id);
+            _menuRepository.Save();
+            return Json("Oke");
         }
        
         public JsonResult GetParentNode()
@@ -91,13 +80,7 @@ namespace HNCHOME.Controllers
         [HttpGet]
         public JsonResult GetAllMenu()
         {
-            var result = _dbContext.Menus.Select(x => new Menu()
-            {
-                MenuId = x.MenuId,
-                Title = x.Title,
-                ParentId = x.ParentId,
-                Link = x.Link,
-            }).ToList();
+            var result = _menuRepository.GetAll();
             return Json(result);
         }
     }

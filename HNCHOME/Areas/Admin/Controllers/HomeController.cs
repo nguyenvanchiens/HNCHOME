@@ -1,9 +1,7 @@
 ﻿
 using HNCHOME.Properties;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-
 namespace HNCHOME.Areas.Admin.Controllers
 {
     
@@ -12,8 +10,7 @@ namespace HNCHOME.Areas.Admin.Controllers
         public HomeController(HNCDbContext dbContext) : base(dbContext)
         {
         }
-
-        
+       
         public IActionResult Index([FromQuery] string filter)
         {
             ViewBag.isAdmin = GetClaimAdmin();

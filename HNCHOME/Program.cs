@@ -1,6 +1,5 @@
-using HNCHOME.Data;
+using HNCHOME.Service.Repository;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +10,9 @@ builder.Services.AddDbContext<HNCDbContext>(options =>
 });
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddTransient(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+builder.Services.AddTransient<IDepartmentRepository,DepartmentRepository>();
+builder.Services.AddTransient<IMenuRepository, MenuRepository>();
 
 builder.Services.AddAuthentication(options =>
 {
@@ -22,6 +24,7 @@ builder.Services.AddAuthentication(options =>
     options.SlidingExpiration = true;
 });
 var app = builder.Build();
+
 
 
 
@@ -40,12 +43,13 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+
 
 app.UseEndpoints(endpoints =>
 {
+    endpoints.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
     endpoints.MapControllerRoute(
       name: "Admin",
       pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"

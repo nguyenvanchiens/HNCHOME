@@ -4,7 +4,7 @@ namespace HNCHOME.Service.Repository
 {
     public class BaseRepository<T> : IBaseRepository<T> where T : class
     {
-        private HNCDbContext _context = null;
+        protected HNCDbContext _context = null;
         private DbSet<T> table = null;
         public BaseRepository(HNCDbContext context)
         {
@@ -13,7 +13,8 @@ namespace HNCHOME.Service.Repository
         }
         public void Delete(object id)
         {
-            throw new NotImplementedException();
+            T existing = GetById(id);
+            table.Remove(existing);
         }
 
         public IEnumerable<T> GetAll()
@@ -23,22 +24,23 @@ namespace HNCHOME.Service.Repository
 
         public T GetById(object id)
         {
-            throw new NotImplementedException();
+            return table.Find(id);
         }
 
         public void Insert(T obj)
         {
-            throw new NotImplementedException();
+           table.Add(obj);
         }
 
         public void Save()
         {
-            throw new NotImplementedException();
+            _context.SaveChanges();
         }
 
         public void Update(T obj)
         {
-            throw new NotImplementedException();
+            table.Attach(obj);
+            _context.Entry(obj).State = EntityState.Modified;
         }
     }
 }
