@@ -1,62 +1,50 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace HNCHOME.Controllers
 {
     public class DepartmentController : BaseController
     {
-        public DepartmentController(HNCDbContext dbContext) : base(dbContext)
+        private readonly IDepartmentRepository _repository = null;
+        public DepartmentController(HNCDbContext dbContext, IDepartmentRepository repository) : base(dbContext)
         {
+            this._repository = repository;
         }
 
         // GET: DepartmentController
-        public ActionResult Index([FromQuery]string filter)
+        public ActionResult Index([FromQuery] string filter)
         {
-            if (filter != null)
-            {
-                ViewBag.Departments = _dbContext.Department.Where(x => x.DepartmentCode.Contains(filter) || x.DepartmentName.Contains(filter))
-                    .ToList();
-            }
-            else
-            {
-                ViewBag.Departments = _dbContext.Department.ToList();
-            }
+            ViewBag.Departments = _repository.GetAllPaeging(filter);
             return View();
         }
 
         [HttpPost]
         public JsonResult AddDepartment(Department department)
         {
-            department.DepartmentId = Guid.NewGuid();
             department.CreatedDate = DateTime.Now;
-            _dbContext.Department.Add(department);
-            var result  = _dbContext.SaveChanges();
-            return Json(result);
+            _repository.Insert(department);
+            _repository.Save();
+            return Json("oke");
         }
         [HttpPost]
         public JsonResult UpdateDepartment(Department department)
         {
-            var entity = _dbContext.Department.Where(x => x.DepartmentId == department.DepartmentId).First();
-            entity.DepartmentCode = department.DepartmentCode;
-            entity.DepartmentName = department.DepartmentName;
-            _dbContext.Department.Update(entity);
-            var result = _dbContext.SaveChanges();
-            return Json(result);
+            _repository.Update(department);
+            _repository.Save();
+            return Json("Oke");
         }
         [HttpGet]
         public IActionResult Get(Guid departmentId)
         {
-            var entity = _dbContext.Department.Where(x => x.DepartmentId == departmentId).First();
+            var entity = _repository.GetById(departmentId);
             return Ok(entity);
 
         }
         [HttpPost]
-        public IActionResult Delete(Guid DepartmentId)
+        public JsonResult Delete(Guid DepartmentId)
         {
-            var employee = _dbContext.Department.Where(c => c.DepartmentId == DepartmentId).First();
-            _dbContext.Department.Remove(employee);
-            _dbContext.SaveChanges();
-            return RedirectToAction("Index", "Department");
+            _repository.Delete(DepartmentId);
+            _repository.Save();
+            return Json("Oke");
         }
     }
 }

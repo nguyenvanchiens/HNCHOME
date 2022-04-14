@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\HNCHOME\\HNCHOME\\HNCHOME.csproj": {}
+    "D:\\HNCHOME\\HNCHOME\\HNCHOME.csproj": {}
   },
   "projects": {
-    "C:\\HNCHOME\\HNCHOME\\HNCHOME.csproj": {
+    "D:\\HNCHOME\\HNCHOME\\HNCHOME.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\HNCHOME\\HNCHOME\\HNCHOME.csproj",
+        "projectUniqueName": "D:\\HNCHOME\\HNCHOME\\HNCHOME.csproj",
         "projectName": "HNCHOME",
-        "projectPath": "C:\\HNCHOME\\HNCHOME\\HNCHOME.csproj",
+        "projectPath": "D:\\HNCHOME\\HNCHOME\\HNCHOME.csproj",
         "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "C:\\HNCHOME\\HNCHOME\\obj\\",
+        "outputPath": "D:\\HNCHOME\\HNCHOME\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -87,7 +87,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.200\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }
