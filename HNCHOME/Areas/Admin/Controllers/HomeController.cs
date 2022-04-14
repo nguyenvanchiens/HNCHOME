@@ -6,11 +6,13 @@ namespace HNCHOME.Areas.Admin.Controllers
 {
     
     public class HomeController : BaseController
-    {      
-        public HomeController(HNCDbContext dbContext) : base(dbContext)
+    {
+        private readonly IEmployeeRepository _res;
+        public HomeController(HNCDbContext dbContext, IEmployeeRepository res) : base(dbContext)
         {
+            _res = res;
         }
-       
+
         public IActionResult Index([FromQuery] string filter)
         {
             ViewBag.isAdmin = GetClaimAdmin();
@@ -28,61 +30,61 @@ namespace HNCHOME.Areas.Admin.Controllers
             else
             {
                 ViewBag.Employeess = (from e in _dbContext.Employees
-                                     join d in _dbContext.Department
-                                     on e.DepartmentId equals d.DepartmentId
-                                     orderby e.CreatedDate ascending
-                                     select new { e.EmployeeId, e.EmployeeCode, e.EmployeeName, e.Address, e.DateOfBirth, d.DepartmentName }).ToList();
+                                      join d in _dbContext.Department
+                                      on e.DepartmentId equals d.DepartmentId
+                                      orderby e.CreatedDate ascending
+                                      select new { e.EmployeeId, e.EmployeeCode, e.EmployeeName, e.Address, e.DateOfBirth, d.DepartmentName }).ToList();
             }
             return View();
         }
-       
-       
+
+
         [HttpGet]
         public Employee GetEmployeeCode(Guid employeeId, string employeeCode)
         {
             var result = _dbContext.Employees.Where(x => x.EmployeeCode == employeeCode && x.EmployeeId != employeeId).FirstOrDefault();
             return result;
         }
-        
+
         [HttpPost]
         public JsonResult AddEmployee(Employee employee)
         {
-            employee.EmployeeId = Guid.NewGuid();
+
             employee.CreatedDate = DateTime.Now;
             employee.PassWord = Helper.CalculateMD5Hash(employee.PassWord);
-            _dbContext.Employees.Add(employee);
-            var result = _dbContext.SaveChanges();
+            var result = _res.Insert(employee);
+            if (result == (int)StatusCodeRespon.UpdateSuccess)
+            {
+                return Json(result);
+            }
             return Json(result);
         }
         [HttpPost]
         public JsonResult UpdateEmployee(Employee employee)
         {
-            var entity = _dbContext.Employees.Where(x => x.EmployeeId == employee.EmployeeId).First();
-            entity.EmployeeName = employee.EmployeeName;
-            entity.EmployeeCode = employee.EmployeeCode;
-            entity.DateOfBirth = employee.DateOfBirth;
-            entity.DepartmentId = employee.DepartmentId;
-            entity.Phone = employee.Phone;
-            entity.Address = employee.Address;
-            entity.UserName = employee.UserName;
-            _dbContext.Employees.Update(entity);
-            var result = _dbContext.SaveChanges();
+            var result = _res.Update(employee);
+            if (result == (int)StatusCodeRespon.UpdateSuccess)
+            {
+                return Json(result);
+            }
             return Json(result);
         }
         [HttpGet]
         public Employee Get(Guid employeeId)
         {
-            var entity = _dbContext.Employees.Where(x => x.EmployeeId == employeeId).First();
+            var entity = _res.GetById(employeeId);
             return entity;
         }
-        
+
         [HttpPost]
-        public IActionResult Delete(Guid EmployeeId)
+        public JsonResult Delete(Guid EmployeeId)
         {
-            var employee = _dbContext.Employees.Where(c => c.EmployeeId == EmployeeId).First();
-            _dbContext.Employees.Remove(employee);
-            _dbContext.SaveChanges();
-            return RedirectToAction("Index", "Home");
+            var reuslt = _res.Delete(EmployeeId);
+            if (reuslt == (int)StatusCodeRespon.Success)
+            {
+                return Json(reuslt);
+            }
+            return Json(reuslt);
         }
         [HttpGet]
         public string NewCodeEmployee()
@@ -109,18 +111,19 @@ namespace HNCHOME.Areas.Admin.Controllers
             result = strRemoveLast + lastCode;
             return result;
         }
-        [HttpGet()]
+        [HttpGet]
         public ActionResult Role(Guid id)
         {
-            ViewBag.Permissions = _dbContext.Permissions.Where(x=>x.ParentId==null).ToList();
+            ViewBag.Permissions = _dbContext.Permissions.Where(x => x.ParentId == null).ToList();
             ViewBag.EmployeeId = id;
             var employee = Get(id);
-            ViewBag.checkedvalue = (from e in _dbContext.Employees join 
-                               r in _dbContext.Roles on e.EmployeeId equals r.EmployeeId
-                               join p in _dbContext.Permissions on r.PermissionId equals p.PermissionId
-                               where e.EmployeeId == id
-                               select p.PermissionId).ToList();
-            return View(employee);           
+            ViewBag.checkedvalue = (from e in _dbContext.Employees
+                                    join
+r in _dbContext.Roles on e.EmployeeId equals r.EmployeeId
+                                    join p in _dbContext.Permissions on r.PermissionId equals p.PermissionId
+                                    where e.EmployeeId == id
+                                    select p.PermissionId).ToList();
+            return View(employee);
         }
         [HttpPost]
         public JsonResult Role(Guid id, string[] listId)
@@ -146,7 +149,7 @@ namespace HNCHOME.Areas.Admin.Controllers
         }
         public bool GetClaimAdmin()
         {
-            
+
             var userIdentity = (ClaimsIdentity)User.Identity;
             var claims = userIdentity.Claims;
             var roleClaimType = userIdentity.RoleClaimType;
@@ -161,10 +164,10 @@ namespace HNCHOME.Areas.Admin.Controllers
                 }
             }
             return flg;
-        } 
+        }
         public bool GetClaimAdd()
         {
-            
+
             var userIdentity = (ClaimsIdentity)User.Identity;
             var claims = userIdentity.Claims;
             var roleClaimType = userIdentity.RoleClaimType;

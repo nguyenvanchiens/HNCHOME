@@ -165,14 +165,14 @@
         var result = confirm("Bạn có muốn xóa quyền này không?");
         if (result) {
             var Url = "";
-            Url = "/Menu/Delete"
+            Url = "/Admin/Menu/Delete"
             $.ajax({
                 type: 'Post',
                 url: Url,
                 data: { id: MenuId },
                 async: false,
                 success: function () {
-                    window.location.pathname = "/Menu/Index"
+                    window.location.pathname = "/Admin/Menu/Index"
                 },
                 error: function (data) {
                     console.log(data);
@@ -193,7 +193,7 @@
          $('.btn-add').html('Sửa');
         $.ajax({
             type: 'Get',
-            url: '/Menu/Get',
+            url: '/Admin/Menu/Get',
             contentType: 'application/json; charset=utf-8',
             data: { id: MenuId },
             async: false,
@@ -236,12 +236,12 @@
             if(this.MenuId==""){
             $.ajax({
                 type: 'Post',
-                url: '@Url.Action("Create", "Menu")',           
+                url: '/Admin/Menu/Create',           
                 dataType:"json",
                 data: { menu: data },
                 async:false,
                 success: function (result) {
-                    window.location.pathname="/Menu/Index"
+                    window.location.pathname="/Admin/Menu/Index"
                 },
                 error: function (data) {
                     console.log(data);
@@ -251,7 +251,7 @@
             else{           
             $.ajax({
                 type: 'Post',
-                url: '@Url.Action("Edit", "Menu")',           
+                url: '/Admin/Menu/Edit',           
                 dataType:"json",
                 data: { menu: data },
                 async:false,

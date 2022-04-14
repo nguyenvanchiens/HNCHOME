@@ -104,7 +104,6 @@
 
 <script>
     var departmentId = "";
-     
     function AddOrUpdate(){
         var data = {
              DepartmentId:$('#DepartmentId').val(),
@@ -113,25 +112,31 @@
         }
         Validate();
          let validateInput = $('input[validate="false"]');
-                if (validateInput && validateInput.length > 0) {
-                  alert("Bạn hãy điền đủ các trường thông tin");
-                  $(validateInput)[0].focus();
-                  return;
-                }
-        if(this.departmentId==""){
-            $.ajax({
-                type: 'Post',
-                url: '/Admin/Department/AddDepartment',           
-                dataType:"json",
-                data: { department: data },
-                async:false,
-                success: function (result) {
-                    window.location.pathname="/Admin/Department/Index"
-                },
-                error: function (data) {
-                    console.log(data);
-                }
-            })
+            if (validateInput && validateInput.length > 0) {
+              alert("Bạn hãy điền đủ các trường thông tin");
+              $(validateInput)[0].focus();
+              return;
+            }
+            if(this.departmentId==""){
+                $.ajax({
+                    type: 'Post',
+                    url: '/Admin/Department/AddDepartment',           
+                    dataType:"json",
+                    data: { department: data },
+                    async:false,
+                    success: function (result) {
+                        if(result==201){
+                            window.location.pathname="/Admin/Department/Index"
+                        }
+                        else{
+                            alert('thêm mới không thành công');
+                        }
+                        
+                    },
+                    error: function (data) {
+                        console.log(data);
+                    }
+                })
             }
             else{           
             $.ajax({
@@ -141,29 +146,36 @@
                 data: { department: data },
                 async:false,
                 success: function (result) {
-                    window.location.pathname="/Admin/Department/Index"
+                    if(result==201){
+                         window.location.pathname="/Admin/Department/Index"
+                    }
+                    else{
+                        alert('thêm mới không thành công');
+                    }
                 },
                 error: function (data) {
                     console.log(data);
                 }
             })
         }
-
     }
-
     function Delete(departmentId) {
         debugger
         var result = confirm("Bạn có muốn xóa phòng ban này không?");
         if (result) {
-            var Url = "";
-            Url = "/Admin/Department/Delete"
+            var Url = "/Admin/Department/Delete"
             $.ajax({
                 type: 'Post',
                 url: Url,
                 data: { DepartmentId: departmentId },
                 async: false,
-                success: function () {
-                    window.location.pathname = "/Admin/Department/Index"
+                success: function (res) {
+                    if(res==200){
+                        window.location.pathname = "/Admin/Department/Index"
+                    }
+                    else{
+                        alert('Xóa không thành công');
+                    }
                 },
                 error: function (data) {
                     console.log(data);
@@ -192,9 +204,6 @@
                 $('#DepartmentName').val(data.departmentName);               
             }
         })
-    }
-    function GetDepartment(){
-        alert('hello');
     }
 </script>
 

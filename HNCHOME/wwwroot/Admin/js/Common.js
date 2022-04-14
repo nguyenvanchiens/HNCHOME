@@ -32,7 +32,7 @@
     document.getElementById('SeoTitle').value = slug;
 }
 function Validate() {
-    debugger
+    
     $("input[required]").each(function () {
         let value = $(this).val();
         var checkDate = $("input[checkdate]");

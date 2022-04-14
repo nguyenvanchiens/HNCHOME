@@ -1,4 +1,5 @@
-﻿namespace HNCHOME.Common
+﻿
+namespace HNCHOME.Common
 {
     public enum Comment
     {

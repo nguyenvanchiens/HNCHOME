@@ -8,12 +8,18 @@ builder.Services.AddDbContext<HNCDbContext>(options =>
 {
     options.UseMySql(connnectionString, Microsoft.EntityFrameworkCore.ServerVersion.AutoDetect(connnectionString));
 });
+
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddTransient(typeof(IBaseRepository<>), typeof(BaseRepository<>));
 builder.Services.AddTransient<IDepartmentRepository,DepartmentRepository>();
 builder.Services.AddTransient<IMenuRepository, MenuRepository>();
-builder.Services.AddTransient<ICountryRepository, CountryRepository>();
+builder.Services.AddTransient<IPostRepository, PostRepository>();
+builder.Services.AddTransient<IPermissionRepository, PermissionRepository>();
+
+builder.Services.AddTransient<ILanguageRepository, LanguageRepository>();
+builder.Services.AddTransient<IEmployeeRepository, EmployeeRepository>();
 
 builder.Services.AddAuthentication(options =>
 {

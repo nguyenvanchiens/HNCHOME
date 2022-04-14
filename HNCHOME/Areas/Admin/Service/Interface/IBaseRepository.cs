@@ -1,4 +1,6 @@
-﻿namespace HNCHOME.Service.Interface
+﻿using System.Reflection;
+
+namespace HNCHOME.Service.Interface
 {
     public interface IBaseRepository<T>
     {
