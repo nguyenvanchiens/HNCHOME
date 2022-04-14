@@ -51,7 +51,7 @@ namespace HNCHOME.Service.Repository
             _context.SaveChanges();
         }
 
-        public int Update(T obj)
+        public virtual int Update(T obj)
         {
             var result = table.Attach(obj);
             _context.Entry(obj).State = EntityState.Modified;

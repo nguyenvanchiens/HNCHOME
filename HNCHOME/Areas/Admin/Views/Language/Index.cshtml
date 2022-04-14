@@ -145,7 +145,7 @@
                 url: '/Admin/Language/Add',           
                 dataType:"json",
                 contentType:false,
-                data: { language:data,Image:image },
+                data: { language:data,Image:image, id:languageId },
                 async:false,
                 success: function (result) {
                     if(result==400){

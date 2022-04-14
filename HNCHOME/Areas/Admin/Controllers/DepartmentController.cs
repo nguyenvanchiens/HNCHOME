@@ -13,6 +13,7 @@ namespace HNCHOME.Controllers
         // GET: DepartmentController
         public ActionResult Index([FromQuery] string filter)
         {
+            var res = _repository.GetAll();
             ViewBag.Departments = _repository.GetAllPaeging(filter);
             return View();
         }

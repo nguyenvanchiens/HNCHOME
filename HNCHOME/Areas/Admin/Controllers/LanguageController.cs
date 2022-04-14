@@ -13,7 +13,7 @@ namespace HNCHOME.Controllers
         }
         public IActionResult Index()
         {
-            ViewBag.Languages = _res.GetAll();
+            ViewBag.Languages = _res.GetAll().OrderBy(x=>x.SortOrder).ToList();
             return View();
         }
         public JsonResult GetById(Guid id)
@@ -38,8 +38,14 @@ namespace HNCHOME.Controllers
                     Image.CopyTo(stream);
                 }
             }
+            else
+            {
+                var entity = _res.GetById(language.LanguageId);
+                language.Image = entity.Image;
+            }
             if (language.LanguageId == Guid.Empty)
             {
+                
                 var result = _res.Insert(language);
                 if (result == (int)StatusCodeRespon.UpdateSuccess)
                 {
@@ -49,11 +55,8 @@ namespace HNCHOME.Controllers
             }
             else
             {
-                if (Image == null)
-                {
-                   var entity = _res.GetById(language.LanguageId);
-                }
-                var result = _res.Update(language);
+               
+                var result = _res.UpdateLanguage(language);
                 if (result == (int)StatusCodeRespon.UpdateSuccess)
                 {
                     return Redirect("/Admin/Language/Index");

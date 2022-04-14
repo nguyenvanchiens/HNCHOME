@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "q18SMSmi0zlh+6NifWm3JoiP5AQV4tjVamgr1xyGKak=",
+  "Hash": "NOkJzO5djuytuTQDdJnn0I5Maq/IR6r2xeOcKxM3mog=",
   "Source": "HNCHOME",
   "BasePath": "_content/HNCHOME",
   "Mode": "Default",
@@ -40307,6 +40307,23 @@
       "OriginalItemSpec": "wwwroot\\js\\site.js"
     },
     {
+      "Identity": "C:\\HNCHOME\\HNCHOME\\wwwroot\\languageImage\\0abe8bed-827c-4783-a3c6-4864a612c279.png",
+      "SourceId": "HNCHOME",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\HNCHOME\\HNCHOME\\wwwroot\\",
+      "BasePath": "_content/HNCHOME",
+      "RelativePath": "languageImage/0abe8bed-827c-4783-a3c6-4864a612c279.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\languageImage\\0abe8bed-827c-4783-a3c6-4864a612c279.png"
+    },
+    {
       "Identity": "C:\\HNCHOME\\HNCHOME\\wwwroot\\languageImage\\115db2e0-3568-4d8a-b878-954d93ec8c74.jpg",
       "SourceId": "HNCHOME",
       "SourceType": "Discovered",
@@ -40358,6 +40375,23 @@
       "OriginalItemSpec": "wwwroot\\languageImage\\13f221f7-ae81-4481-86a0-76e3b3f97b12.png"
     },
     {
+      "Identity": "C:\\HNCHOME\\HNCHOME\\wwwroot\\languageImage\\165c2d8c-86c1-4150-98d4-be3f0a1eef1b.png",
+      "SourceId": "HNCHOME",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\HNCHOME\\HNCHOME\\wwwroot\\",
+      "BasePath": "_content/HNCHOME",
+      "RelativePath": "languageImage/165c2d8c-86c1-4150-98d4-be3f0a1eef1b.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\languageImage\\165c2d8c-86c1-4150-98d4-be3f0a1eef1b.png"
+    },
+    {
       "Identity": "C:\\HNCHOME\\HNCHOME\\wwwroot\\languageImage\\2c51eaa7-9038-46ed-8da8-5598bceae0e2.jpg",
       "SourceId": "HNCHOME",
       "SourceType": "Discovered",
@@ -40373,6 +40407,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\languageImage\\2c51eaa7-9038-46ed-8da8-5598bceae0e2.jpg"
+    },
+    {
+      "Identity": "C:\\HNCHOME\\HNCHOME\\wwwroot\\languageImage\\48d67039-ef8a-486f-ac5e-b4a098225d94.png",
+      "SourceId": "HNCHOME",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\HNCHOME\\HNCHOME\\wwwroot\\",
+      "BasePath": "_content/HNCHOME",
+      "RelativePath": "languageImage/48d67039-ef8a-486f-ac5e-b4a098225d94.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\languageImage\\48d67039-ef8a-486f-ac5e-b4a098225d94.png"
     },
     {
       "Identity": "C:\\HNCHOME\\HNCHOME\\wwwroot\\languageImage\\5341cfa4-a838-4c42-b783-f3144eab5c64.jpg",
@@ -40426,6 +40477,23 @@
       "OriginalItemSpec": "wwwroot\\languageImage\\59164b62-f0a2-40c0-b60b-22e5ff26bb11.png"
     },
     {
+      "Identity": "C:\\HNCHOME\\HNCHOME\\wwwroot\\languageImage\\65c5121f-8d3c-4b19-9280-c59073624852.jpg",
+      "SourceId": "HNCHOME",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\HNCHOME\\HNCHOME\\wwwroot\\",
+      "BasePath": "_content/HNCHOME",
+      "RelativePath": "languageImage/65c5121f-8d3c-4b19-9280-c59073624852.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\languageImage\\65c5121f-8d3c-4b19-9280-c59073624852.jpg"
+    },
+    {
       "Identity": "C:\\HNCHOME\\HNCHOME\\wwwroot\\languageImage\\6793cbed-e87f-4d5d-854b-1e0c0ecc9793.jpg",
       "SourceId": "HNCHOME",
       "SourceType": "Discovered",
@@ -40458,6 +40526,40 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\languageImage\\7c597fd6-5427-479e-9a37-953a0b37994b.png"
+    },
+    {
+      "Identity": "C:\\HNCHOME\\HNCHOME\\wwwroot\\languageImage\\9219ae49-7c4b-4961-8ff0-e5093757b742.jpg",
+      "SourceId": "HNCHOME",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\HNCHOME\\HNCHOME\\wwwroot\\",
+      "BasePath": "_content/HNCHOME",
+      "RelativePath": "languageImage/9219ae49-7c4b-4961-8ff0-e5093757b742.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\languageImage\\9219ae49-7c4b-4961-8ff0-e5093757b742.jpg"
+    },
+    {
+      "Identity": "C:\\HNCHOME\\HNCHOME\\wwwroot\\languageImage\\9a384b13-24bf-4d36-b86d-91bcdaff7c00.png",
+      "SourceId": "HNCHOME",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\HNCHOME\\HNCHOME\\wwwroot\\",
+      "BasePath": "_content/HNCHOME",
+      "RelativePath": "languageImage/9a384b13-24bf-4d36-b86d-91bcdaff7c00.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\languageImage\\9a384b13-24bf-4d36-b86d-91bcdaff7c00.png"
     },
     {
       "Identity": "C:\\HNCHOME\\HNCHOME\\wwwroot\\languageImage\\9ee02d03-1b90-4c4a-8a70-c5ebbbe406fa.png",
@@ -40526,6 +40628,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\languageImage\\c3c13461-9f68-4fa3-b3e4-aa3f1fafe7cf.png"
+    },
+    {
+      "Identity": "C:\\HNCHOME\\HNCHOME\\wwwroot\\languageImage\\cc8e40bd-19c2-41b2-8e23-42f6bffabfd4.jpg",
+      "SourceId": "HNCHOME",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\HNCHOME\\HNCHOME\\wwwroot\\",
+      "BasePath": "_content/HNCHOME",
+      "RelativePath": "languageImage/cc8e40bd-19c2-41b2-8e23-42f6bffabfd4.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\languageImage\\cc8e40bd-19c2-41b2-8e23-42f6bffabfd4.jpg"
     },
     {
       "Identity": "C:\\HNCHOME\\HNCHOME\\wwwroot\\languageImage\\ec64e321-8cdd-450e-a0e0-37a23d16518b.png",
