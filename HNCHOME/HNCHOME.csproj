@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="EPPlus" Version="5.8.9" />
+    <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.4">
       <PrivateAssets>all</PrivateAssets>
@@ -26,6 +27,7 @@
     <Folder Include="ExcelTemplate\" />
     <Folder Include="Common\" />
     <Folder Include="wwwroot\Admin\" />
+    <Folder Include="wwwroot\languageImage\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -9,10 +9,7 @@
     <div class="page-header">
       <p class="fw">Danh sách nhân viên</p>
        <!-- Button HTML (to Trigger Modal) -->
-        @if (@ViewBag.isCreate)
-        {
-             <button type="button" href="#myModal" role="button" onclick="ShowFormAdd()" class="btn btn-primary" data-bs-toggle="modal">Thêm mới</button>
-        }       
+      <button type="button" href="#myModal" role="button" onclick="ShowFormAdd()" class="btn btn-primary" data-bs-toggle="modal">Thêm mới</button>
      <!-- Modal HTML -->
      <div id="myModal" class="modal fade" tabindex="-1">
         <div class="modal-dialog">
@@ -133,13 +130,10 @@
                 <td class="text-center">
                     <button href="#myModal" data-bs-toggle="modal" onclick="ShowFormUpdate('@employee.EmployeeId')" type="button" class="btn btn-default">Chỉnh sửa</button>
                     <a style="cursor:pointer" onclick="Delete('@employee.EmployeeId')" class="btn btn-light">Xóa</a>
-                    @if (@ViewBag.isAdmin)
-                    {
-                        <a style="cursor:pointer" href="/Home/Role/@employee.EmployeeId" class="btn btn-light">
-                            Phân quyền
-                        </a>                
-                    }    
-                    </td>
+                    <a style="cursor:pointer" href="/Home/Role/@employee.EmployeeId" class="btn btn-light">
+                        Phân quyền
+                    </a>                
+                </td>
              </tr>
            }
         </tbody>             
@@ -157,47 +151,6 @@
 <script>
 
     var employeeId = "";
-     function Validate(){
-        $("input[required]").each(function () {
-          let value = $(this).val();
-          var checkDate = $("input[checkdate]").val();
-          if (!value) {
-            $(this).addClass("s-input-error");
-            $(this).attr("validate", false);
-            $(this).attr("title", "Không thể bỏ trống");
-          }
-          else if(new Date(checkDate)>new Date()){
-               $(this).addClass("s-input-error");
-            $(this).attr("validate", false);
-            $(this).attr("title", "Ngày không được lớn hơn ngày hiện tại");
-          }
-          else {
-            $(this).removeClass("s-input-error");
-            $(this).attr("validate", true);
-          }
-          });
-     }  
-    function checkDuplicate(employeeId,employeeCode){
-        debugger
-        var result = "";
-        $.ajax({
-                type: 'Get',
-                url: '/Home/GetEmployeeCode',
-                contentType: 'application/json',
-                data: { 
-                    employeeId:employeeId,
-                    employeeCode: employeeCode 
-                },
-                async: false,
-                  success: function (data) {                  
-                    result = data;
-                },
-                error: function (data) {
-                    console.log(data);
-                }
-            });
-            return result;
-    }
     function ShowFormAdd(){
         var employeeId = "";
         $('#group-password').show();
@@ -215,14 +168,19 @@
         var result = confirm("Bạn có muốn xóa nhân viên này?");
         if (result) {
             var Url = "";
-            Url = "/Home/Delete"
+            Url = "/Admin/Home/Delete"
             $.ajax({
                 type: 'Post',
                 url: Url,
                 data: { EmployeeId: employeeId },
                 async: false,
-                success: function () {
-                    window.location.pathname = "/Home/Index"
+                success: function (res) {
+                    if(res==200){
+                        window.location.pathname = "/Home/Index"
+                    }
+                    else{
+                        alert('Xóa bản ghi không thành công')
+                    }
                 },
                 error: function (data) {
                     notAuthozire(data);
@@ -241,7 +199,7 @@
         this.employeeId = employeeId;
         $.ajax({
             type: 'Get',
-            url: '/Home/Get',
+            url: '/Admin/Home/Get',
             contentType: 'application/json; charset=utf-8',
             data: { employeeId: employeeId },
             async: false,
@@ -255,6 +213,7 @@
                 $('#Address').val(data.address);
                 $('#Phone').val(data.phone);
                 $('#UserName').val(data.userName);
+                $('#PassWord').val(data.passWord);
                 var option = $('.modal-body option');
                 for (var i = 0; i < option.length; i++) {
                     var departmentId = option[i].value;
@@ -265,14 +224,12 @@
                         option[i].removeAttribute('selected');
                     }
                 }
-    
             },error(data){
                 notAuthozire(data);
             }
         })
     }
     function AddOrUpdate(){
-        debugger
             var data = {
                 EmployeeId:this.employeeId,
                 EmployeeCode:$('#EmployeeCode').val(),
@@ -284,8 +241,7 @@
                 PassWord:$('#PassWord').val(),
                 DepartmentId:$('#DepartmentId').val()
             };   
-            
-            this.Validate();
+            Validate();
               let validateInput = $('input[validate="false"]');
                 if (validateInput && validateInput.length > 0) {
                   alert("Bạn hãy điền đủ các trường thông tin");
@@ -293,15 +249,19 @@
                   return;
                 }
             if(this.employeeId==""){
-                debugger
             $.ajax({
                 type: 'Post',
-                url: '@Url.Action("AddEmployee", "Home")',           
+                url: '/Admin/Home/AddEmployee',           
                 dataType:"json",
                 data: { employee: data },
                 async:false,
-                success: function (result) {
-                    window.location.pathname="/Home/Index"
+                success: function (res) {
+                    if(res==201){
+                        window.location.pathname="/Admin/Home/Index"
+                    }
+                    else{
+                        alert('Thêm mới không thành công')
+                    }
                 },
                 error: function (data) {
                       notAuthozire(data); 
@@ -315,8 +275,13 @@
                 dataType:"json",
                 data: { employee: data },
                 async:false,
-                success: function (result) {
-                    window.location.pathname="/Home/Index"
+                success: function (res) {
+                     if(res==201){
+                        window.location.pathname="/Admin/Home/Index"
+                    }
+                    else{
+                        alert('Sửa không thành công')
+                    }
                 },
                 error: function (data) {
                    notAuthozire(data); 
@@ -330,21 +295,7 @@
              window.location.pathname="/Account/AccessDenied";
         }
     }
-    function formatDate(val) {
-        var result = "";
-        var date = new Date(val);
-        if (Number.isNaN(date.getTime())) {
-            result = "";
-        } else {
-            var day = date.getDate();
-            var month = date.getMonth() + 1;
-            var year = date.getFullYear();
-            day = day < 10 ? "0" + day : day;
-            month = month < 10 ? "0" + month : month;
-            result = year + "-" + month + "-" + day;
-        }
-        return result;
-    }
+    
 </script>
 <style>
     .page-link{

@@ -247,7 +247,6 @@ C:\HNCHOME\HNCHOME\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\Microsoft.Win
 C:\HNCHOME\HNCHOME\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
 C:\HNCHOME\HNCHOME\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
 C:\HNCHOME\HNCHOME\obj\Debug\net6.0\scopedcss\Areas\Admin\Views\Shared\_Layout.cshtml.rz.scp.css
-C:\HNCHOME\HNCHOME\bin\Debug\net6.0\web.config
 D:\HNCHOME\HNCHOME\bin\Debug\net6.0\appsettings.Development.json
 D:\HNCHOME\HNCHOME\bin\Debug\net6.0\web.config
 D:\HNCHOME\HNCHOME\bin\Debug\net6.0\appsettings.json
@@ -498,3 +497,6 @@ D:\HNCHOME\HNCHOME\obj\Debug\net6.0\HNCHOME.dll
 D:\HNCHOME\HNCHOME\obj\Debug\net6.0\ref\HNCHOME.dll
 D:\HNCHOME\HNCHOME\obj\Debug\net6.0\HNCHOME.pdb
 D:\HNCHOME\HNCHOME\obj\Debug\net6.0\HNCHOME.genruntimeconfig.cache
+C:\HNCHOME\HNCHOME\bin\Debug\net6.0\System.Net.Http.Formatting.dll
+C:\HNCHOME\HNCHOME\bin\Debug\net6.0\System.Web.Http.dll
+C:\HNCHOME\HNCHOME\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll

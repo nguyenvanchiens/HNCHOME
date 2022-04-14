@@ -1,4 +1,5 @@
 ﻿using HNCHOME.Service.Interface;
+using System.Reflection;
 
 namespace HNCHOME.Service.Repository
 {
@@ -11,10 +12,17 @@ namespace HNCHOME.Service.Repository
             this._context = context;
             table = _context.Set<T>();
         }
-        public void Delete(object id)
+        public int Delete(object id)
         {
             T existing = GetById(id);
-            table.Remove(existing);
+            var result = table.Remove(existing);
+            if (result != null)
+            {
+                Save();
+                return (int)StatusCodeRespon.Success;
+            }
+            return (int)StatusCodeRespon.BadRequest;
+
         }
 
         public IEnumerable<T> GetAll()
@@ -27,9 +35,15 @@ namespace HNCHOME.Service.Repository
             return table.Find(id);
         }
 
-        public void Insert(T obj)
+        public int Insert(T obj)
         {
-           table.Add(obj);
+            var result = table.Add(obj);
+            if (result != null)
+            {
+                Save();
+                return (int)StatusCodeRespon.UpdateSuccess;
+            }
+            return (int)StatusCodeRespon.BadRequest;
         }
 
         public void Save()
@@ -37,10 +51,16 @@ namespace HNCHOME.Service.Repository
             _context.SaveChanges();
         }
 
-        public void Update(T obj)
+        public int Update(T obj)
         {
-            table.Attach(obj);
+            var result = table.Attach(obj);
             _context.Entry(obj).State = EntityState.Modified;
+            if (result != null)
+            {
+                Save();
+                return (int)StatusCodeRespon.UpdateSuccess;
+            }
+            return (int)StatusCodeRespon.BadRequest;
         }
     }
 }
