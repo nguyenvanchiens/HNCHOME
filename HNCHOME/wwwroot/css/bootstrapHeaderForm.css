@@ -1,0 +1,275 @@
+.fancy-forms .tab-content {
+    background: #ffffff;
+    color: #ffffff;
+    padding: 10px;
+    box-shadow: 8px 12px 25px 2px rgba(0, 0, 0, 0.3);
+}
+
+.fancy-forms .nav-tabs .nav-item {
+    width: 50%;
+    text-align: center;
+}
+
+.fancy-forms .nav-tabs .nav-link {
+    background-color: rgb(45, 45, 143);
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    color: #ffffff;
+    text-transform: uppercase;
+}
+
+.fancy-forms .nav-tabs .nav-link.active {
+    border-color: #fff;
+    color: rgb(27, 27, 173);
+    background-color: #ffffff;
+}
+
+.fancy-forms .nav-tabs .nav-link:hover {
+    transition: 0.5s;
+    background-color: white;
+    color: rgb(27, 27, 173);
+    transition: 0.8s;
+}
+
+#header-form__container {
+    position: absolute;
+    z-index: 1;
+    height: 30%;
+    width: 58%;
+    top: 25%;
+    right: 1%;
+}
+
+#myTab {
+    width: 70%;
+}
+
+#myTab:hover>li>a:focus {
+    transition: 0.5s;
+    background-color: white;
+    color: rgb(42, 42, 170);
+    transition: 1s;
+}
+
+.nav-tabs .nav-link {
+    border: none;
+}
+
+#myTabContent>div>div>p {
+    color: black;
+    font-size: 14px;
+    font-weight: 450;
+    padding-left: 2%;
+}
+
+#myTab>li {
+    height: fit-content;
+    width: 50%;
+}
+
+#myTab>li>a {
+    height: 30%;
+    font-size: 1rem;
+    padding-bottom: 6%;
+    padding-top: 5%;
+    padding-left: 5%;
+    padding-right: 4%;
+    font-weight: 400;
+}
+
+#email_id {
+    resize: none;
+    margin-left: 2%;
+    width: 95%;
+}
+
+.formsubmitbtn {
+    margin-bottom: 1.5rem !important;
+    margin-top: 40px;
+    border-radius: 0%;
+    text-transform: uppercase;
+}
+
+#carouselExampleControls {
+    height: 100vh;
+}
+
+#carouselExampleControls>div {
+    color: white;
+}
+
+#carouselExampleControls h5 {
+    font-weight: 400;
+    font-size: 145%;
+}
+
+#carouselExampleControls button:first-child {
+    background-color: white;
+    color: black;
+    outline: none;
+    border: none;
+    height: 50px;
+    width: 20%;
+}
+
+#carouselExampleControls button:first-child:hover {
+    background-color: #2e3192;
+    transition: 0.2s;
+}
+
+#carouselExampleControls button:first-child a {
+    outline: none;
+    border: none;
+    box-shadow: none;
+}
+
+#carouselExampleControls button:first-child:hover a {
+    color: white;
+    transition: 0.2s;
+}
+
+#carouselExampleControls button:first-child:not(hover) a {
+    color: black;
+    transition: 0.2s;
+}
+
+#carouselExampleControls button:first-child:not(hover) {
+    background-color: white;
+    transition: 0.2s;
+}
+
+.carousel-inner {
+    height: 100%;
+    width: 100%;
+}
+
+.carousel-item {
+    height: 100%;
+    width: 100%;
+}
+
+.carousel-item img {
+    height: 100%;
+    width: 100%;
+    transform: scale(1.2, 1);
+}
+
+#select2 {
+    width: 96%;
+    margin-left: 2%;
+    height: 40px;
+    border-radius: 3px;
+}
+
+#password {
+    width: 96%;
+    margin-left: 2%;
+}
+
+.select2-container {
+    width: 96%;
+    margin-left: 2%;
+    border-radius: 3px;
+}
+
+.select2-container--open .select2-dropdown {
+    left: -2.1%;
+    top: -30%;
+}
+
+.select2-container--default .select2-selection--single {
+    background-color: #fff;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    height: 34px;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #444;
+    line-height: 33px;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 93%;
+    position: absolute;
+    top: 1px;
+    right: 1px;
+    width: 20px;
+}
+
+.select2-container--default .select2-search--dropdown .select2-search__field {
+    border: 1px solid #c2cad8;
+    border-radius: 3px;
+    outline: none;
+    line-height: 23px;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #444;
+    line-height: 33px;
+    font-size: 1rem;
+}
+
+.select2-container--open .select2-dropdown--below {
+    border: solid 0.5px #2e3192;
+}
+
+label {
+    margin-bottom: 0.5rem;
+    color: black;
+    margin-left: 2%;
+}
+
+#header-form__container>.fancy-forms {
+    height: fit-content;
+}
+
+@media only screen and (min-width: 1024px) and (max-width: 1199px) {
+    #header-form__container {
+        margin-top: -7.4vh;
+        width: 100vw;
+        margin-left: -14.4%;
+        position: relative;
+    }
+    #header-form__container>div>div {
+        width: 100vw;
+    }
+    #myTab {
+        width: 75vw;
+    }
+    #myTabContent {
+        width: 100vw;
+    }
+    #myTabContent {
+        width: 100vw;
+    }
+    #myTab>li a {
+        height: 19.3vh;
+    }
+}
+
+@media only screen and (min-width: 1200px) and (max-width:1500px) {
+    .menu__nav {
+        margin-left: 6%;
+        margin-right: 5%;
+        width: 90%;
+    }
+    .header-text {
+        margin-left: -6%;
+    }
+    .header-text h3 {
+        font-size: 200%;
+        line-height: 200%;
+    }
+    .header-text h5 {
+        font-size: 100%;
+        line-height: 150%;
+    }
+    #header-form__container {
+        margin-right: -7%;
+    }
+    #myTab>li>a {
+        height: 7vw;
+        width: 13vw;
+    }
+}
