@@ -1,0 +1,210 @@
+.body__group-company {
+    position: relative;
+    height: fit-content;
+    width: 100vw;
+}
+
+.group-company__co-operation {
+    top: 140px;
+    position: relative;
+    height: 60px;
+    width: 78%;
+    margin: auto;
+    display: flex;
+}
+
+.group-company__co-operation img {
+    width: 12%;
+    height: 100%;
+    line-height: 1.45;
+    padding-left: 40px;
+}
+
+.group-company__co-operation img:first-child {
+    margin-left: -3.5%;
+    height: 50px;
+    width: 17.5%;
+}
+
+.group-company__co-operation img:nth-child(2) {
+    width: 10%;
+}
+
+.group-company__co-operation img:nth-child(3) {
+    width: 12%;
+}
+
+.group-company__co-operation img:nth-child(4) {
+    width: 11%;
+}
+
+.group-company__co-operation img:nth-child(5) {
+    width: 50%;
+    height: 75%;
+}
+
+.group-company__co-operation img:nth-child(8) {
+    width: 70%;
+    height: 75%;
+}
+
+.group-company__rank {
+    width: 60%;
+    height: 80px;
+    margin: auto;
+    position: relative;
+    display: flex;
+    margin-top: 160px;
+}
+
+.group-company__rank img {
+    width: 12%;
+    height: 100%;
+    margin-left: 4%;
+}
+
+.group-company__rank img:nth-child(1) {
+    margin-left: 7%;
+}
+
+.group-company__rank img:nth-child(3) {
+    width: 10%;
+    height: 100%;
+    margin-left: 7%;
+}
+
+.group-company__rank img:nth-child(4) {
+    width: 20%;
+    height: 100%;
+    margin-left: 6%;
+}
+
+@media screen and (min-width: 1024px) and (max-width:1200px) {
+    .group-company__co-operation {
+        width: 90%;
+        height: 85%;
+    }
+    .group-company__co-operation img {
+        width: 11%;
+        height: 100%;
+        line-height: 1.45;
+    }
+    .group-company__co-operation img:first-child {
+        width: 16%;
+        height: 100%;
+        line-height: 1.45;
+        padding-left: 2.5%;
+        margin-top: 0.6%;
+    }
+    .group-company__co-operation img:nth-child(2) {
+        width: 9.5%;
+        height: 40%;
+        line-height: 1.45;
+        padding-left: 2%;
+    }
+    .group-company__co-operation img:nth-child(3) {
+        width: 14%;
+        height: 100%;
+        line-height: 1.45;
+        padding-left: 2%;
+    }
+    .group-company__co-operation img:nth-child(4) {
+        width: 10%;
+        height: 100%;
+        line-height: 1.45;
+        padding-left: 2%;
+    }
+    .group-company__co-operation img:nth-child(5) {
+        width: 13%;
+        height: 100%;
+        line-height: 1.45;
+        padding-left: 2%;
+        margin-top: 0.5%;
+    }
+    .group-company__co-operation img:nth-child(6) {
+        width: 13%;
+        height: 100%;
+        line-height: 1.45;
+        padding-left: 2%;
+    }
+    .group-company__co-operation img:nth-child(7) {
+        width: 11%;
+        height: 100%;
+        line-height: 1.45;
+        padding-left: 2%;
+    }
+    .group-company__co-operation img:nth-child(8) {
+        width: 17%;
+        height: 100%;
+        line-height: 1.45;
+        padding-left: 2%;
+    }
+    .group-company__rank {
+        height: 90%;
+    }
+}
+
+@media screen and (min-width: 1201px) and (max-width:1604px) {
+    .group-company__co-operation {
+        width: 90%;
+        height: 85%;
+    }
+    .group-company__co-operation img {
+        width: 11%;
+        height: 100%;
+        line-height: 1.45;
+    }
+    .group-company__co-operation img:first-child {
+        width: 16%;
+        height: 100%;
+        line-height: 1.45;
+        padding-left: 2.5%;
+        margin-top: 0.6%;
+    }
+    .group-company__co-operation img:nth-child(2) {
+        width: 9.5%;
+        height: 40%;
+        line-height: 1.45;
+        padding-left: 2%;
+    }
+    .group-company__co-operation img:nth-child(3) {
+        width: 14%;
+        height: 100%;
+        line-height: 1.45;
+        padding-left: 2%;
+    }
+    .group-company__co-operation img:nth-child(4) {
+        width: 10%;
+        height: 100%;
+        line-height: 1.45;
+        padding-left: 2%;
+    }
+    .group-company__co-operation img:nth-child(5) {
+        width: 13%;
+        height: 100%;
+        line-height: 1.45;
+        padding-left: 2%;
+        margin-top: 0.5%;
+    }
+    .group-company__co-operation img:nth-child(6) {
+        width: 13%;
+        height: 100%;
+        line-height: 1.45;
+        padding-left: 2%;
+    }
+    .group-company__co-operation img:nth-child(7) {
+        width: 11%;
+        height: 100%;
+        line-height: 1.45;
+        padding-left: 2%;
+    }
+    .group-company__co-operation img:nth-child(8) {
+        width: 17%;
+        height: 100%;
+        line-height: 1.45;
+        padding-left: 2%;
+    }
+    .group-company__rank {
+        height: 90%;
+    }
+}
