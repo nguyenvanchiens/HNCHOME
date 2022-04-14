@@ -15,17 +15,19 @@ namespace HNCHOME.Areas.Admin.Controllers
     public class CountriesController : BaseController
     {
         private readonly ICountryRepository _countryRepository;
+        private readonly ILanguageRepository _languageRepository;
 
-        public CountriesController(HNCDbContext dbContext, ICountryRepository countryRepository) : base(dbContext)
+        public CountriesController(HNCDbContext dbContext, ICountryRepository countryRepository, ILanguageRepository languageRepository) : base(dbContext)
         {
             _countryRepository = countryRepository;
+            _languageRepository = languageRepository;
         }
 
         // GET: Admin/Countries
         public IActionResult Index([FromQuery] string filter)
         {
             ViewBag.country = _countryRepository.GetAllPaeging(filter);
-            ViewBag.language = _countryRepository.GetAllPaeging(filter);
+            ViewBag.language = _languageRepository.GetAll();
             return View();
         }
 
@@ -51,7 +53,7 @@ namespace HNCHOME.Areas.Admin.Controllers
         public IActionResult Create(Country country)
         {
             country.CreatedDate=DateTime.Now;
-
+            country.Language=_languageRepository.GetById(country.LanguageId);
             try
             {
                 _countryRepository.Insert(country);
@@ -66,7 +68,6 @@ namespace HNCHOME.Areas.Admin.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult Edit(Country country)
         {
             try
@@ -93,6 +94,19 @@ namespace HNCHOME.Areas.Admin.Controllers
             catch (Exception)
             {
                 return BadRequest("Unsuccessfully");
+            }
+        }
+        [HttpGet]
+        public IActionResult GetCountryInfo(Guid countryId)
+        {
+            try
+            {
+                var result = _countryRepository.GetById(countryId);
+                return Json(result);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
             }
         }
 
