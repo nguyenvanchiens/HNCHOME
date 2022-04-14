@@ -115,43 +115,18 @@
 <script>
 
     var PermissionId = "";
-     function Validate(){
-        $("input[required]").each(function () {
-          let value = $(this).val();
-          if (!value) {
-            $(this).addClass("s-input-error");
-            $(this).attr("validate", false);
-            $(this).attr("title", "Không thể bỏ trống");
-          } else {
-            $(this).removeClass("s-input-error");
-            $(this).attr("validate", true);
-          }
-          });
-     }  
-    function ShowFormAdd(){
-        var employeeId = "";
-        $.ajax({
-            type: 'Get',
-            url: '/Admin/Home/NewCodeEmployee',
-            contentType: 'application/json; charset=utf-8',
-            async: false,
-            success: function (data) {             
-                $('#EmployeeCode').val(data);                          
-            }
-        })
-    };
     function Delete(PermissionId) {
         var result = confirm("Bạn có muốn xóa quyền này không?");
         if (result) {
             var Url = "";
-            Url = "/Permission/Delete"
+            Url = "/Admin/Permission/Delete"
             $.ajax({
                 type: 'Post',
                 url: Url,
                 data: { id: PermissionId },
                 async: false,
                 success: function () {
-                    window.location.pathname = "/Permission/Index"
+                    window.location.pathname = "/Admin/Permission/Index"
                 },
                 error: function (data) {
                     console.log(data);
@@ -172,7 +147,7 @@
          $('.btn-add').html('Sửa');
         $.ajax({
             type: 'Get',
-            url: '/Permission/Get',
+            url: '/Admin/Permission/Get',
             contentType: 'application/json; charset=utf-8',
             data: { id: PermissionId },
             async: false,
@@ -201,7 +176,7 @@
                 ParentId:$('#ParentId').val()
             };   
             
-            this.Validate();
+            Validate();
               let validateInput = $('input[validate="false"]');
                 if (validateInput && validateInput.length > 0) {
                   alert("Bạn hãy điền đủ các trường thông tin");
@@ -211,12 +186,12 @@
             if(this.PermissionId==""){
             $.ajax({
                 type: 'Post',
-                url: '@Url.Action("Create", "Permission")',           
+                url: '/Admin/Permission/Create',           
                 dataType:"json",
                 data: { permission: data },
                 async:false,
                 success: function (result) {
-                    window.location.pathname="/Permission/Index"
+                    window.location.pathname="/Admin/Permission/Index"
                 },
                 error: function (data) {
                     console.log(data);
@@ -226,12 +201,12 @@
             else{           
             $.ajax({
                 type: 'Post',
-                url: '@Url.Action("Edit", "Permission")',           
+                url: '/Admin/Permission/Index/Edit',           
                 dataType:"json",
                 data: { permission: data },
                 async:false,
                 success: function (result) {
-                    window.location.pathname="/Permission/Index"
+                    window.location.pathname="/Admin/Permission/Index"
                 },
                 error: function (data) {
                     console.log(data);

@@ -12,6 +12,7 @@ namespace HNCHOME.Areas.Admin.Service.Repository
 
         public IEnumerable<Department> GetAllPaeging(string filter)
         {
+            
             IEnumerable<Department> result = new List<Department>();
             if (filter != null)
             {

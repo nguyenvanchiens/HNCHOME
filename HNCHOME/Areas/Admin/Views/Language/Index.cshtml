@@ -1,0 +1,241 @@
+﻿@model HNCHOME.Models.Language;
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<main class="page-content">
+    <div class="page-header">
+      <p class="fw">Danh sách tên miền đen</p>
+       <!-- Button HTML (to Trigger Modal) -->
+    <button type="button" href="#myModal" role="button" class="btn btn-primary" onclick="ShowFormAdd()" data-bs-toggle="modal">Thêm mới</button>
+
+   <!-- Modal HTML -->
+    <div id="myModal" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Thêm Mới Nhân Viên</h5>
+                    <button type="button" onclick="HideForm()" class="btn-close btn btn-default" data-bs-dismiss="modal"> <i class="fa fa-times" aria-hidden="true"></i></button>
+                </div>
+                <div class="modal-body">
+                  <form id="myFrom" method="post" action="/Admin/Language/AddOrUpdate" enctype="multipart/form-data">
+                      @Html.AntiForgeryToken()
+                     <div class="mb-3">
+                      <input asp-for="LanguageId" type="text" class="form-control" hidden id="LanguageId" aria-describedby="emailHelp">                     
+                    </div>
+                    <div class="mb-3">
+                      <label for="exampleInputEmail1" class="form-label">Name</label>
+                      <input asp-for="Name" required name="Name"  type="text" class="form-control" id="Name" aria-describedby="emailHelp">
+                      <span asp-validation-for="Name" id="erDepartmentCode" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3 showEditImage" hidden>
+                      <label for="exampleInputEmail1" class="form-label">Hình ảnh</label>
+                      <br/>
+                      <img class="imageLanguage" onclick="changeImage()"/>
+                    </div>
+                    <div class="mb-3 hideEditImage" >
+                      <label for="exampleInputEmail1" class="form-label">Chọn Ảnh</label>
+                      <input asp-for="Image" name="Image" type="file" class="form-control" id="Image" aria-describedby="emailHelp">
+                      <span asp-validation-for="Image" id="erDepartmentName" class="text-danger"></span>
+                    </div>   
+                     <div class="mb-3">
+                      <label for="exampleInputEmail1" class="form-label">Thứ tự</label>
+                      <input asp-for="SortOrder" required name="SortOrder" type="text" class="form-control" id="SortOrder" aria-describedby="emailHelp">
+                      <span asp-validation-for="SortOrder" id="erDepartmentName" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3 text-right">
+                      <button type="submit" class="btn btn-primary btn-add">Thêm</button>
+                    </div>
+                 </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="page-search">
+      <div id="accordion">
+        <div class="card">
+          <div class="card-header" id="headingOne">
+            <span><i b-eginzb9zup="" class="fa fa-search" aria-hidden="true"></i></span>
+            <h5 class="mb-0">
+              <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                <i class="fa fa-arrow-down" aria-hidden="true"></i>
+              </button>
+            </h5>
+          </div>
+      
+          <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+            <div class="card-body">
+              <div class="input-groups">
+                 <form action="/Admin/Department/Index" method="get" style="display:flex">
+                      <label style="margin-right:10px" for="">Tên phòng ban</label>
+                    <div>
+                    <div>
+                    <input type="text" name="filter">
+                    </div> 
+                    <button type="submit"  class="btn btn-primary">Tìm kiếm</button>
+                    </div>     
+                 </form>    
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page-content-table">
+      <table class="table table-bordered" id="dataTable" cellpadding=0>
+        <thead>           
+            <tr>
+                <th scope="col">Tên Menu</th>
+                <th class="text-center" scope="col">Hình Ảnh</th>
+                <th class="text-center" scope="col">Thức Tự</th>           
+                <th scope="col" class="text-center">Chức năng</th>
+            </tr>                   
+        </thead>
+        <tbody>
+           @foreach (var item in @ViewBag.Languages)
+            {
+             <tr>
+                <td>@item.Name</td>
+                <td class="text-center"><img class="language_image" src="~/languageImage/@item.Image" /></td>
+                <td class="text-center">@item.SortOrder</td>
+                <td class="text-center">
+                    <button href="#myModal" data-bs-toggle="modal" onclick="ShowUpdate('@item.LanguageId')" type="button" class="btn btn-default">Chỉnh sửa</button>
+                    <a style="cursor:pointer" onclick="Delete('@item.LanguageId')" class="btn btn-light">Xóa</a>
+                    </td>
+             </tr>
+            }
+        </tbody>
+      </table>
+     
+    </div>
+  </main>
+
+<script>
+    var languageId = "";
+     
+   function ShowFormAdd(){
+       $('.showEditImage').attr('hidden',true);
+       $('.hideEditImage').attr('hidden',false);
+   }
+   function changeImage(){
+       $('#Image').click();
+
+   }
+
+    function AddOrUpdate(){
+        debugger
+        var data = {
+             LanguageId:$('#LanguageId').val(),
+             Name:$('#Name').val(),
+             Image:$('#Image').val(),
+        }
+        var image = $('#Image').val();
+        Validate();
+         let validateInput = $('input[validate="false"]');
+                if (validateInput && validateInput.length > 0) {
+                  alert("Bạn hãy điền đủ các trường thông tin");
+                  $(validateInput)[0].focus();
+                  return;
+                }
+        if(this.languageId==""){
+            $.ajax({
+                type: 'Post',
+                url: '/Admin/Language/Add',           
+                dataType:"json",
+                contentType:false,
+                data: { language:data,Image:image, id:languageId },
+                async:false,
+                success: function (result) {
+                    if(result==400){
+                        alert('Dữ liệu đầu vào không hợp lệ')
+                    }
+                    else{
+                        window.location.pathname="/Admin/Language/Index"
+                    }
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            })
+            }
+            else{           
+            $.ajax({
+                type: 'Post',
+                url: '/Admin/Department/UpdateDepartment',           
+                dataType:"json",
+                data: { department: data },
+                async:false,
+                success: function (result) {
+                    window.location.pathname="/Admin/Department/Index"
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            })
+        }
+    }
+
+    function Delete(languageId) {
+        debugger
+        var result = confirm("Bạn có muốn xóa phòng ban này không?");
+        if (result) {
+            var Url = "";
+            Url = "/Admin/Language/Delete"
+            $.ajax({
+                type: 'Post',
+                url: Url,
+                data: { id: languageId },
+                async: false,
+                success: function () {
+                    window.location.pathname = "/Admin/Language/Index"
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            })
+        } else {
+    
+        }
+    }
+    function HideForm() {
+       $('.btn-add').html('Thêm mới');
+       
+       var languageId = "";
+    }
+    function ShowUpdate(languageId) {
+        this.languageId = languageId;
+        $.ajax({
+            type: 'Get',
+            url: '/Admin/Language/GetById',
+            contentType: 'application/json; charset=utf-8',
+            data: { id: languageId },
+            async: false,
+            success: function (data) {
+                $('.showEditImage').attr('hidden',false);
+                $('.hideEditImage').attr('hidden',true);
+                $('.btn-add').html('Sửa');
+                $('#LanguageId').val(data.languageId);
+                $('#Name').val(data.name);
+                $('#SortOrder').val(data.sortOrder);  
+                $('.imageLanguage').attr('src','/languageImage/'+data.image);  
+                console.log(data);
+            }
+        })
+    }
+</script>
+
+<style>
+.language_image{
+    width:80px;
+}
+.imageLanguage{
+    width:120px;
+}
+</style>
+
+
+
+
+

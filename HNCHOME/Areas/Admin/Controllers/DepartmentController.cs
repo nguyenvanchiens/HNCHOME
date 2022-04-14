@@ -13,6 +13,7 @@ namespace HNCHOME.Controllers
         // GET: DepartmentController
         public ActionResult Index([FromQuery] string filter)
         {
+            var res = _repository.GetAll();
             ViewBag.Departments = _repository.GetAllPaeging(filter);
             return View();
         }
@@ -21,16 +22,22 @@ namespace HNCHOME.Controllers
         public JsonResult AddDepartment(Department department)
         {
             department.CreatedDate = DateTime.Now;
-            _repository.Insert(department);
-            _repository.Save();
-            return Json("oke");
+            var result = _repository.Insert(department);
+            if (result == (int)StatusCodeRespon.UpdateSuccess)
+            {
+                return Json(result);
+            }
+            return Json(result);
         }
         [HttpPost]
         public JsonResult UpdateDepartment(Department department)
         {
-            _repository.Update(department);
-            _repository.Save();
-            return Json("Oke");
+            var result = _repository.Update(department);
+            if (result == (int)StatusCodeRespon.UpdateSuccess)
+            {
+                return Json(result);
+            }
+            return Json(result);
         }
         [HttpGet]
         public IActionResult Get(Guid departmentId)
@@ -42,9 +49,12 @@ namespace HNCHOME.Controllers
         [HttpPost]
         public JsonResult Delete(Guid DepartmentId)
         {
-            _repository.Delete(DepartmentId);
-            _repository.Save();
-            return Json("Oke");
+            var result = _repository.Delete(DepartmentId);
+            if (result == (int)StatusCodeRespon.Success)
+            {
+                return Json(result);
+            }
+            return Json(result);
         }
     }
 }

@@ -7,15 +7,15 @@ namespace HNCHOME.Controllers
     {
         private readonly IMenuRepository _menuRepository;
         private List<Menu> menuList = new List<Menu>();
-        public MenuController(HNCDbContext dbContext,IMenuRepository menuRepository) : base(dbContext)
+        public MenuController(HNCDbContext dbContext, IMenuRepository menuRepository) : base(dbContext)
         {
             _menuRepository = menuRepository;
         }
 
         public IActionResult Index()
         {
-            var result = _dbContext.Menus.Where(x=>x.ParentId==Guid.Empty)
-                .Select(x=> new Menu
+            var result = _dbContext.Menus.Where(x => x.ParentId == Guid.Empty)
+                .Select(x => new Menu
                 {
                     MenuId = x.MenuId,
                     Link = x.Link,
@@ -35,25 +35,34 @@ namespace HNCHOME.Controllers
         [HttpPost]
         public JsonResult Create(Menu menu)
         {
-            _menuRepository.Insert(menu);
-            _menuRepository.Save();
-            return Json("Oke");
+            var result = _menuRepository.Insert(menu);
+            if (result == (int)StatusCodeRespon.UpdateSuccess)
+            {
+                return Json(result);
+            }
+            return Json(result);
         }
         [HttpPost]
         public JsonResult Edit(Menu menu)
         {
-            _menuRepository.Update(menu);
-            _menuRepository.Save();
-            return Json("Oke");
+            var result = _menuRepository.Update(menu);
+            if (result == (int)StatusCodeRespon.UpdateSuccess)
+            {
+                return Json(result);
+            }
+            return Json(result);
         }
         [HttpPost]
         public JsonResult Delete(Guid id)
         {
-            _menuRepository.Delete(id);
-            _menuRepository.Save();
-            return Json("Oke");
+            var result = _menuRepository.Delete(id);
+            if (result == (int)StatusCodeRespon.Success)
+            {
+                return Json(result);
+            }
+            return Json(result);
         }
-       
+
         public JsonResult GetParentNode()
         {
             var menus = _dbContext.Menus.Select(x => new TreeNodeMenu()
@@ -64,7 +73,7 @@ namespace HNCHOME.Controllers
                 ParentId = x.ParentId
             }).ToList();
             List<TreeNodeMenu> result = new List<TreeNodeMenu>();
-            result = menus.Where(c=>c.ParentId == Guid.Empty)
+            result = menus.Where(c => c.ParentId == Guid.Empty)
                           .Select(c => new TreeNodeMenu() { MenuId = c.MenuId, Title = c.Title, ParentId = c.ParentId, Link = c.Link, data = GetChildren(menus, c.MenuId) })
                           .ToList();
             return Json(result.ToArray());

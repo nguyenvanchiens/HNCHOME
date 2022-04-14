@@ -1,4 +1,5 @@
-﻿namespace HNCHOME.Common
+﻿
+namespace HNCHOME.Common
 {
     public enum Comment
     {
@@ -44,5 +45,12 @@
         /// Hủy đơn
         /// </summary>
         Canceled
+    }
+    public enum StatusCodeRespon
+    {
+        BadRequest = 400,
+        Success = 200,
+        ErrorServer = 500,
+        UpdateSuccess = 201
     }
 }
