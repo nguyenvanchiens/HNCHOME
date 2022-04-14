@@ -1,71 +1,209 @@
-﻿@model IEnumerable<HNCHOME.Models.Country>
-
+﻿@model HNCHOME.Models.Country;
 @{
     ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<main class="page-content">
+    <div class="page-header">
+      <p class="fw">Danh sách nhân viên</p>
+       <!-- Button HTML (to Trigger Modal) -->
+        @*@if (@ViewBag.isCreate)
+        {
+             <button type="button" href="#myModal" role="button" onclick="ShowFormAdd()" class="btn btn-primary" data-bs-toggle="modal">Thêm mới</button>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.CountryName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Language)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedBy)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ModifiedBy)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ModifiedDate)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.CountryName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Language.LanguageId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedBy)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ModifiedBy)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ModifiedDate)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.CountryId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.CountryId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.CountryId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+        }  *@
+        <button type="button" href="#myModal" role="button" onclick="ShowFormAdd()" class="btn btn-primary" data-bs-toggle="modal">Thêm mới</button>
+        
+     <!-- Modal HTML -->
+     <div id="myModal" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Thêm Mới Quốc Gia</h5>
+                    <button type="button" onclick="HideForm()" class="btn-close btn btn-default" data-bs-dismiss="modal"> <i class="fa fa-times" aria-hidden="true"></i></button>
+                </div>
+                <div class="modal-body">
+                  <form id="myFrom">                                        
+                    <div class="mb-3">
+                      <label for="exampleInputEmail1" class="form-label">Tên quốc gia</label>
+                      <input asp-for="CountryName" required name="EmployeeCode" type="text" class="form-control"  id="CountryName" aria-describedby="emailHelp">
+                      <span asp-validation-for="CountryName" id="erCountryName" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                      <label for="exampleInputEmail1" class="form-label">Mô tả quốc gia</label>
+                      <input asp-for="Description" required name="Description" type="text" class="form-control" id="Description" aria-describedby="emailHelp">
+                      <span asp-validation-for="Description" id="erDescription" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3 text-right">
+                      <button type="button" onclick="AddOrUpdate()" class="btn btn-primary btn-add">Thêm</button>
+                    </div>
+                 </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    @*Body*@
+    <div class="page-search">
+      <div id="accordion">
+        <div class="card">
+          <div class="card-header" id="headingOne">
+            <span><i b-eginzb9zup="" class="fa fa-search" aria-hidden="true"></i></span>
+            <h5 class="mb-0">
+              <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                <i class="fa fa-arrow-down" aria-hidden="true"></i>
+              </button>
+            </h5>
+          </div>
+      
+          <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+            <div class="card-body">
+              <div class="input-groups">
+                 <form method="get" style="display:flex">
+                      <label style="margin-right:10px" for="">Tên Quốc Gia</label>
+                    <div>
+                    <div>
+                    <input type="text" name="filter">
+                    </div> 
+                    <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+                    </div>     
+                 </form>    
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page-content-table">
+      <table class="table table-bordered order-column dataTables" style="width:100%"  id="dataTable" cellpadding=0>
+        <thead>
+            <tr>
+                <th scope="col">Mã quốc gia</th>
+                <th scope="col">Tên quốc gia</th>
+                <th scope="col">Mô tả</th>
+                <th scope="col" class="text-center">Chức năng</th>
+                </tr>
+        </thead>
+         <tbody>
+           @foreach (var country in ViewBag.country)
+           {
+             <tr>
+                <td>@country.CountryId</td>
+                <td>@country.CountryName</td>
+                <td>                  
+                    @country.Description
+                </td>
+                <td class="text-center">
+                    <button href="#myModal" data-bs-toggle="modal" onclick="ShowFormUpdate('@country.CountryId')" type="button" class="btn btn-default">Chỉnh sửa</button>
+                    <a style="cursor:pointer" onclick="Delete('@country.CountryId')" class="btn btn-light">Xóa</a>
+                    @*@if (@viewbag.isadmin)
+                    {
+                        <a style="cursor:pointer" href="/home/role/@country.employeeid" class="btn btn-light">
+                            phân quyền
+                        </a>                
+                    }    *@
+                    </td>
+             </tr>
+           }
+        </tbody>             
+      </table>
+    </div>
+  </main>
+    <div class="alert alert-primary" id="notify" role="alert">
+       Thêm Mới Thành Công
+    </div>
+
+<script>
+    var departmentId = "";
+    function AddOrUpdate(){
+        debugger;
+        var data = {
+             CountryName:$('#CountryName').val(),
+             Description:$('#Description').val(),
+        }
+        Validate();
+         let validateInput = $('input[validate="false"]');
+                if (validateInput && validateInput.length > 0) {
+                  alert("Bạn hãy điền đủ các trường thông tin");
+                  $(validateInput)[0].focus();
+                  return;
+                }
+        if(this.departmentId==""){
+            $.ajax({
+                type: 'Post',
+                url: '/Admin/Countries/Create',           
+                data: { country: data },
+                async:false,
+                success: function (result) {
+                    window.location.pathname="/Admin/Countries/Index"
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            })
+            }
+            else{           
+            $.ajax({
+                type: 'Post',
+                url: '/Admin/Countries/Edit',           
+                dataType:"json",
+                data: { country: data },
+                async:false,
+                success: function (result) {
+                    window.location.pathname="/Admin/Countries/Index"
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            })
+        }
+
+    }
+
+    function Delete(departmentId) {
+        debugger
+        var result = confirm("Bạn có muốn xóa phòng ban này không?");
+        if (result) {
+            var Url = "";
+            Url = "/Admin/Countries/Delete"
+            $.ajax({
+                type: 'Post',
+                url: Url,
+                data: { DepartmentId: departmentId },
+                async: false,
+                success: function () {
+                    window.location.pathname = "/Admin/Countries/Index"
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            })
+        } else {
+    
+        }
+    }
+    function HideForm() {
+       $('.btn-add').html('Thêm mới');
+       var departmentId = "";
+    }
+    function ShowUpdate(departmentId) {
+        this.departmentId = departmentId;
+        $.ajax({
+            type: 'Get',
+            url: '/Admin/Countries/Get',
+            contentType: 'application/json; charset=utf-8',
+            data: { departmentId: departmentId },
+            async: false,
+            success: function (data) {
+                $('.btn-add').html('Sửa');
+                $('#CountryId').val(data.departmentId);
+                $('#CountryName').val(data.departmentCode);
+                $('#Description').val(data.Description);               
+            }
+        })
+    }
+    function GetDepartment(){
+        alert('hello');
+    }
+</script>
