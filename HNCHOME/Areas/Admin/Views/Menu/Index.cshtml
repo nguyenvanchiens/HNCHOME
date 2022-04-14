@@ -27,17 +27,17 @@
                     </div>                  
                       <div class="mb-3">
                       <label for="exampleInputEmail1" class="form-label">Tên</label>
-                      <input asp-for="Title"  required name="Title" type="text" class="form-control"  id="MenuTitle" aria-describedby="emailHelp">
+                      <input asp-for="Title"  required name="Title" type="text" class="form-control title" onblur="ChangeToSlug()"  id="MenuTitle" aria-describedby="emailHelp">
                     
                     </div>
                     <div class="mb-3">
                       <label for="exampleInputEmail1" class="form-label">Link</label>
-                      <input asp-for="Link" required name="Link" type="text" class="form-control"  id="MenuLink" aria-describedby="emailHelp">
+                      <input asp-for="Link" required name="Link" type="text" class="form-control slug"  id="MenuLink" aria-describedby="emailHelp">
                     
                     </div>
                      <div class="mb-3">
                       <label for="exampleInputEmail1" class="form-label">Ngôn Ngữ</label>
-                      <select class="form-control" asp-for="LanguageId">
+                      <select class="form-control parent_language" asp-for="LanguageId">
                           @foreach (var item in ViewBag.Language)
                           {
                               <option  value="@item.LanguageId">@item.Name</option>
@@ -147,20 +147,6 @@
 
 <script>
     var MenuId = "";
-     function Validate(){
-        $("input[required]").each(function () {
-          let value = $(this).val();
-          if (!value) {
-            $(this).addClass("s-input-error");
-            $(this).attr("validate", false);
-            $(this).attr("title", "Không thể bỏ trống");
-          } else {
-            $(this).removeClass("s-input-error");
-            $(this).attr("validate", true);
-          }
-          });
-     }  
-    
     function Delete(MenuId) {
         var result = confirm("Bạn có muốn xóa quyền này không?");
         if (result) {
@@ -184,7 +170,8 @@
     }
     function HideForm() {
         $('#myFrom')[0].reset();
-        $('#ParentId').prop('selectedIndex',0)
+        $('#firstDropDownTree2').attr('parentId',"");
+        $('.dropdowntree-name').text("Parent");
         $('.btn-add').html('Thêm');
         var PermissionId = "";
     }
@@ -200,8 +187,10 @@
             success: function (data) {
                $('#MenuTitle').val(data.title); 
                $('#MenuLink').val(data.link);
+               $('#firstDropDownTree2').attr('parentId',data.parentId)
                this.PermissionId = data.permissionId;
-                var option = $('.modal-body option');
+               debugger
+                var option = $('.parent_language option');
                 for (var i = 0; i < option.length; i++) {
                     var LanguageId = option[i].value;
                     var parent = data.languageId;
@@ -210,6 +199,17 @@
                     }
                     else {
                         option[i].removeAttribute('selected');
+                    }
+                }
+                var dropdownmenu = $('.dropdown-menu li a');
+                for (var i = 0; i < dropdownmenu.length; i++) {
+                    var menuId = dropdownmenu[i].id;
+                    var parent = data.parentId;
+                    if (menuId == parent) {
+                        $('.dropdowntree-name').text(dropdownmenu[i].textContent);
+                    }
+                    else {
+                        dropdownmenu[i].removeAttribute('selected');
                     }
                 }
                 console.log(data);
@@ -226,7 +226,7 @@
                 LanguageId:$("#LanguageId").val()
             };   
             
-            this.Validate();
+            Validate();
               let validateInput = $('input[validate="false"]');
                 if (validateInput && validateInput.length > 0) {
                   alert("Bạn hãy điền đủ các trường thông tin");
@@ -256,7 +256,7 @@
                 data: { menu: data },
                 async:false,
                 success: function (result) {
-                    window.location.pathname="/Menu/Index"
+                    window.location.pathname="/Admin/Menu/Index"
                 },
                 error: function (data) {
                     console.log(data);

@@ -2,7 +2,7 @@
     //var title, slug;
 
     //Lấy text từ thẻ input title 
-    title = document.getElementById("Title").value;
+    title = $(".title").val();
 
     //Đổi chữ hoa thành chữ thường
     slug = title.toLowerCase();
@@ -29,7 +29,7 @@
     slug = '@' + slug + '@';
     slug = slug.replace(/\@\-|\-\@|\@/gi, '');
     //In slug ra textbox có id “slug”
-    document.getElementById('SeoTitle').value = slug;
+    $('.slug').val(slug);
 }
 function Validate() {
     

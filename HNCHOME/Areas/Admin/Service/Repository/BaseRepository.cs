@@ -35,7 +35,7 @@ namespace HNCHOME.Service.Repository
             return table.Find(id);
         }
 
-        public int Insert(T obj)
+        public virtual int Insert(T obj)
         {
             var result = table.Add(obj);
             if (result != null)
@@ -61,6 +61,11 @@ namespace HNCHOME.Service.Repository
                 return (int)StatusCodeRespon.UpdateSuccess;
             }
             return (int)StatusCodeRespon.BadRequest;
+        }
+        public virtual bool Validate(T entity)
+        {
+            
+            return true;
         }
     }
 }
