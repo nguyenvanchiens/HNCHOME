@@ -45,4 +45,11 @@
         /// </summary>
         Canceled
     }
+    public enum StatusCodeRespon
+    {
+        BadRequest = 400,
+        Success = 200,
+        ErrorServer = 500,
+        UpdateSuccess = 201
+    }
 }

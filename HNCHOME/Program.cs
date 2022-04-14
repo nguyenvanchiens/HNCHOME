@@ -13,6 +13,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddTransient(typeof(IBaseRepository<>), typeof(BaseRepository<>));
 builder.Services.AddTransient<IDepartmentRepository,DepartmentRepository>();
 builder.Services.AddTransient<IMenuRepository, MenuRepository>();
+builder.Services.AddTransient<ICountryRepository, CountryRepository>();
 
 builder.Services.AddAuthentication(options =>
 {

@@ -1,40 +1,24 @@
 ﻿namespace HNCHOME.Areas.Admin.Service.Repository
 {
     public class CountryRepository : BaseRepository<Country>, ICountryRepository
-
     {
         public CountryRepository(HNCDbContext context) : base(context)
         {
         }
 
-        IEnumerable<Country> GetAll()
+        public IEnumerable<Country> GetAllPaeging(string filter)
         {
-            throw new NotImplementedException();
-        }
-        Country GetById(object id)
-        {
-            throw new NotImplementedException();
-        }
-        void Insert(Country obj)
-        {
-            throw new NotImplementedException();
-        }
-        void Update(Country obj)
-        {
-            throw new NotImplementedException();
-        }
-        void Delete(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-        void Save()
-        {
-            throw new NotImplementedException();
-        }
-
-        void ICountryRepository.Delete(Guid id)
-        {
-            throw new NotImplementedException();
+            IEnumerable<Country> result = new List<Country>();
+            if (filter != null)
+            {
+                result = _context.Countries.Where(x => x.CountryId.ToString().Contains(filter) || x.CountryName.Contains(filter) || x.Description.Contains(filter))
+                    .ToList();
+            }
+            else
+            {
+                result = _context.Countries.ToList();
+            }
+            return result;
         }
     }
 }

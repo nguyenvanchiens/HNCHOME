@@ -4,9 +4,9 @@
     {
         IEnumerable<T> GetAll();
         T GetById(object id);
-        void Insert(T obj);
-        void Update(T obj);
-        void Delete(object id);
+        int Insert(T obj);
+        int Update(T obj);
+        int Delete(object id);
         void Save();
     }
 }

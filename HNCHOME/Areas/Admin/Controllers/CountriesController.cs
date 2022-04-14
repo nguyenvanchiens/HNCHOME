@@ -14,30 +14,30 @@ namespace HNCHOME.Areas.Admin.Controllers
     [Area("Admin")]
     public class CountriesController : BaseController
     {
-        private readonly HNCDbContext _context;
+        private readonly ICountryRepository _countryRepository;
 
-        public CountriesController(HNCDbContext dbContext) : base(dbContext)
+        public CountriesController(HNCDbContext dbContext, ICountryRepository countryRepository) : base(dbContext)
         {
+            _countryRepository = countryRepository;
         }
 
         // GET: Admin/Countries
-        public async Task<IActionResult> Index()
+        public IActionResult Index([FromQuery] string filter)
         {
-            var hNCDbContext = _context.Countries.Include(c => c.Language);
-            return View(await hNCDbContext.ToListAsync());
+            ViewBag.country = _countryRepository.GetAllPaeging(filter);
+            ViewBag.language = _countryRepository.GetAllPaeging(filter);
+            return View();
         }
 
         // GET: Admin/Countries/Details/5
-        public async Task<IActionResult> Details(Guid? id)
+        public IActionResult Details(Guid? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var country = await _context.Countries
-                .Include(c => c.Language)
-                .FirstOrDefaultAsync(m => m.CountryId == id);
+            var country = _countryRepository.GetById(id);
             if (country == null)
             {
                 return NotFound();
@@ -47,116 +47,55 @@ namespace HNCHOME.Areas.Admin.Controllers
         }
 
         // GET: Admin/Countries/Create
-        public IActionResult Create()
-        {
-            ViewData["LanguageId"] = new SelectList(_context.Languages, "LanguageId", "LanguageId");
-            return View();
-        }
-
-        // POST: Admin/Countries/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CountryId,CountryName,Description,LanguageId,CreatedBy,CreatedDate,ModifiedBy,ModifiedDate")] Country country)
+        public IActionResult Create(Country country)
         {
-            if (ModelState.IsValid)
+            country.CreatedDate=DateTime.Now;
+
+            try
             {
-                country.CountryId = Guid.NewGuid();
-                _context.Add(country);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                _countryRepository.Insert(country);
+                return Ok("Successfully");
             }
-            ViewData["LanguageId"] = new SelectList(_context.Languages, "LanguageId", "LanguageId", country.LanguageId);
-            return View(country);
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
-
-        // GET: Admin/Countries/Edit/5
-        public async Task<IActionResult> Edit(Guid? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var country = await _context.Countries.FindAsync(id);
-            if (country == null)
-            {
-                return NotFound();
-            }
-            ViewData["LanguageId"] = new SelectList(_context.Languages, "LanguageId", "LanguageId", country.LanguageId);
-            return View(country);
-        }
-
         // POST: Admin/Countries/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("CountryId,CountryName,Description,LanguageId,CreatedBy,CreatedDate,ModifiedBy,ModifiedDate")] Country country)
+        public IActionResult Edit(Country country)
         {
-            if (id != country.CountryId)
+            try
             {
-                return NotFound();
+                _countryRepository.Update(country);
+                return Ok("Successfully");
             }
-
-            if (ModelState.IsValid)
+            catch (Exception)
             {
-                try
-                {
-                    _context.Update(country);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!CountryExists(country.CountryId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                return BadRequest("Unsuccessfully");
             }
-            ViewData["LanguageId"] = new SelectList(_context.Languages, "LanguageId", "LanguageId", country.LanguageId);
-            return View(country);
         }
 
         // GET: Admin/Countries/Delete/5
-        public async Task<IActionResult> Delete(Guid? id)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(Guid? id)
         {
-            if (id == null)
+            try
             {
-                return NotFound();
+                _countryRepository.Delete(id);
+                return Ok("Successfully");
             }
-
-            var country = await _context.Countries
-                .Include(c => c.Language)
-                .FirstOrDefaultAsync(m => m.CountryId == id);
-            if (country == null)
+            catch (Exception)
             {
-                return NotFound();
+                return BadRequest("Unsuccessfully");
             }
-
-            return View(country);
         }
 
         // POST: Admin/Countries/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(Guid id)
-        {
-            var country = await _context.Countries.FindAsync(id);
-            _context.Countries.Remove(country);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
-        private bool CountryExists(Guid id)
-        {
-            return _context.Countries.Any(e => e.CountryId == id);
-        }
     }
 }

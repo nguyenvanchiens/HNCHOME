@@ -104,26 +104,14 @@
 
 <script>
     var departmentId = "";
-     function Validate(){
-        $("input[required]").each(function () {
-          let value = $(this).val();
-          if (!value) {
-            $(this).addClass("s-input-error");
-            $(this).attr("validate", false);
-            $(this).attr("title", "Không thể bỏ trống");
-          } else {
-            $(this).removeClass("s-input-error");
-            $(this).attr("validate", true);
-          }
-          });
-     }  
+     
     function AddOrUpdate(){
         var data = {
              DepartmentId:$('#DepartmentId').val(),
              DepartmentCode:$('#DepartmentCode').val(),
              DepartmentName:$('#DepartmentName').val(),
         }
-        this.Validate();
+        Validate();
          let validateInput = $('input[validate="false"]');
                 if (validateInput && validateInput.length > 0) {
                   alert("Bạn hãy điền đủ các trường thông tin");
@@ -204,21 +192,6 @@
                 $('#DepartmentName').val(data.departmentName);               
             }
         })
-    }
-    function formatDate(val) {
-        var result = "";
-        var date = new Date(val);
-        if (Number.isNaN(date.getTime())) {
-            result = "";
-        } else {
-            var day = date.getDate();
-            var month = date.getMonth() + 1;
-            var year = date.getFullYear();
-            day = day < 10 ? "0" + day : day;
-            month = month < 10 ? "0" + month : month;
-            result = year + "-" + month + "-" + day;
-        }
-        return result;
     }
     function GetDepartment(){
         alert('hello');
