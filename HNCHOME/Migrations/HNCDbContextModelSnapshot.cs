@@ -83,6 +83,17 @@ namespace HNCHOME.Migrations
                     b.ToTable("Countries");
                 });
 
+            modelBuilder.Entity("HNCHOME.Models.Demo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Demos");
+                });
+
             modelBuilder.Entity("HNCHOME.Models.Department", b =>
                 {
                     b.Property<Guid>("DepartmentId")
@@ -97,8 +108,10 @@ namespace HNCHOME.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("DepartmentName")
-                        .IsRequired()
                         .HasColumnType("longtext");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime(6)");
 
                     b.HasKey("DepartmentId");
 

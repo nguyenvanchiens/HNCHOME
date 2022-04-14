@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\HNCHOME\\HNCHOME\\HNCHOME.csproj": {}
+    "C:\\HNCHOME\\HNCHOME\\HNCHOME.csproj": {}
   },
   "projects": {
-    "D:\\HNCHOME\\HNCHOME\\HNCHOME.csproj": {
+    "C:\\HNCHOME\\HNCHOME\\HNCHOME.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\HNCHOME\\HNCHOME\\HNCHOME.csproj",
+        "projectUniqueName": "C:\\HNCHOME\\HNCHOME\\HNCHOME.csproj",
         "projectName": "HNCHOME",
-        "projectPath": "D:\\HNCHOME\\HNCHOME\\HNCHOME.csproj",
+        "projectPath": "C:\\HNCHOME\\HNCHOME\\HNCHOME.csproj",
         "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "D:\\HNCHOME\\HNCHOME\\obj\\",
+        "outputPath": "C:\\HNCHOME\\HNCHOME\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -43,6 +43,10 @@
             "EPPlus": {
               "target": "Package",
               "version": "[5.8.9, )"
+            },
+            "Microsoft.AspNet.WebApi.Core": {
+              "target": "Package",
+              "version": "[5.2.8, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
@@ -87,7 +91,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.200\\RuntimeIdentifierGraph.json"
         }
       }
     }
