@@ -48,7 +48,7 @@
                                 </select>
                                 @*<div class="mb-3">
                                     <input type="text" class="form-control" hidden id="LanguageId" aria-describedby="emailHelp">
-                                </div>*@
+                                    </div>*@
                             </div>
                             <div class="mb-3 text-right">
                                 <button type="button" onclick="AddOrUpdate()" class="btn btn-primary btn-add">Thêm</button>
@@ -103,23 +103,23 @@
             <tbody>
                 @foreach (var country in ViewBag.country)
                 {
-                    <tr>
-                        <td>@country.CountryId</td>
-                        <td>@country.CountryName</td>
-                        <td>
+                        <tr>
+                            <td>@country.CountryId</td>
+                            <td>@country.CountryName</td>
+                            <td>
                             @country.Description
-                        </td>
-                        <td class="text-center">
-                            <button href="#myModal" data-bs-toggle="modal" onclick="ShowFormUpdate('@country.CountryId')" type="button" class="btn btn-default">Chỉnh sửa</button>
-                            <a style="cursor:pointer" onclick="Delete('@country.CountryId')" class="btn btn-light">Xóa</a>
+                            </td>
+                            <td class="text-center">
+                                <button href="#myModal" data-bs-toggle="modal" onclick="ShowFormUpdate('@country.CountryId')" type="button" class="btn btn-default">Chỉnh sửa</button>
+                                <a style="cursor:pointer" onclick="Delete('@country.CountryId')" class="btn btn-light">Xóa</a>
                             @*@if (@viewbag.isadmin)
                                 {
                                 <a style="cursor:pointer" href="/home/role/@country.employeeid" class="btn btn-light">
                                 phân quyền
                                 </a>
                                 }    *@
-                        </td>
-                    </tr>
+                            </td>
+                        </tr>
                 }
             </tbody>
         </table>

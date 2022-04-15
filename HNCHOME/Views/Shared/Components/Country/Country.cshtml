@@ -1,0 +1,7 @@
+﻿@model IEnumerable<HNCHOME.Models.Country>
+<select class="js-example-basic-single" name="state" id="select2" style="width: 96%; margin-left: 2%; height: 40px; border-radius: 3px;">
+    @foreach (var item in Model)
+    {
+        <option value="@item.LanguageId">@item.CountryName</option>
+    }
+</select>

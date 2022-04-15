@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\lib\jquery\dist\jquery-2.1.1.js" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="EPPlus" Version="5.8.9" />
     <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.4" />
@@ -20,6 +24,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.2" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="6.0.1" />
+    <PackageReference Include="Select2.js" Version="4.0.13" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,6 +36,10 @@
     <Folder Include="Common\" />
     <Folder Include="wwwroot\Admin\" />
     <Folder Include="wwwroot\languageImage\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\lib\jquery\dist\jquery-2.1.1.js" />
   </ItemGroup>
 
   <ItemGroup>
