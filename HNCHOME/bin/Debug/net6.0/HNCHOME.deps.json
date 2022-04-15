@@ -9,19 +9,18 @@
       "HNCHOME/1.0.0": {
         "dependencies": {
           "EPPlus": "5.8.9",
+          "Microsoft.AspNet.Mvc": "5.2.8",
           "Microsoft.AspNet.WebApi.Core": "5.2.8",
           "Microsoft.EntityFrameworkCore": "6.0.4",
           "Microsoft.EntityFrameworkCore.Design": "6.0.4",
           "Microsoft.EntityFrameworkCore.Tools": "6.0.4",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "6.0.2",
-          "Pomelo.EntityFrameworkCore.MySql": "6.0.1",
-          "bootstrap": "5.1.3"
+          "Pomelo.EntityFrameworkCore.MySql": "6.0.1"
         },
         "runtime": {
           "HNCHOME.dll": {}
         }
       },
-      "bootstrap/5.1.3": {},
       "EPPlus/5.8.9": {
         "dependencies": {
           "Microsoft.Extensions.Configuration.Json": "5.0.0",
@@ -72,6 +71,26 @@
         }
       },
       "MessagePackAnalyzer/2.1.152": {},
+      "Microsoft.AspNet.Mvc/5.2.8": {
+        "dependencies": {
+          "Microsoft.AspNet.Razor": "3.2.8",
+          "Microsoft.AspNet.WebPages": "3.2.8"
+        },
+        "runtime": {
+          "lib/net45/System.Web.Mvc.dll": {
+            "assemblyVersion": "5.2.8.0",
+            "fileVersion": "5.2.34876.0"
+          }
+        }
+      },
+      "Microsoft.AspNet.Razor/3.2.8": {
+        "runtime": {
+          "lib/net45/System.Web.Razor.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.0.34876.0"
+          }
+        }
+      },
       "Microsoft.AspNet.WebApi.Client/5.2.8": {
         "dependencies": {
           "Newtonsoft.Json": "13.0.1",
@@ -92,6 +111,30 @@
           "lib/net45/System.Web.Http.dll": {
             "assemblyVersion": "5.2.8.0",
             "fileVersion": "5.2.34876.0"
+          }
+        }
+      },
+      "Microsoft.AspNet.WebPages/3.2.8": {
+        "dependencies": {
+          "Microsoft.AspNet.Razor": "3.2.8",
+          "Microsoft.Web.Infrastructure": "1.0.0"
+        },
+        "runtime": {
+          "lib/net45/System.Web.Helpers.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.0.34876.0"
+          },
+          "lib/net45/System.Web.WebPages.Deployment.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.0.34876.0"
+          },
+          "lib/net45/System.Web.WebPages.Razor.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.0.34876.0"
+          },
+          "lib/net45/System.Web.WebPages.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.0.34876.0"
           }
         }
       },
@@ -1157,6 +1200,14 @@
           }
         }
       },
+      "Microsoft.Web.Infrastructure/1.0.0": {
+        "runtime": {
+          "lib/net40/Microsoft.Web.Infrastructure.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.20105.407"
+          }
+        }
+      },
       "Microsoft.Win32.Primitives/4.3.0": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "5.0.0",
@@ -2187,13 +2238,6 @@
       "serviceable": false,
       "sha512": ""
     },
-    "bootstrap/5.1.3": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-voh0PaptI44WOkOeMmzvUE4348M1QerNVYR8gNOX/PXLygvZjM019oIn4yU3uhgRjuriulfUjb7x/Yv4/YCqFw==",
-      "path": "bootstrap/5.1.3",
-      "hashPath": "bootstrap.5.1.3.nupkg.sha512"
-    },
     "EPPlus/5.8.9": {
       "type": "package",
       "serviceable": true,
@@ -2229,6 +2273,20 @@
       "path": "messagepackanalyzer/2.1.152",
       "hashPath": "messagepackanalyzer.2.1.152.nupkg.sha512"
     },
+    "Microsoft.AspNet.Mvc/5.2.8": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-LDpC42O51MIVQht4aHEC/Nq6bpRiM+Z2jtZT2KkugB6dIJqMbvW9E74CxiBeJjRWDJGFOUq2Fzuo+THil0TIbg==",
+      "path": "microsoft.aspnet.mvc/5.2.8",
+      "hashPath": "microsoft.aspnet.mvc.5.2.8.nupkg.sha512"
+    },
+    "Microsoft.AspNet.Razor/3.2.8": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-kbWyeKmtRKhaAdutZdTwy60C2YoMw6JykV7qL+idvAo19VvcOzBZyiBFGQnmSbzOf/qoznvrWjPJi6+oOsS0Vw==",
+      "path": "microsoft.aspnet.razor/3.2.8",
+      "hashPath": "microsoft.aspnet.razor.3.2.8.nupkg.sha512"
+    },
     "Microsoft.AspNet.WebApi.Client/5.2.8": {
       "type": "package",
       "serviceable": true,
@@ -2242,6 +2300,13 @@
       "sha512": "sha512-AQ2Mmo2IEALj16Flk9L53Wl0WZ0QgeC5GPNe7G13e1E+GdbjIdewYeU7Y7EtGe921srIneGIsrlehMVFib4xiw==",
       "path": "microsoft.aspnet.webapi.core/5.2.8",
       "hashPath": "microsoft.aspnet.webapi.core.5.2.8.nupkg.sha512"
+    },
+    "Microsoft.AspNet.WebPages/3.2.8": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-uPscsoHcoYUOLyitrnxsK5Ch1MMemvthnmItJCdzWeDQKGtE3pgki5CS+AiYrzIc0tP6AgwBD+xox2lp+7Z5WA==",
+      "path": "microsoft.aspnet.webpages/3.2.8",
+      "hashPath": "microsoft.aspnet.webpages.3.2.8.nupkg.sha512"
     },
     "Microsoft.AspNetCore.Razor.Language/6.0.0": {
       "type": "package",
@@ -2634,6 +2699,13 @@
       "sha512": "sha512-PKNDmK8SyZZ2b/bKtKvgqRsi6jibeVUkQFjdFEtL4ROOWiqnGiBgxN0o2A+rr3WsE5klU3b6HS6JpwlMjCklkQ==",
       "path": "microsoft.visualstudio.web.codegenerators.mvc/6.0.2",
       "hashPath": "microsoft.visualstudio.web.codegenerators.mvc.6.0.2.nupkg.sha512"
+    },
+    "Microsoft.Web.Infrastructure/1.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-FNmvLn5m2LTU/Rs2KWVo0SIIh9Ek+U0ojex7xeDaSHw/zgEP77A8vY5cVWgUtBGS8MJfDGNn8rpXJWEIQaPwTg==",
+      "path": "microsoft.web.infrastructure/1.0.0",
+      "hashPath": "microsoft.web.infrastructure.1.0.0.nupkg.sha512"
     },
     "Microsoft.Win32.Primitives/4.3.0": {
       "type": "package",

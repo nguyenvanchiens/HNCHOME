@@ -18,6 +18,7 @@ builder.Services.AddTransient<IMenuRepository, MenuRepository>();
 builder.Services.AddTransient<IPostRepository, PostRepository>();
 builder.Services.AddTransient<IPermissionRepository, PermissionRepository>();
 
+builder.Services.AddTransient<ICountryRepository, CountryRepository>();
 builder.Services.AddTransient<ILanguageRepository, LanguageRepository>();
 builder.Services.AddTransient<IEmployeeRepository, EmployeeRepository>();
 

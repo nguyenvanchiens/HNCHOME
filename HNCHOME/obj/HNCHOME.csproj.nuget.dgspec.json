@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\HNCHOME\\HNCHOME\\HNCHOME.csproj": {}
+    "C:\\Users\\admin\\Desktop\\HNC_lastest\\HNCHOME\\HNCHOME.csproj": {}
   },
   "projects": {
-    "C:\\HNCHOME\\HNCHOME\\HNCHOME.csproj": {
+    "C:\\Users\\admin\\Desktop\\HNC_lastest\\HNCHOME\\HNCHOME.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\HNCHOME\\HNCHOME\\HNCHOME.csproj",
+        "projectUniqueName": "C:\\Users\\admin\\Desktop\\HNC_lastest\\HNCHOME\\HNCHOME.csproj",
         "projectName": "HNCHOME",
-        "projectPath": "C:\\HNCHOME\\HNCHOME\\HNCHOME.csproj",
-        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "C:\\HNCHOME\\HNCHOME\\obj\\",
+        "projectPath": "C:\\Users\\admin\\Desktop\\HNC_lastest\\HNCHOME\\HNCHOME.csproj",
+        "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\admin\\Desktop\\HNC_lastest\\HNCHOME\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -43,6 +43,10 @@
             "EPPlus": {
               "target": "Package",
               "version": "[5.8.9, )"
+            },
+            "Microsoft.AspNet.Mvc": {
+              "target": "Package",
+              "version": "[5.2.8, )"
             },
             "Microsoft.AspNet.WebApi.Core": {
               "target": "Package",
@@ -91,7 +95,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.200\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     }
