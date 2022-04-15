@@ -16,7 +16,10 @@ namespace HNCHOME.Controllers
         {
             public string Id { get; set; }
         }
-
+        public IActionResult Index()
+        {
+            return View();
+        }
 
         [IgnoreAntiforgeryToken]
         [HttpPost]
