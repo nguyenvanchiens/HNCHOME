@@ -12,10 +12,17 @@ namespace HNCHOME.Controllers
             _countryRepository = countryRepository;
             _languageRepository = languageRepository;
         }
+        public class parramGetBranchById
+        {
+            public string Id { get; set; }
+        }
 
-        //public IActionResult GetBranchById(Guid id)
-        //{
 
-        //}
+        [IgnoreAntiforgeryToken]
+        [HttpPost]
+        public JsonResult GetBranchById([FromBody] parramGetBranchById data)
+        {
+            return Json(_dbContext.Branches.Where(m=>m.CountryId.ToString() == data.Id).ToList());
+        }
     }
 }
