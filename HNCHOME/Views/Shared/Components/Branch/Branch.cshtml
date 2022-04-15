@@ -1,0 +1,9 @@
+﻿@model IEnumerable<HNCHOME.Models.Branch>
+
+<select class="form-control" id="password">
+    <option value="">---- Chọn tỉnh thành -----</option>
+    @foreach (var item in Model)
+    {
+        <option value="@item.BrandId">@item.BrandName</option>
+    }
+</select>
