@@ -85,15 +85,15 @@ namespace HNCHOME.Service.Repository
             {
                 var propertyValue = property.GetValue(entity);
                 var propertyNameOriginal = property.Name;
-                // Lấy ra các propertyName
+                
                 var propertyNames = property.GetCustomAttributes(typeof(PropertyName), true);
-                // lấy ra property có attribute NotEmpty
+               
                 var propertyNotEmptys = property.GetCustomAttributes(typeof(NotEmpty), true);
-                // Lấy ra độ dài của kí tự của property
+                
                 var propertyMaxLength = property.GetCustomAttributes(typeof(MaxLength), true);
-                // Lấy ra attribute Duplicate nếu property đó có khai báo
+                
                 var propertyDuplicate = property.GetCustomAttributes(typeof(CheckDuplicate), true);
-                // Lấy ra attribute Date nếu property đó có khai báo
+                
                 var propertyCheckDate = property.GetCustomAttributes(typeof(checkDate), true);
 
                 // Xem các property đó có có tồn tại PropertyName không

@@ -8,3 +8,6 @@
     padding:3px !important;
 }
 
+table.dataTable > thead > tr > th:not(.sorting_disabled), table.dataTable > thead > tr > td:not(.sorting_disabled) {
+    padding-right: 0 !important;
+}
