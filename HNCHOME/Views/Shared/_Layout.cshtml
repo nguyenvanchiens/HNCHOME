@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - HNCHOME</title>
     @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/HNCHOME.styles.css" asp-append-version="true" />*@
+        <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/HNCHOME.styles.css" asp-append-version="true" />*@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="~/css/index.css" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
@@ -99,16 +99,16 @@
                     <ul class="nav nav-tabs  mt-3" id="myTab" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active" id="login" data-toggle="tab" href="#login_form" role="tab" aria-controls="login" aria-selected="true">
-                                    Tra cứu bưu phẩm,
-                                    <br>
-                                    bưu kiện
-                                </a>
+                                Tra cứu bưu phẩm,
+                                <br>
+                                bưu kiện
+                            </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="signup" data-toggle="tab" href="#signup_form" role="tab" aria-controls="signup" aria-selected="false">
-                                    Tìm kiếm trung tâm giao dịch
-                                    <br>   
-                                </a>
+                                Tìm kiếm trung tâm giao dịch
+                                <br>
+                            </a>
                         </li>
                     </ul>
                     <div class="tab-content" id="myTabContent">
@@ -124,21 +124,9 @@
                         <div class="tab-pane fade" id="signup_form" role="tabpanel" aria-labelledby="signup">
                             <div class="fancyformcontainer">
                                 <label for="state">Quốc gia</label>
-                                <select class="js-example-basic-single" name="state" id="select2" style="width: 96%; margin-left: 2%; height: 40px; border-radius: 3px;">
-                                        <option value="--Vui lòng chọn quốc gia--">--Vui lòng chọn quốc gia--</option>
-                                        <option value="Việt Nam">Việt Nam</option>
-                                        <option value="Úc">Úc</option>
-                                        <option value="Đức">Đức</option>
-                                        <option value="Nhật Bản">Nhật Bản</option>
-                                        <option value="Trung Quốc">Trung Quốc</option>
-                                        <option value="Vương Quốc Anh">Vương Quốc Anh</option>
-                                        <option value="Tây Ban Nha">Tây Ban Nha</option>
-                                        <option value="Hàn Quốc">Hàn Quốc</option>
-                                    </select>
+                                @await Component.InvokeAsync(Constants.Home.Country)
                                 <label for="password">Tỉnh/Thành phố</label>
-                                <select class="form-control" id="password">
-                                        <option value="">---- Chọn tỉnh thành -----</option>
-                                    </select>
+                                @await Component.InvokeAsync(Constants.Home.Branch)
 
                                 <div class="text-center">
                                     <button type="submit" class="btn formsubmitbtn">tìm kiếm</button>
@@ -168,148 +156,150 @@
                 </div>
             </div>
         </div>
-            @RenderBody()
+        @RenderBody()
         <footer class="footer">
-        <div class="footer__footer">
-            <!-- img -->
-            <div class="footer__HNC">
-                <!-- HNC online -->
-                <div class="HNC__HNC-online">
-                    <div class="HNC-online__text">
-                        <a href="#">
-                            <h1>
-                                HNC ONLINE
-                            </h1>
-                        </a>
-                    </div>
-                    <div class="subtext">
-                        <span>Tải ứng dụng tại:</span>
-                    </div>
-                    <div class="HNC__img">
-                        <div class="HNC__HNCMUA__sub_img">
-                            <div class="HNC__HNCMUA__sub_img--img">
-                                <img src="~/img/appStore.jpg" alt="">
-                            </div>
-                            <div class="HNC__HNCMUA__sub_img--img">
-                                <img src="~/img/gPlay.jpg" alt="">
-                            </div>
+            <div class="footer__footer">
+                <!-- img -->
+                <div class="footer__HNC">
+                    <!-- HNC online -->
+                    <div class="HNC__HNC-online">
+                        <div class="HNC-online__text">
+                            <a href="#">
+                                <h1>
+                                    HNC ONLINE
+                                </h1>
+                            </a>
                         </div>
-                        <div class="HNC-online__delevery-img">
-                            <img src="~/img/Car.png" alt="">
+                        <div class="subtext">
+                            <span>Tải ứng dụng tại:</span>
                         </div>
-                    </div>
-                </div>
-                <!-- HNCMUA -->
-                <div class="HNC__HNC-online">
-                    <div class="HNC-online__text">
-                        <a href="#">
-                            <h1>
-                                HNCMUA
-                            </h1>
-                        </a>
-                    </div>
-                    <div class="subtext">
-                        <span>Tải ứng dụng tại:</span>
-                    </div>
-                    <div class="HNC__img">
-                        <div class="HNC__HNCMUA__sub_img">
-                            <div class="HNC__HNCMUA__sub_img--img">
-                                <img src="~/img/appStore.jpg" alt="">
-                            </div>
-                            <div class="HNC__HNCMUA__sub_img--img">
-                                <img src="~/img/gPlay.jpg" alt="">
-                            </div>
-                        </div>
-                        <div class="HNC-online__delevery-img">
-                            <img src="~/img/Shopping-card.png" alt="">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Contact info -->
-            <div>
-                <div class="footer__contact">
-                    <div class="contact--container">
-                        <div class="footer__conact-info">
-                            <span>CÔNG TY CP HỢP NHẤT QUỐC TẾ</span>
-                            <ul>
-                                <li><span><i class="fa-solid fa-phone"></i> Hotline: 1900 55 88 66</span></li>
-                                <li><span><i class="fa-solid fa-envelope"></i> Email: info@hopnhat.com</span></li>
-                                <li><span><i class="fa-solid fa-location-dot"></i> Tầng 2, Tòa nhà CT4, Vimeco 2, phố Nguyễn Chánh, phường Trung Hòa, quận Cầu Giấy, thành phố Hà Nội</span></li>
-                                <li>
-                                    <span>
-                                        <i class="fas fa-clock"></i> Thời gian làm việc :
-                                    </span>
-                                    <ul>
-                                        <li><a href="#">- Thứ 2 - Thứ 6: 8h00 - 12h00, 13h30 - 17h30</a></li>
-                                        <li><a href="#">- Thứ 7: 8h00 - 12h00</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="footer__guideline">
-                            <span>HƯỚNG DẪN SỬ DỤNG</span>
-                            <ul>
-                                <li><a href="#"><i class="fa-solid fa-caret-right"></i> <span>Tìm kiếm</span></a></li>
-                                <li><a href="#"><i class="fa-solid fa-caret-right"></i> <span>Hướng dẫn đóng gói</span></a></li>
-                                <li><a href="#"><i class="fa-solid fa-caret-right"></i> <span>Gửi hàng trực tuyến</span></a></li>
-                            </ul>
-                        </div>
-                        <div class="footer__customer-suport">
-                            <span>HỖ TRỢ KHÁCH HÀNG</span>
-                            <ul>
-                                <li><a href="#"><i class="fa-solid fa-caret-right"></i> <span>Góp ý dịch vụ</span></a></li>
-                                <li><a href="#"><i class="fa-solid fa-caret-right"></i> <span>Mạng lưới chi nhánh</span></a></li>
-                                <li><a href="#"><i class="fa-solid fa-caret-right"></i> <span>Chính sách bồi thường</span></a></li>
-                                <li><a href="#"><i class="fa-solid fa-caret-right"></i> <span>Chính sách bảo mật</span></a></li>
-                            </ul>
-                        </div>
-                        <div class="footer__image">
-                            <div>
-                                <div class="img-box">
-                                    <img src="~/img/HNC HOP NHAT INTERNATIONAL JOINT STOCK COMPANY Australia163.jpg" alt="">
+                        <div class="HNC__img">
+                            <div class="HNC__HNCMUA__sub_img">
+                                <div class="HNC__HNCMUA__sub_img--img">
+                                    <img src="~/img/appStore.jpg" alt="">
                                 </div>
-                                <div class="img-box">
-                                    <img src="~/img/HNC HOP NHAT INTERNATIONAL JOINT STOCK COMPANY Germany560.jpg" alt="">
-                                </div>
-                                <div class="img-box">
-                                    <img src="~/img/HNC-HOP-NHAT-Logistic431.jpg" alt="">
+                                <div class="HNC__HNCMUA__sub_img--img">
+                                    <img src="~/img/gPlay.jpg" alt="">
                                 </div>
                             </div>
-                            <div>
-                                <div class="img-box">
-                                    <img src="~/img/HNC HOP NHAT INTERNATIONAL JOINT STOCK COMPANY USA659.jpg" alt="">
+                            <div class="HNC-online__delevery-img">
+                                <img src="~/img/Car.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- HNCMUA -->
+                    <div class="HNC__HNC-online">
+                        <div class="HNC-online__text">
+                            <a href="#">
+                                <h1>
+                                    HNCMUA
+                                </h1>
+                            </a>
+                        </div>
+                        <div class="subtext">
+                            <span>Tải ứng dụng tại:</span>
+                        </div>
+                        <div class="HNC__img">
+                            <div class="HNC__HNCMUA__sub_img">
+                                <div class="HNC__HNCMUA__sub_img--img">
+                                    <img src="~/img/appStore.jpg" alt="">
                                 </div>
-                                <div class="img-box">
-                                    <img src="~/img/HNC HOP NHAT INTERNATIONAL JOINT STOCK COMPANY Office VietNam370.jpg" alt="">
+                                <div class="HNC__HNCMUA__sub_img--img">
+                                    <img src="~/img/gPlay.jpg" alt="">
                                 </div>
-                                <div class="img-box">
-                                    <img src="~/img/HNC HOP NHAT INTERNATIONAL JOINT STOCK COMPANY Warehouse USA878.jpg" alt="">
-                                </div>
+                            </div>
+                            <div class="HNC-online__delevery-img">
+                                <img src="~/img/Shopping-card.png" alt="">
                             </div>
                         </div>
                     </div>
                 </div>
+                <!-- Contact info -->
+                <div>
+                    <div class="footer__contact">
+                        <div class="contact--container">
+                            <div class="footer__conact-info">
+                                <span>CÔNG TY CP HỢP NHẤT QUỐC TẾ</span>
+                                <ul>
+                                    <li><span><i class="fa-solid fa-phone"></i> Hotline: 1900 55 88 66</span></li>
+                                    <li><span><i class="fa-solid fa-envelope"></i> Email: info@hopnhat.com</span></li>
+                                    <li><span><i class="fa-solid fa-location-dot"></i> Tầng 2, Tòa nhà CT4, Vimeco 2, phố Nguyễn Chánh, phường Trung Hòa, quận Cầu Giấy, thành phố Hà Nội</span></li>
+                                    <li>
+                                        <span>
+                                            <i class="fas fa-clock"></i> Thời gian làm việc :
+                                        </span>
+                                        <ul>
+                                            <li><a href="#">- Thứ 2 - Thứ 6: 8h00 - 12h00, 13h30 - 17h30</a></li>
+                                            <li><a href="#">- Thứ 7: 8h00 - 12h00</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="footer__guideline">
+                                <span>HƯỚNG DẪN SỬ DỤNG</span>
+                                <ul>
+                                    <li><a href="#"><i class="fa-solid fa-caret-right"></i> <span>Tìm kiếm</span></a></li>
+                                    <li><a href="#"><i class="fa-solid fa-caret-right"></i> <span>Hướng dẫn đóng gói</span></a></li>
+                                    <li><a href="#"><i class="fa-solid fa-caret-right"></i> <span>Gửi hàng trực tuyến</span></a></li>
+                                </ul>
+                            </div>
+                            <div class="footer__customer-suport">
+                                <span>HỖ TRỢ KHÁCH HÀNG</span>
+                                <ul>
+                                    <li><a href="#"><i class="fa-solid fa-caret-right"></i> <span>Góp ý dịch vụ</span></a></li>
+                                    <li><a href="#"><i class="fa-solid fa-caret-right"></i> <span>Mạng lưới chi nhánh</span></a></li>
+                                    <li><a href="#"><i class="fa-solid fa-caret-right"></i> <span>Chính sách bồi thường</span></a></li>
+                                    <li><a href="#"><i class="fa-solid fa-caret-right"></i> <span>Chính sách bảo mật</span></a></li>
+                                </ul>
+                            </div>
+                            <div class="footer__image">
+                                <div>
+                                    <div class="img-box">
+                                        <img src="~/img/HNC HOP NHAT INTERNATIONAL JOINT STOCK COMPANY Australia163.jpg" alt="">
+                                    </div>
+                                    <div class="img-box">
+                                        <img src="~/img/HNC HOP NHAT INTERNATIONAL JOINT STOCK COMPANY Germany560.jpg" alt="">
+                                    </div>
+                                    <div class="img-box">
+                                        <img src="~/img/HNC-HOP-NHAT-Logistic431.jpg" alt="">
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="img-box">
+                                        <img src="~/img/HNC HOP NHAT INTERNATIONAL JOINT STOCK COMPANY USA659.jpg" alt="">
+                                    </div>
+                                    <div class="img-box">
+                                        <img src="~/img/HNC HOP NHAT INTERNATIONAL JOINT STOCK COMPANY Office VietNam370.jpg" alt="">
+                                    </div>
+                                    <div class="img-box">
+                                        <img src="~/img/HNC HOP NHAT INTERNATIONAL JOINT STOCK COMPANY Warehouse USA878.jpg" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-        <!-- copy right -->
-        <div class="footer__copy-right">
-            <div class="copy-right__text">
-                COPYRIGHT 2019 HNC. ALL RIGHTS RESERVED.
+            <!-- copy right -->
+            <div class="footer__copy-right">
+                <div class="copy-right__text">
+                    COPYRIGHT 2019 HNC. ALL RIGHTS RESERVED.
+                </div>
             </div>
-        </div>
 
-    </footer>
+        </footer>
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-    <script type="text/javascript" src="~/js/jquery-2.1.1.js"></script>
+    <script type="text/javascript" src="~/lib/jquery/dist/jquery-2.1.1.js"></script>
+    <script type="text/javascript" src="~/lib/jquery/dist/jquery-3.6.0.min.js"></script>
     <script src="~/js/index.js"></script>
     <script src="~/js/nav-bar-croll.js"></script>
     <script src="~/js/sub-body.js"></script>
+    <script type="text/javascript" src="~/js/country-select.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
