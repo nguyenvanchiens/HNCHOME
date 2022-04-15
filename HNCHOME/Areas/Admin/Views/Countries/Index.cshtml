@@ -131,15 +131,14 @@
 
 <script>
     var departmentId = "";
-    var data={};
     function AddOrUpdate(){
-        debugger;
-        data = {
+        var data = {
+             CountryId:$('#CountryId').val(),
              CountryName:$('#CountryName').val(),
              Description:$('#Description').val(),
              LanguageId:$('#Language').val(),
         }
-        //Validate();
+        Validate();
          let validateInput = $('input[validate="false"]');
                 if (validateInput && validateInput.length > 0) {
                   alert("Bạn hãy điền đủ các trường thông tin");
@@ -164,7 +163,7 @@
             $.ajax({
                 type: 'Post',
                 url: '/Admin/Countries/Edit',
-                //dataType:"json",
+                dataType:"json",
                 data: { country: data },
                 async:false,
                 success: function (result) {
@@ -187,7 +186,7 @@
             $.ajax({
                 type: 'Post',
                 url: Url,
-                data: { DepartmentId: departmentId },
+                data: { id: departmentId },
                 async: false,
                 success: function () {
                     window.location.pathname = "/Admin/Countries/Index"
@@ -213,20 +212,17 @@
             data: { countryId: departmentId },
             async: false,
             success: function (data) {
+                console.log(data);
                 $('.btn-add').html('Sửa');
                 $('#CountryId').val(data.countryId);
                 $('#CountryName').val(data.countryName);
                 $('#Description').val(data.description);
                 $('#Language').val(data.languageId);
-                $('#Language').html(data.language.name);
-                this.data=data;
-                console.log(data);
             },
                 error: function (data) {
                      console.log(data);
                 }
         })
-
     }
     function GetDepartment(){
         alert('hello');

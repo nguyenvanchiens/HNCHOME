@@ -52,8 +52,7 @@ namespace HNCHOME.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult Create(Country country)
         {
-            country.CreatedDate=DateTime.Now;
-            country.Language=_languageRepository.GetById(country.LanguageId);
+            country.CreatedDate = DateTime.Now;
             try
             {
                 _countryRepository.Insert(country);
@@ -72,7 +71,14 @@ namespace HNCHOME.Areas.Admin.Controllers
         {
             try
             {
-                _countryRepository.Update(country);
+                var res = _countryRepository.GetById(country.CountryId);
+                if (country!=null)
+                {
+                    res.LanguageId = country.LanguageId;
+                    res.CountryName = country.CountryName;
+                    res.Description = country.Description;
+                }
+                _countryRepository.Update(res);
                 return Ok("Successfully");
             }
             catch (Exception)
@@ -83,7 +89,6 @@ namespace HNCHOME.Areas.Admin.Controllers
 
         // GET: Admin/Countries/Delete/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult Delete(Guid? id)
         {
             try
@@ -97,7 +102,7 @@ namespace HNCHOME.Areas.Admin.Controllers
             }
         }
         [HttpGet]
-        public IActionResult GetCountryInfo(Guid countryId)
+        public object GetCountryInfo(Guid countryId)
         {
             try
             {
@@ -109,7 +114,5 @@ namespace HNCHOME.Areas.Admin.Controllers
                 return BadRequest();
             }
         }
-
-        // POST: Admin/Countries/Delete/5
     }
 }
