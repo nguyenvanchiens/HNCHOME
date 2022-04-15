@@ -35,32 +35,44 @@ namespace HNCHOME.Controllers
         [HttpPost]
         public JsonResult Create(Menu menu)
         {
-            var result = _menuRepository.Insert(menu);
-            if (result == (int)StatusCodeRespon.UpdateSuccess)
+            try
             {
+                var result = _menuRepository.Insert(menu);
                 return Json(result);
             }
-            return Json(result);
+            catch (Exception e)
+            {
+                return Json(e.Message);
+            }
+           
         }
         [HttpPost]
         public JsonResult Edit(Menu menu)
         {
-            var result = _menuRepository.Update(menu);
-            if (result == (int)StatusCodeRespon.UpdateSuccess)
+            try
             {
+                var result = _menuRepository.Update(menu);
                 return Json(result);
             }
-            return Json(result);
+            catch (Exception e)
+            {
+
+                return Json(e.Message);
+            }
+           
         }
         [HttpPost]
         public JsonResult Delete(Guid id)
         {
-            var result = _menuRepository.Delete(id);
-            if (result == (int)StatusCodeRespon.Success)
+            try
             {
+                var result = _menuRepository.Delete(id);
                 return Json(result);
             }
-            return Json(result);
+            catch (Exception e)
+            {
+                return Json(e.Message);
+            }
         }
 
         public JsonResult GetParentNode()

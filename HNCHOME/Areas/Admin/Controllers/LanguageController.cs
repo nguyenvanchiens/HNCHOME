@@ -24,64 +24,80 @@ namespace HNCHOME.Controllers
         [HttpPost]
         public IActionResult AddOrUpdate(Language language, IFormFile Image)
         {
-           
-            if (Image != null)
+            try
             {
-                //Set Key Name
-                string ImageName = Guid.NewGuid().ToString() + Path.GetExtension(Image.FileName);
-                language.Image = ImageName;
-                //Get url To Save
-                string SavePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/languageImage", ImageName);
+                if (Image != null)
+                {
+                    //Set Key Name
+                    string ImageName = Guid.NewGuid().ToString() + Path.GetExtension(Image.FileName);
+                    language.Image = ImageName;
+                    //Get url To Save
+                    string SavePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/languageImage", ImageName);
 
-                using (var stream = new FileStream(SavePath, FileMode.Create))
+                    using (var stream = new FileStream(SavePath, FileMode.Create))
+                    {
+                        Image.CopyTo(stream);
+                    }
+                }
+                else
                 {
-                    Image.CopyTo(stream);
+                    var entity = _res.GetById(language.LanguageId);
+                    language.Image = entity.Image;
+                }
+                if (language.LanguageId == Guid.Empty)
+                {
+
+                    var result = _res.Insert(language);
+                    if (result == (int)StatusCodeRespon.UpdateSuccess)
+                    {
+                        return Redirect("/Admin/Language/Index");
+                    }
+                    return BadRequest(result);
+                }
+                else
+                {
+
+                    var result = _res.UpdateLanguage(language);
+                    if (result == (int)StatusCodeRespon.UpdateSuccess)
+                    {
+                        return Redirect("/Admin/Language/Index");
+                    }
+                    return BadRequest(result);
                 }
             }
-            else
+            catch (Exception e)
             {
-                var entity = _res.GetById(language.LanguageId);
-                language.Image = entity.Image;
+
+                return BadRequest(e.Message);
             }
-            if (language.LanguageId == Guid.Empty)
-            {
-                
-                var result = _res.Insert(language);
-                if (result == (int)StatusCodeRespon.UpdateSuccess)
-                {
-                    return Redirect("/Admin/Language/Index");
-                }
-                return BadRequest(result);
-            }
-            else
-            {
-               
-                var result = _res.UpdateLanguage(language);
-                if (result == (int)StatusCodeRespon.UpdateSuccess)
-                {
-                    return Redirect("/Admin/Language/Index");
-                }
-                return BadRequest(result);
-            }
+            
             
         }
         public JsonResult Update(Language language)
         {
-            var result = _res.Update(language);
-            if (result == (int)StatusCodeRespon.UpdateSuccess)
+            try
             {
+                var result = _res.Update(language);               
                 return Json(result);
             }
-            return Json(result);
+            catch (Exception e)
+            {
+                return Json(e.Message);
+            }
+           
         }
         public JsonResult Delete(Guid id)
         {
-            var result = _res.Delete(id);
-            if (result == (int)StatusCodeRespon.UpdateSuccess)
+           
+            try
             {
+                var result = _res.Delete(id);
                 return Json(result);
             }
-            return Json(result);
+            catch (Exception e)
+            {
+                return Json(e.Message);
+            }
         }
     }
 }

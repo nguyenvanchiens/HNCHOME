@@ -84,24 +84,46 @@ namespace HNCHOME.Controllers
         [HttpPost]
         public JsonResult Create(Permission permission)
         {
-            permission.CreatedDate = DateTime.Now;
-            _res.Insert(permission);
-            _res.Save();
-            return Json("oke");
+            try
+            {
+                permission.CreatedDate = DateTime.Now;
+                var ressult = _res.Insert(permission);
+                return Json(ressult);
+            }
+            catch (Exception e)
+            {
+                return Json(e.Message);
+            }
+           
         }
         [HttpPost]
         public JsonResult Edit(Permission permission)
         {
-            _res.Update(permission);
-            _res.Save();
-            return Json("oke");
+           
+            try
+            {
+                var ressult = _res.Update(permission);
+                return Json(ressult);
+            }
+            catch (Exception e)
+            {
+
+                return Json(e.Message);
+            }
         }
         [HttpPost]
         public JsonResult Delete(Guid id)
         {
-            _res.Delete(id);
-            _res.Save();
-            return Json("oke");
+            try
+            {
+                var result = _res.Delete(id);
+                return Json(result);
+            }
+            catch (Exception e)
+            {
+                return Json(e.Message);
+            }
+           
         }
         [HttpGet]
         public JsonResult GetAllPermission()

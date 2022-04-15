@@ -35,13 +35,17 @@ namespace HNCHOME.Controllers
         [HttpPost]
         public JsonResult Create(Post post)
         {
-              post.CreatedDate = new DateTime();
-              _postRepository.Insert(post);
-            _postRepository.Save();
-              return Json("oke");
-           
+            try
+            {
+                post.CreatedDate = new DateTime();
+                var result = _postRepository.Insert(post);
+                return Json(result);
+            }
+            catch (Exception e)
+            {
+                return Json(e.Message);
+            }
         }
-
         // GET: PostController/Edit/5
         public ActionResult Edit(Guid id)
         {
@@ -53,18 +57,30 @@ namespace HNCHOME.Controllers
         [HttpPut]
         public JsonResult Edit(Guid id, Post post)
         {
-            _postRepository.Update(post);
-            _postRepository.Save();
-            return Json("oke");
+            try
+            {
+                var result = _postRepository.Update(post);
+                return Json(result);
+            }
+            catch (Exception e)
+            {
+                return Json(e.Message);
+            }
         }
 
         // POST: PostController/Delete/5
         [HttpPost]
         public JsonResult Delete(Guid id)
-        {        
-              _postRepository.Delete(id);
-            _postRepository.Save();
-              return Json("oke");          
+        {
+            try
+            {
+                var result = _postRepository.Delete(id);
+                return Json(result);
+            }
+            catch (Exception e)
+            {
+                return Json(e.Message);
+            }        
         }
     }
 }
