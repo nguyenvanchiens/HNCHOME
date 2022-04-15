@@ -77,26 +77,8 @@ namespace HNCHOME.Controllers
 
         public JsonResult GetParentNode()
         {
-            var menus = _dbContext.Menus.Select(x => new TreeNodeMenu()
-            {
-                MenuId = x.MenuId,
-                Title = x.Title,
-                Link = x.Link,
-                ParentId = x.ParentId
-            }).ToList();
-            List<TreeNodeMenu> result = new List<TreeNodeMenu>();
-            result = menus.Where(c => c.ParentId == Guid.Empty)
-                          .Select(c => new TreeNodeMenu() { MenuId = c.MenuId, Title = c.Title, ParentId = c.ParentId, Link = c.Link, data = GetChildren(menus, c.MenuId) })
-                          .ToList();
-            return Json(result.ToArray());
-        }
-
-        public static List<TreeNodeMenu> GetChildren(List<TreeNodeMenu> menus, Guid parentId)
-        {
-            return menus
-                    .Where(c => c.ParentId == parentId)
-                    .Select(c => new TreeNodeMenu { MenuId = c.MenuId, Title = c.Title, Link = c.Link, ParentId = c.ParentId, data = GetChildren(menus, c.MenuId) })
-                    .ToList();
+            var result = _menuRepository.GetParentNode();
+            return Json(result);
         }
         [HttpGet]
         public JsonResult GetAllMenu()

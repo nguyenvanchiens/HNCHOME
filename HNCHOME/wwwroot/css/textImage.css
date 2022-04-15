@@ -72,8 +72,9 @@ body {
     z-index: 1;
 }
 
-.collaspe>ul>li>a>img {
-    height: 20px !important;
+.collaspe > ul > li > a > img {
+    height: 24px !important;
+    width: 35px;
 }
 
 .navbar-nav>li:last-child>.collaspe {

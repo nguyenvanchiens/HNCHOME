@@ -37,7 +37,7 @@
                     </div>
                      <div class="mb-3">
                       <label for="exampleInputEmail1" class="form-label">Ngôn Ngữ</label>
-                      <select class="form-control parent_language" asp-for="LanguageId">
+                      <select id="LanguageId" class="form-control parent_language" asp-for="LanguageId">
                           @foreach (var item in ViewBag.Language)
                           {
                               <option  value="@item.LanguageId">@item.Name</option>
@@ -187,20 +187,10 @@
             success: function (data) {
                $('#MenuTitle').val(data.title); 
                $('#MenuLink').val(data.link);
-               $('#firstDropDownTree2').attr('parentId',data.parentId)
+               $('#firstDropDownTree2').attr('parentId',data.parentId);
+               $('#LanguageId').val(data.languageId);
                this.PermissionId = data.permissionId;
                debugger
-                var option = $('.parent_language option');
-                for (var i = 0; i < option.length; i++) {
-                    var LanguageId = option[i].value;
-                    var parent = data.languageId;
-                    if (LanguageId == data.languageId) {
-                        option[i].setAttribute('selected', true);
-                    }
-                    else {
-                        option[i].removeAttribute('selected');
-                    }
-                }
                 var dropdownmenu = $('.dropdown-menu li a');
                 for (var i = 0; i < dropdownmenu.length; i++) {
                     var menuId = dropdownmenu[i].id;

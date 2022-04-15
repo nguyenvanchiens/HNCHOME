@@ -1,0 +1,37 @@
+﻿@model IEnumerable<HNCHOME.Areas.Admin.Models.TreeNodeMenu>
+<ul class="navbar-nav mr-auto">
+    @foreach (var item in Model)
+    {
+        <li class="nav-item active">
+            <a class="nav-link" href="@item.Link">@item.Title <i class="fa-solid fa-chevron-down"></i><span class="sr-only">(current)</span></a>
+            <div class="collaspe">
+                @if (item.data.Count > 0)
+                {
+                    <ul>
+                        @foreach (var child in item.data)
+                        {
+                            <li>
+                                <a href="@child.Link"><i class="fa-solid fa-caret-right"></i>@child.Title</a>
+                                @if (child.data.Count > 0)
+                                {
+                                    <div class="sub-collaspe">
+                                        <ul>
+                                            @foreach (var childNode in child.data)
+                                            {
+                                                <li><a href="@childNode.Link"><i class="fa-solid fa-caret-right"></i>@childNode.Title</a></li>
+                                            }
+                                        </ul>
+                                    </div>
+                                }
+                            </li>
+                        }
+                    </ul>
+                }
+            </div>
+        </li>
+    }
+    <li class="nav-item active">
+        <a class="nav-link" id="search-home-icon"><span><i class="fa-solid fa-magnifying-glass"></i></span></a>
+    </li>
+    @await Component.InvokeAsync("Language")
+</ul>

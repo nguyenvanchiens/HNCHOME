@@ -1,0 +1,14 @@
+﻿@model IEnumerable<HNCHOME.Models.Language>
+<li class="nav-item active">
+        <a class="nav-link" href="#"><img id="lang" src="~/img/vn.png" alt=""></a>
+        <div class="collaspe">
+            <ul id="lang-img">
+                @foreach (var item in Model)
+                {
+                     <li>
+                        <a href="#"><img src="/languageImage/@item.Image" alt=""></a>
+                    </li>
+                }
+            </ul>
+       </div>
+</li>
