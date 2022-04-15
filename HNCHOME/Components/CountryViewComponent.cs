@@ -14,9 +14,5 @@ namespace HNCHOME.Controllers
         {
             return View("Country",_dbContext.Countries.ToList());
         }
-        public IViewComponentResult BranchList()
-        {
-            return View("Country", _dbContext.Countries.ToList());
-        }
     }
 }

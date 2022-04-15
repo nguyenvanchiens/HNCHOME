@@ -213,11 +213,9 @@
                         <div class="tab-pane fade" id="signup_form" role="tabpanel" aria-labelledby="signup">
                             <div class="fancyformcontainer">
                                 <label for="state">Quốc gia</label>
-                                @await Component.InvokeAsync("Country")
+                                @await Component.InvokeAsync(Constants.Home.Country)
                                 <label for="password">Tỉnh/Thành phố</label>
-                                <select class="form-control" id="password">
-                                    <option value="">---- Chọn tỉnh thành -----</option>
-                                </select>
+                                @await Component.InvokeAsync(Constants.Home.Branch)
 
                                 <div class="text-center">
                                     <button type="submit" class="btn formsubmitbtn">tìm kiếm</button>
@@ -390,6 +388,7 @@
     <script src="~/js/index.js"></script>
     <script src="~/js/nav-bar-croll.js"></script>
     <script src="~/js/sub-body.js"></script>
+    <script type="text/javascript" src="~/js/country-select.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
