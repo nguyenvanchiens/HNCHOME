@@ -21,23 +21,35 @@ namespace HNCHOME.Controllers
         [HttpPost]
         public JsonResult AddDepartment(Department department)
         {
-            department.CreatedDate = DateTime.Now;
-            var result = _repository.Insert(department);
-            if (result == (int)StatusCodeRespon.UpdateSuccess)
+            try
             {
+                department.CreatedDate = DateTime.Now;
+                var result = _repository.Insert(department);
+
                 return Json(result);
             }
-            return Json(result);
+            catch (Exception e)
+            {
+
+                return Json(e.Message);
+            }
+
+           
         }
         [HttpPost]
         public JsonResult UpdateDepartment(Department department)
         {
-            var result = _repository.Update(department);
-            if (result == (int)StatusCodeRespon.UpdateSuccess)
+            try
             {
+                var result = _repository.Update(department);
                 return Json(result);
             }
-            return Json(result);
+            catch (Exception e)
+            {
+
+                return Json(e.Message);
+            }
+           
         }
         [HttpGet]
         public IActionResult Get(Guid departmentId)
@@ -49,12 +61,18 @@ namespace HNCHOME.Controllers
         [HttpPost]
         public JsonResult Delete(Guid DepartmentId)
         {
-            var result = _repository.Delete(DepartmentId);
-            if (result == (int)StatusCodeRespon.Success)
+            try
             {
+                var result = _repository.Delete(DepartmentId);
                 return Json(result);
+
             }
-            return Json(result);
+            catch (Exception e)
+            {
+
+                return Json(e.Message);
+            }
+           
         }
     }
 }

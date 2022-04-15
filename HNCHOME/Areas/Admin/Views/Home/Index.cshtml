@@ -204,6 +204,7 @@
             data: { employeeId: employeeId },
             async: false,
             success: function (data) {
+                debugger
                 $('#group-password').hide();
                 $('.btn-add').html('Sửa');
                 $('#EmployeeId').val(data.employeeId);

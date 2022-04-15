@@ -6,6 +6,7 @@ namespace HNCHOME.Models
     {
         [Key]
         public Guid DepartmentId { get; set; }
+        [NotEmpty]
         [CheckDuplicate]
         public string DepartmentCode{ get; set; }
         [NotEmpty]

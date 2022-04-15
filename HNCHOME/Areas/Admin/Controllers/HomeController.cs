@@ -37,8 +37,6 @@ namespace HNCHOME.Areas.Admin.Controllers
             }
             return View();
         }
-
-
         [HttpGet]
         public Employee GetEmployeeCode(Guid employeeId, string employeeCode)
         {
@@ -49,25 +47,32 @@ namespace HNCHOME.Areas.Admin.Controllers
         [HttpPost]
         public JsonResult AddEmployee(Employee employee)
         {
-
-            employee.CreatedDate = DateTime.Now;
-            employee.PassWord = Helper.CalculateMD5Hash(employee.PassWord);
-            var result = _res.Insert(employee);
-            if (result == (int)StatusCodeRespon.UpdateSuccess)
+            try
             {
+                employee.CreatedDate = DateTime.Now;
+                employee.PassWord = Helper.CalculateMD5Hash(employee.PassWord);
+                var result = _res.Insert(employee);
                 return Json(result);
             }
-            return Json(result);
+            catch (Exception e)
+            {
+
+                return Json(e.Message);
+            }
         }
         [HttpPost]
         public JsonResult UpdateEmployee(Employee employee)
-        {
-            var result = _res.Update(employee);
-            if (result == (int)StatusCodeRespon.UpdateSuccess)
+        {                   
+            try
             {
+                var result = _res.Update(employee);
                 return Json(result);
             }
-            return Json(result);
+            catch (Exception e)
+            {
+
+                return Json(e.Message);
+            }
         }
         [HttpGet]
         public Employee Get(Guid employeeId)
@@ -79,12 +84,18 @@ namespace HNCHOME.Areas.Admin.Controllers
         [HttpPost]
         public JsonResult Delete(Guid EmployeeId)
         {
-            var reuslt = _res.Delete(EmployeeId);
-            if (reuslt == (int)StatusCodeRespon.Success)
+            try
             {
+                var reuslt = _res.Delete(EmployeeId);
                 return Json(reuslt);
             }
-            return Json(reuslt);
+            catch (Exception e)
+            {
+
+                return Json(e.Message);
+            }
+            
+           
         }
         [HttpGet]
         public string NewCodeEmployee()
@@ -119,7 +130,7 @@ namespace HNCHOME.Areas.Admin.Controllers
             var employee = Get(id);
             ViewBag.checkedvalue = (from e in _dbContext.Employees
                                     join
-r in _dbContext.Roles on e.EmployeeId equals r.EmployeeId
+                                    r in _dbContext.Roles on e.EmployeeId equals r.EmployeeId
                                     join p in _dbContext.Permissions on r.PermissionId equals p.PermissionId
                                     where e.EmployeeId == id
                                     select p.PermissionId).ToList();

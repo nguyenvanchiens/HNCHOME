@@ -52,3 +52,18 @@ function Validate() {
         }
     });
 }
+function formatDate(val) {
+    var result = "";
+    var date = new Date(val);
+    if (Number.isNaN(date.getTime())) {
+        result = "";
+    } else {
+        var day = date.getDate();
+        var month = date.getMonth() + 1;
+        var year = date.getFullYear();
+        day = day < 10 ? "0" + day : day;
+        month = month < 10 ? "0" + month : month;
+        result = year + "-" + month + "-" + day;
+    }
+    return result;
+}

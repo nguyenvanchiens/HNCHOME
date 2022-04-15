@@ -6,11 +6,13 @@ namespace HNCHOME.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly IMenuRepository _menuRepository;
+        private readonly HNCDbContext _dbContext;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IMenuRepository menuRepository, HNCDbContext dbContext)
         {
-            _logger = logger;
+            _menuRepository = menuRepository;
+            _dbContext = dbContext;
         }
 
         public IActionResult Index()
@@ -18,15 +20,37 @@ namespace HNCHOME.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+
+        public PartialViewResult Menu()
         {
-            return View();
+            var menu = GetParentNode();
+            return PartialView(menu);
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+
+        public JsonResult GetParentNode()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            var menus = _dbContext.Menus.Select(x => new TreeNodeMenu()
+            {
+                MenuId = x.MenuId,
+                Title = x.Title,
+                Link = x.Link,
+                ParentId = x.ParentId
+            }).ToList();
+            List<TreeNodeMenu> result = new List<TreeNodeMenu>();
+            result = menus.Where(c => c.ParentId == Guid.Empty)
+                          .Select(c => new TreeNodeMenu() { MenuId = c.MenuId, Title = c.Title, ParentId = c.ParentId, Link = c.Link, data = GetChildren(menus, c.MenuId) })
+                          .ToList();
+            return Json(result.ToArray());
         }
+
+        public static List<TreeNodeMenu> GetChildren(List<TreeNodeMenu> menus, Guid parentId)
+        {
+            return menus
+                    .Where(c => c.ParentId == parentId)
+                    .Select(c => new TreeNodeMenu { MenuId = c.MenuId, Title = c.Title, Link = c.Link, ParentId = c.ParentId, data = GetChildren(menus, c.MenuId) })
+                    .ToList();
+        }
+
     }
 }
