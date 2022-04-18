@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using HNCHOME.Attr;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HNCHOME.Models
@@ -7,6 +8,7 @@ namespace HNCHOME.Models
     {
         [Key]
         public Guid EmployeeId { get; set; }
+        [CheckDuplicate]
         public string EmployeeCode { get; set; }
         [Required]
         public string? EmployeeName { get; set; }

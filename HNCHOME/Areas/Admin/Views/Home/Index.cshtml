@@ -154,15 +154,7 @@
     function ShowFormAdd(){
         var employeeId = "";
         $('#group-password').show();
-        $.ajax({
-            type: 'Get',
-            url: '/Home/NewCodeEmployee',
-            contentType: 'application/json; charset=utf-8',
-            async: false,
-            success: function (data) {             
-                $('#EmployeeCode').val(data);                          
-            }
-        })
+       
     };
     function Delete(employeeId) {
         var result = confirm("Bạn có muốn xóa nhân viên này?");
@@ -261,7 +253,7 @@
                         window.location.pathname="/Admin/Home/Index"
                     }
                     else{
-                        alert('Thêm mới không thành công')
+                        alert(res);
                     }
                 },
                 error: function (data) {
@@ -272,16 +264,17 @@
             else{           
             $.ajax({
                 type: 'Post',
-                url: '@Url.Action("UpdateEmployee", "Home")',           
+                url: '/Admin/Home/UpdateEmployee',           
                 dataType:"json",
                 data: { employee: data },
                 async:false,
+
                 success: function (res) {
                      if(res==201){
                         window.location.pathname="/Admin/Home/Index"
                     }
                     else{
-                        alert('Sửa không thành công')
+                        alert(res)
                     }
                 },
                 error: function (data) {

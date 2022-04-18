@@ -38,23 +38,13 @@ namespace HNCHOME.Service.Repository
 
         public virtual int Insert(T obj)
         {
+            var result = table.Add(obj);
+            if (result != null)
+            {
+                Save();
+                return (int)StatusCodeRespon.UpdateSuccess;
+            }
 
-            // validate chung - base xử lý
-            var isValid = ValidateObject(obj);
-            // Validate đặc thù từng đối tượng
-            if (isValid == true)
-            {
-                isValid = ValidateObjectCustom(obj);
-            }
-            if (isValid == true)
-            {
-                var result = table.Add(obj);
-                if (result != null)
-                {
-                    Save();
-                    return (int)StatusCodeRespon.UpdateSuccess;
-                }
-            }
             return (int)StatusCodeRespon.BadRequest;
         }
 
@@ -65,7 +55,7 @@ namespace HNCHOME.Service.Repository
 
         public virtual int Update(T obj)
         {
-            var result = table.Attach(obj);
+            var result = _context.Set<T>().Update(obj);
             _context.Entry(obj).State = EntityState.Modified;
             if (result != null)
             {
@@ -74,6 +64,7 @@ namespace HNCHOME.Service.Repository
             }
             return (int)StatusCodeRespon.BadRequest;
         }
+
         bool ValidateObject(T entity)
         {
             // List chứa lỗi
@@ -85,15 +76,15 @@ namespace HNCHOME.Service.Repository
             {
                 var propertyValue = property.GetValue(entity);
                 var propertyNameOriginal = property.Name;
-                // Lấy ra các propertyName
+                
                 var propertyNames = property.GetCustomAttributes(typeof(PropertyName), true);
-                // lấy ra property có attribute NotEmpty
+               
                 var propertyNotEmptys = property.GetCustomAttributes(typeof(NotEmpty), true);
-                // Lấy ra độ dài của kí tự của property
+                
                 var propertyMaxLength = property.GetCustomAttributes(typeof(MaxLength), true);
-                // Lấy ra attribute Duplicate nếu property đó có khai báo
+                
                 var propertyDuplicate = property.GetCustomAttributes(typeof(CheckDuplicate), true);
-                // Lấy ra attribute Date nếu property đó có khai báo
+                
                 var propertyCheckDate = property.GetCustomAttributes(typeof(checkDate), true);
 
                 // Xem các property đó có có tồn tại PropertyName không

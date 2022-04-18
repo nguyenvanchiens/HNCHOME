@@ -1,0 +1,17 @@
+﻿@model IEnumerable<HNCHOME.Areas.Admin.Models.TreeNodeMenu>
+
+
+<ul>
+    @foreach (var child in Model)
+    {
+        <li>
+            <a href="@child.Link"><i class="fa-solid fa-caret-right"></i>@child.Title</a>
+            @if (child.data.Count > 0)
+            {
+                <div class="sub-collaspe">
+                    @Html.Partial("_childrenMenu",child.data)
+                </div>
+            }          
+        </li>
+    }
+</ul>

@@ -17,7 +17,6 @@ namespace HNCHOME.Controllers
 
         public IActionResult Index()
         {
-            ViewBag.menus = _menuRepository.GetParentNode();
             return View();
         }
 

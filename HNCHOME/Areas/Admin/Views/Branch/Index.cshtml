@@ -1,0 +1,263 @@
+﻿@model HNCHOME.Models.Branch
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var brands = new List<BranchViewModel>(@ViewBag.Branchs);
+}
+
+
+<main class="page-content">
+    <div class="page-header">
+        <p class="fw">Danh sách tên miền đen</p>
+        <!-- Button HTML (to Trigger Modal) -->
+        <button type="button" href="#myModal" role="button" class="btn btn-primary" onclick="ShowFormAdd()" data-bs-toggle="modal">Thêm mới</button>
+
+        <!-- Modal HTML -->
+        <div id="myModal" class="modal fade" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Thêm Mới Nhân Viên</h5>
+                        <button type="button" onclick="HideForm()" class="btn-close btn btn-default" data-bs-dismiss="modal"> <i class="fa fa-times" aria-hidden="true"></i></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="myFrom">
+                            @Html.AntiForgeryToken()
+                            <div class="mb-3">
+                                <input asp-for="BrandId" type="text" class="form-control" hidden id="BrandId" aria-describedby="emailHelp">
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Tên chi nhánh</label>
+                                <input asp-for="BrandName" required name="BrandName" type="text" class="form-control" id="BrandName" aria-describedby="emailHelp">
+                                <span asp-validation-for="BrandName" id="erDepartmentCode" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3 hideEditImage">
+                                <label for="exampleInputEmail1" class="form-label">Địa chỉ</label>
+                                <input asp-for="Address" name="Address" type="text" class="form-control" id="Address" aria-describedby="emailHelp">
+                                <span asp-validation-for="Address" id="erDepartmentName" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Điện thoại</label>
+                                <input asp-for="Phone" required name="Phone" type="text" class="form-control" id="Phone" aria-describedby="emailHelp">
+                                <span asp-validation-for="Address" id="erDepartmentName" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Language</label>
+                                <select id="LanguageId" class="form-control parent_language" asp-for="LanguageId">
+                                    @foreach (var item in ViewBag.Language)
+                                    {
+                                        <option value="@item.LanguageId">@item.Name</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Country</label>
+                                <select id="CountryId" class="form-control parent_language" asp-for="CountryId">
+                                    @foreach (var item in ViewBag.Country)
+                                    {
+                                        <option value="@item.CountryId">@item.CountryName</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="mb-3 text-right">
+                                <button type="button" onclick="AddOrUpdate()" class="btn btn-primary btn-add">Thêm</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page-search">
+        <div id="accordion">
+            <div class="card">
+                <div class="card-header" id="headingOne">
+                    <span><i b-eginzb9zup="" class="fa fa-search" aria-hidden="true"></i></span>
+                    <h5 class="mb-0">
+                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            <i class="fa fa-arrow-down" aria-hidden="true"></i>
+                        </button>
+                    </h5>
+                </div>
+
+                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                    <div class="card-body">
+                        <div class="input-groups">
+                            <form action="/Admin/Department/Index" method="get" style="display:flex">
+                                <label style="margin-right:10px" for="">Tên phòng ban</label>
+                                <div>
+                                    <div>
+                                        <input type="text" name="filter">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page-content-table">
+        <table class="table table-bordered" id="dataTable" cellpadding=0>
+            <thead>
+                <tr>
+                    <th scope="col">Stt</th>
+                    <th class="text-center" scope="col">Tên chi nhánh</th>
+                    <th class="text-center" scope="col">Địa chỉ</th>
+                    <th class="text-center" scope="col">Điện thoại</th>
+                    <th class="text-center" scope="col">Quốc Gia</th>
+                    <th class="text-center" scope="col">Ngôn ngữ</th>
+                    <th scope="col" class="text-center">Chức năng</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (brands.Count > 0)
+                {
+                    int st = 1;
+                    @for (int i = 0; i < brands.Count; i++)
+                    {
+                        <tr>
+                            <td>@st</td>
+                            <td class="text-center">@brands[i].BrandName</td>
+                            <td class="text-center">@brands[i].Address</td>
+                            <td class="text-center">@brands[i].Phone</td>
+                            <td class="text-center">@brands[i].CountryName</td>
+                            <td class="text-center">@brands[i].LanguageName</td>
+                            <td class="text-center">
+                                <button href="#myModal" data-bs-toggle="modal" onclick="ShowUpdate('@brands[i].BrandId')" type="button" class="btn btn-default">Chỉnh sửa</button>
+                                <a style="cursor:pointer" onclick="Delete('@brands[i].BrandId')" class="btn btn-light">Xóa</a>
+                            </td>
+                        </tr>
+                        st++;
+                    }
+                }
+
+            </tbody>
+        </table>
+
+    </div>
+</main>
+
+<script>
+     var branchId = "";
+
+    function ShowFormAdd(){
+        $('.showEditImage').attr('hidden',true);
+        $('.hideEditImage').attr('hidden',false);
+    }
+   
+     function AddOrUpdate(){
+         debugger
+         var data = {
+              BrandName:$('#BrandName').val(),
+              Address:$('#Address').val(),
+              Phone:$('#Phone').val(),
+              CountryId:$('#CountryId').val(),
+              LanguageId:$('#LanguageId').val(),
+         }
+         Validate();
+          let validateInput = $('input[validate="false"]');
+                 if (validateInput && validateInput.length > 0) {
+                   alert("Bạn hãy điền đủ các trường thông tin");
+                   $(validateInput)[0].focus();
+                   return;
+                 }
+         if(this.branchId==""){
+             $.ajax({
+                 type: 'Post',
+                url: '/Admin/Branch/Add',           
+                dataType:"json",
+                data: { branch: data },
+                async:false,
+                success: function (res) {
+                    if(res==201){
+                        window.location.pathname="/Admin/Branch/Index"
+                    }
+                    else{
+                        alert('Thêm mới không thành công')
+                    }
+                },
+                error: function (data) {
+                      notAuthozire(data); 
+                }
+             })
+             }
+             else{
+             $.ajax({
+                 type: 'Post',
+                 url: '/Admin/Department/UpdateDepartment',
+                 dataType:"json",
+                 data: { department: data },
+                 async:false,
+                 success: function (result) {
+                     window.location.pathname="/Admin/Department/Index"
+                 },
+                 error: function (data) {
+                     console.log(data);
+                 }
+             })
+         }
+     }
+
+     function Delete(languageId) {
+         debugger
+         var result = confirm("Bạn có muốn xóa phòng ban này không?");
+         if (result) {
+             var Url = "";
+             Url = "/Admin/Language/Delete"
+             $.ajax({
+                 type: 'Post',
+                 url: Url,
+                 data: { id: languageId },
+                 async: false,
+                 success: function () {
+                     window.location.pathname = "/Admin/Language/Index"
+                 },
+                 error: function (data) {
+                     console.log(data);
+                 }
+             })
+         } else {
+
+         }
+     }
+     function HideForm() {
+        $('.btn-add').html('Thêm mới');
+
+        var languageId = "";
+     }
+     function ShowUpdate(languageId) {
+         this.languageId = languageId;
+         $.ajax({
+             type: 'Get',
+             url: '/Admin/Language/GetById',
+             contentType: 'application/json; charset=utf-8',
+             data: { id: languageId },
+             async: false,
+             success: function (data) {
+                 $('.showEditImage').attr('hidden',false);
+                 $('.hideEditImage').attr('hidden',true);
+                 $('.btn-add').html('Sửa');
+                 $('#LanguageId').val(data.languageId);
+                 $('#Name').val(data.name);
+                 $('#SortOrder').val(data.sortOrder);
+                 $('.imageLanguage').attr('src','/languageImage/'+data.image);
+                 console.log(data);
+             }
+         })
+     }
+</script>
+
+<style>
+    .language_image {
+        width: 80px;
+    }
+
+    .imageLanguage {
+        width: 120px;
+    }
+</style>
+
+
+
