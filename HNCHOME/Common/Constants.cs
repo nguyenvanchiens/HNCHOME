@@ -1,11 +1,11 @@
 ﻿namespace HNCHOME.Common
 {
-    public static class Constants
+    public class Constants
     {
-        public static class Home
+        public class HomeComponent
         {
-            public static string Country = "Country";
-            public static string Branch = "Branch";
+            public const string CountryComponent = "Country";
+            public const string BranchComponent = "Branch";
         }
     }
 }

@@ -33,6 +33,5 @@ namespace HNCHOME.Controllers
             var result = _menuRepository.GetParentNode();
             return Json(result);
         }
-        //public partial 
     }
 }
