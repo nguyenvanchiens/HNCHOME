@@ -19,5 +19,22 @@ namespace HNCHOME.Controllers
         {
             return View();
         }
+<<<<<<< HEAD
+=======
+
+        public PartialViewResult Menu()
+        {
+            var menu = GetParentNode();
+            return PartialView(menu);
+        }
+
+
+        public JsonResult GetParentNode()
+        {
+            var result = _menuRepository.GetParentNode();
+            return Json(result);
+        }
+        //public partial 
+>>>>>>> main
     }
 }
