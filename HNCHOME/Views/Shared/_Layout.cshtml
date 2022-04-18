@@ -1,16 +1,15 @@
-﻿<!DOCTYPE html>
+﻿@using HNCHOME.Common;
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - HNCHOME</title>
-    @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-        <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-        <link rel="stylesheet" href="~/HNCHOME.styles.css" asp-append-version="true" />*@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="~/css/index.css" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css"/>
     <!-- fontawsome -->
     <script src="https://kit.fontawesome.com/48030cbaf5.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="~/css/textImage.css">
@@ -124,9 +123,9 @@
                         <div class="tab-pane fade" id="signup_form" role="tabpanel" aria-labelledby="signup">
                             <div class="fancyformcontainer">
                                 <label for="state">Quốc gia</label>
-                                @await Component.InvokeAsync(Constants.Home.Country)
+                                @await Component.InvokeAsync(Constants.HomeComponent.CountryComponent)
                                 <label for="password">Tỉnh/Thành phố</label>
-                                @await Component.InvokeAsync(Constants.Home.Branch)
+                                @await Component.InvokeAsync(Constants.HomeComponent.BranchComponent)
 
                                 <div class="text-center">
                                     <button type="submit" class="btn formsubmitbtn">tìm kiếm</button>
@@ -295,11 +294,18 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
     <script type="text/javascript" src="~/lib/jquery/dist/jquery-2.1.1.js"></script>
-    @*<script type="text/javascript" src="~/lib/jquery/dist/jquery-3.6.0.min.js"></script>*@
     <script src="~/js/index.js"></script>
     <script src="~/js/nav-bar-croll.js"></script>
     <script src="~/js/sub-body.js"></script>
     <script type="text/javascript" src="~/js/country-select.js"></script>
+    
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#select2").select2();
+        });
+    </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
