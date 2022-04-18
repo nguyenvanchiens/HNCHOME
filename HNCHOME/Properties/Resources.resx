@@ -120,12 +120,6 @@
   <data name="Admin" xml:space="preserve">
     <value>Admin</value>
   </data>
-  <data name="checkEmployeeCode" xml:space="preserve">
-    <value>Mã nhân viên {0} đã tồn tại</value>
-  </data>
-  <data name="checkUserName" xml:space="preserve">
-    <value>Tên tài khoản {0} đã tồn tại</value>
-  </data>
   <data name="Create" xml:space="preserve">
     <value>Create</value>
   </data>
