@@ -7,6 +7,17 @@ namespace HNCHOME.Areas.Admin.Service.Repository
         public MenuRepository(HNCDbContext context) : base(context)
         {
         }
+        public string checkDuplicate(Menu menu)
+        {
+            var result = "";
+            var menus = _context.Menus.ToList();
+            var checkUrl = menus.Where(x => x.Link == menu.Link && x.MenuId != menu.MenuId).FirstOrDefault();
+            if (checkUrl != null)
+            {
+                result = "Link đã tồn tại";
+            }
+            return result;
+        }
 
         public List<TreeNodeMenu> GetChildren(List<TreeNodeMenu> menus, Guid parentId)
         {
@@ -34,6 +45,11 @@ namespace HNCHOME.Areas.Admin.Service.Repository
 
         public override int Insert(Menu obj)
         {
+            var result = checkDuplicate(obj);
+            if (result != "")
+            {
+                throw new Exception(result);
+            }
             return base.Insert(obj);
         }
     }

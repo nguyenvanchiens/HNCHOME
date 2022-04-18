@@ -4,5 +4,6 @@
     {
         List<TreeNodeMenu> GetChildren(List<TreeNodeMenu> menus, Guid parentId);
         object GetParentNode();
+        string checkDuplicate(Menu menu);
     }
 }

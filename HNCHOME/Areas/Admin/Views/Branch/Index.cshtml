@@ -118,7 +118,7 @@
                     @for (int i = 0; i < brands.Count; i++)
                     {
                         <tr>
-                            <td>@st</td>
+                            <td class="text-center">@st</td>
                             <td class="text-center">@brands[i].BrandName</td>
                             <td class="text-center">@brands[i].Address</td>
                             <td class="text-center">@brands[i].Phone</td>
@@ -146,10 +146,11 @@
         $('.showEditImage').attr('hidden',true);
         $('.hideEditImage').attr('hidden',false);
     }
-   
+
      function AddOrUpdate(){
          debugger
          var data = {
+              BrandId:this.branchId,
               BrandName:$('#BrandName').val(),
               Address:$('#Address').val(),
               Phone:$('#Phone').val(),
@@ -166,7 +167,7 @@
          if(this.branchId==""){
              $.ajax({
                  type: 'Post',
-                url: '/Admin/Branch/Add',           
+                url: '/Admin/Branch/Add',
                 dataType:"json",
                 data: { branch: data },
                 async:false,
@@ -179,19 +180,24 @@
                     }
                 },
                 error: function (data) {
-                      notAuthozire(data); 
+                      notAuthozire(data);
                 }
              })
              }
              else{
              $.ajax({
                  type: 'Post',
-                 url: '/Admin/Department/UpdateDepartment',
+                 url: '/Admin/Branch/Update',
                  dataType:"json",
-                 data: { department: data },
+                 data: { branch: data },
                  async:false,
                  success: function (result) {
-                     window.location.pathname="/Admin/Department/Index"
+                     if(result==201){
+                        window.location.pathname="/Admin/Branch/Index"
+                     }
+                     else{
+                         alert(result);
+                     }
                  },
                  error: function (data) {
                      console.log(data);
@@ -200,19 +206,24 @@
          }
      }
 
-     function Delete(languageId) {
+     function Delete(branchId) {
          debugger
-         var result = confirm("Bạn có muốn xóa phòng ban này không?");
+         var result = confirm("Bạn có muốn xóa chi nhánh này không?");
          if (result) {
              var Url = "";
-             Url = "/Admin/Language/Delete"
+             Url = "/Admin/Branch/Delete"
              $.ajax({
                  type: 'Post',
                  url: Url,
-                 data: { id: languageId },
+                 data: { id: branchId },
                  async: false,
-                 success: function () {
-                     window.location.pathname = "/Admin/Language/Index"
+                 success: function (res) {
+                     if(res==200){
+                          window.location.pathname = "/Admin/Branch/Index"
+                     }
+                    else{
+                        alert(res);
+                    }
                  },
                  error: function (data) {
                      console.log(data);
@@ -227,22 +238,23 @@
 
         var languageId = "";
      }
-     function ShowUpdate(languageId) {
-         this.languageId = languageId;
+     function ShowUpdate(branchId) {
+         this.branchId = branchId;
          $.ajax({
              type: 'Get',
-             url: '/Admin/Language/GetById',
+             url: '/Admin/branch/Get',
              contentType: 'application/json; charset=utf-8',
-             data: { id: languageId },
+             data: { id: branchId },
              async: false,
              success: function (data) {
-                 $('.showEditImage').attr('hidden',false);
-                 $('.hideEditImage').attr('hidden',true);
+                 //$('.showEditImage').attr('hidden',false);
+                 //$('.hideEditImage').attr('hidden',true);
                  $('.btn-add').html('Sửa');
+                 $('#BrandName').val(data.brandName);
+                 $('#Address').val(data.address);
+                 $('#Phone').val(data.phone);
                  $('#LanguageId').val(data.languageId);
-                 $('#Name').val(data.name);
-                 $('#SortOrder').val(data.sortOrder);
-                 $('.imageLanguage').attr('src','/languageImage/'+data.image);
+                 $('#CountryId').val(data.countryId);
                  console.log(data);
              }
          })

@@ -19,14 +19,15 @@
                     <button type="button" class="btn-close btn btn-default" data-bs-dismiss="modal"> <i class="fa fa-times" aria-hidden="true"></i></button>
                 </div>
                 <div class="modal-body">
-                   <form method="post" asp-controller="Order" asp-action="FileUpload" enctype="multipart/form-data">
+                   <form id="myFrom" method="post" action="/Admin/Order/FileUpload" enctype="multipart/form-data">
+                       @Html.AntiForgeryToken()
                         <div class="input-group">
                             <input type="file" name="file" id="file"/>
                         </div> 
                         <div class="input-group">
                         <div class="group-download">
                             <div class="link">
-                                <a href="/Order/Export">Tải file mẫu</a>    
+                                <a href="/Admin/Order/Export">Tải file mẫu</a>    
                             </div>
                              <div class="logo">
                                  <img style="width: 70px;" src="/Admin/image/logoexcel.png" />
@@ -94,7 +95,7 @@
                  <td>@order.TotalPrice.ToString("#,##0.###")đ</td>              
                  <td>
                         <a class="btn btn-primary" href="/OrderDetail/OrderDetail/@order.OrderId">Chi tiết</a>
-                     <a class="btn-execl" title="xuất execl" href="/OrderDetail/Export/@order.OrderId"><img style="width:30px" src="~/image/logoexcel.png"/></a>
+                     <a class="btn-execl" title="xuất execl" href="/OrderDetail/Export/@order.OrderId"><img style="width:30px" src="~/Admin/image/logoexcel.png"/></a>
                  </td>         
              </tr>
            }

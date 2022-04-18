@@ -15,7 +15,7 @@
                 <div class="collaspe">
                     @if (item.data.Count > 0)
                     {
-                        @Html.Partial("_childrenMenu",item.data)                        
+                        @Html.Partial(Constants.PartialViewName.CHILDREN_MENU_PARTIAL,item.data)                        
                     }
                 </div>
         </li>

@@ -2,15 +2,17 @@
 
 namespace HNCHOME.Controllers
 {
-    public class BranchesController : BaseController
+    public class BranchesController : Controller
     {
         private readonly ICountryRepository _countryRepository;
         private readonly ILanguageRepository _languageRepository;
+        private readonly HNCDbContext _dbContext;
 
-        public BranchesController(HNCDbContext dbContext, ICountryRepository countryRepository, ILanguageRepository languageRepository) : base(dbContext)
+        public BranchesController(HNCDbContext dbContext, ICountryRepository countryRepository, ILanguageRepository languageRepository)
         {
             _countryRepository = countryRepository;
             _languageRepository = languageRepository;
+            _dbContext = dbContext;
         }
         public class parramGetBranchById
         {

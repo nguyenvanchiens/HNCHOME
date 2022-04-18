@@ -38,7 +38,7 @@ namespace HNCHOME.Controllers
         public IActionResult Export()
         {
             var stream = new MemoryStream();
-            var filePath = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @"..\Manager\ExcelTemplate\RequestQuoteImportExcelTemplate.xlsx"));
+            var filePath = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @"..\HNCHOME\ExcelTemplate\RequestQuoteImportExcelTemplate.xlsx"));
             FileInfo existingFile = new FileInfo(filePath);           
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
             using (ExcelPackage package = new ExcelPackage(existingFile))
@@ -126,11 +126,11 @@ namespace HNCHOME.Controllers
                     }
                     else
                     {
-                        RedirectToAction("Index");
+                        return Redirect("/Admin/Order/Index");
                     }
                    
                 }
-                return RedirectToAction("Index");
+                return Redirect("/Admin/Order/Index");
             }
             catch (Exception e)
             {

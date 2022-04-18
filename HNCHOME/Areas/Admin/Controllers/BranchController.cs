@@ -50,5 +50,45 @@ namespace HNCHOME.Areas.Admin.Controllers
                 return Json(e.Message);
             }
         }
+        [HttpPost]
+        public JsonResult Update(Branch branch)
+        {
+            try
+            {
+                var result = _branchRepository.Update(branch);
+                return Json(result);
+            }
+            catch (Exception e)
+            {
+                return Json(e.Message);
+            }
+        }
+        [HttpPost]
+        public JsonResult Delete(Guid id)
+        {
+            try
+            {
+                var result = _branchRepository.Delete(id);
+                return Json(result);
+            }
+            catch (Exception e)
+            {
+                return Json(e.Message);
+            }
+        }
+        [HttpGet]
+        public JsonResult Get(Guid id)
+        {
+            try
+            {
+                var result = _branchRepository.GetById(id);
+                return Json(result);
+            }
+            catch (Exception e)
+            {
+
+                return Json(e.Message);
+            }
+        }
     }
 }

@@ -36,7 +36,7 @@ namespace HNCHOME.Controllers
             orderDetail.PromotionalCode = detail.PromotionalCode;
             _dbContext.OrderDetails.Update(orderDetail);
             _dbContext.SaveChanges();
-            return RedirectToAction("Index","Order");
+            return Redirect("/Admin/Order/Index");
         }
         public IActionResult Export(Guid id)
         {

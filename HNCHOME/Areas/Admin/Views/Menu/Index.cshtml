@@ -231,7 +231,12 @@
                 data: { menu: data },
                 async:false,
                 success: function (result) {
-                    window.location.pathname="/Admin/Menu/Index"
+                    if(result==201){
+                        window.location.pathname="/Admin/Menu/Index"
+                    }
+                    else{
+                        alert(result);
+                    }
                 },
                 error: function (data) {
                     console.log(data);

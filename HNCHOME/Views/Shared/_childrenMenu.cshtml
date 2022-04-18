@@ -9,7 +9,7 @@
             @if (child.data.Count > 0)
             {
                 <div class="sub-collaspe">
-                    @Html.Partial("_childrenMenu",child.data)
+                    @Html.Partial(Constants.PartialViewName.CHILDREN_MENU_PARTIAL,child.data)
                 </div>
             }          
         </li>
