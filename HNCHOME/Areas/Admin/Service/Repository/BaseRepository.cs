@@ -1,5 +1,6 @@
 ﻿using HNCHOME.Attr;
 using HNCHOME.Service.Interface;
+using System.Data.Entity;
 using System.Reflection;
 
 namespace HNCHOME.Service.Repository
