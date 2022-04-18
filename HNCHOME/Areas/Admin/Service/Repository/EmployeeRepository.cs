@@ -1,6 +1,8 @@
 ﻿
 
 
+using HNCHOME.Properties;
+
 namespace HNCHOME.Areas.Admin.Service.Repository
 {
     public class EmployeeRepository : BaseRepository<Employee>, IEmployeeRepository

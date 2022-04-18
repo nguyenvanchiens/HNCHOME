@@ -19,8 +19,6 @@ namespace HNCHOME.Controllers
         {
             return View();
         }
-<<<<<<< HEAD
-=======
 
         public PartialViewResult Menu()
         {
@@ -34,7 +32,5 @@ namespace HNCHOME.Controllers
             var result = _menuRepository.GetParentNode();
             return Json(result);
         }
-        //public partial 
->>>>>>> main
     }
 }

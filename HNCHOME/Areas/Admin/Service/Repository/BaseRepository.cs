@@ -1,6 +1,5 @@
 ﻿using HNCHOME.Attr;
 using HNCHOME.Service.Interface;
-using System.Data.Entity;
 using System.Reflection;
 
 namespace HNCHOME.Service.Repository
@@ -65,7 +64,7 @@ namespace HNCHOME.Service.Repository
             }
             return (int)StatusCodeRespon.BadRequest;
         }
-<<<<<<< HEAD
+
         bool ValidateObject(T entity)
         {
             // List chứa lỗi
@@ -142,16 +141,6 @@ namespace HNCHOME.Service.Repository
         {
             return true;
         }
-=======
-        //public async Task<T> Update(int id, T entity)
-        //{
-        //    entity.id = id;
-        //    _context.Set<T>().Update(entity);
-        //    await _context.SaveChangesAsync();
-        //    _context.Entry(entity).State = EntityState.Detached; //detach saved entity
-        //    return entity;
-        //}
->>>>>>> main
 
     }
 }
