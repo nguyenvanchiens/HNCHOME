@@ -97,7 +97,31 @@ namespace HNCHOME.Areas.Admin.Controllers
             
            
         }
-        
+        [HttpGet]
+        public string NewCodeEmployee()
+        {
+            string result = "";
+            var employeeLast = (from e in _dbContext.Employees orderby e.EmployeeCode descending select e.EmployeeCode).First();
+            var chars = "";
+            string strRemoveLast = "";
+            if (employeeLast == null)
+            {
+                result = "NV01";
+            }
+            foreach (var item in employeeLast)
+            {
+                chars += "/" + item;
+            }
+            var str = chars.Split('/').Last();
+            int lastCode = int.Parse(str) + 1;
+            if (lastCode == 0)
+            {
+                strRemoveLast = employeeLast.Substring(0, employeeLast.Length - 2);
+            }
+            strRemoveLast = employeeLast.Substring(0, employeeLast.Length - 1);
+            result = strRemoveLast + lastCode;
+            return result;
+        }
         [HttpGet]
         public ActionResult Role(Guid id)
         {
