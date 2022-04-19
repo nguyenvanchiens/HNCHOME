@@ -120,6 +120,9 @@
   <data name="Admin" xml:space="preserve">
     <value>Admin</value>
   </data>
+  <data name="checkDepartmentCode" xml:space="preserve">
+    <value>Mã phòng ban {0} đã tồn tại</value>
+  </data>
   <data name="checkEmployeeCode" xml:space="preserve">
     <value>Mã nhân viên {0} đã tồn tại</value>
   </data>

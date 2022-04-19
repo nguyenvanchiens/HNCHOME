@@ -2,8 +2,12 @@
     ViewData["Title"] = "Home Page";
 }
 
+@section Slide {
+    @Html.Partial("_slide");
+}
+
 <!-- body -->
-    <div class="body__sub-body">
+
         <div class="body__info-about">
             <!-- about us -->
             <div class="info-about__text">
@@ -98,4 +102,7 @@
                 <img src="~/img/Profit 500.png" alt="" />
             </div>
         </div>
-    </div>
+
+@section Scripts{
+    <script src="~/js/nav-bar-croll.js"></script>
+}

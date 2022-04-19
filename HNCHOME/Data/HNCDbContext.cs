@@ -19,7 +19,6 @@ namespace HNCHOME.Data
         public DbSet<Permission> Permissions { get; set; }
         public DbSet<Post> Posts { get; set; }
         public DbSet<Role> Roles { get; set; }
-        public DbSet<Demo> Demos { get; set; }
-        
+        public DbSet<FeedBack> FeedBacks { get; set; }
     }
 }

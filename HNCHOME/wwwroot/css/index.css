@@ -31,6 +31,7 @@ body {
     width: 80%;
     margin-left: 11%;
     margin-right: 11%;
+    box-shadow: -1px 3px 9px 1px rgb(0 0 0 / 30%);
 }
 
 .menu__nav .nav__img {

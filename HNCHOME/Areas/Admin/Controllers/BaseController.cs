@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HNCHOME.Areas.Admin.Controllers
 {
-    [Authorize]
     [Area("Admin")]
+    [Authorize]
     public class BaseController : Controller
     {
         protected HNCDbContext _dbContext;

@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="~/css/bootstrapHeaderForm.css">
     <link rel="stylesheet" href="~/css/group-company.css">
     <link rel="stylesheet" href="~/css/footer.css">
+    @RenderSection("Css",required:false)
 </head>
 <body>
     <div class="body">
@@ -34,109 +35,15 @@
                     <div class="emty"></div>
                     <nav id="nav" class="navbar navbar-expand-lg navbar-light bg-light">
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                             @await Component.InvokeAsync("Menu")
+                            @await Component.InvokeAsync("Menu")
                         </div>
                     </nav>
                 </nav>
             </div>
 
-            <!-- slide -->
-            <div id="carouselExampleControls" class="carousel slide carousel-fade" data-ride="carousel">
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <div class="header-text hidden-xs">
-                            <div class="col-md-12">
-                                <h3>
-                                    VẬN TẢI HÀNG HÓA TRONG NƯỚC
-                                </h3>
-                                <!-- <br> -->
-                                <h5>
-                                    Với mạng lưới rộng khắp 63 tỉnh, thành phố trên cả nước, chúng tôi tự tin <br> có dịch vụ chuyển phát nội địa nhanh nhất.
-                                </h5>
-                                <br>
-                                <div class="">
-                                    <button>
-                                        <a class="btn btn-theme btn-sm btn-min-block" href="#">XEM CHI TIẾT</a>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <img class="d-block w-100" src="~/img/Chuyen-phat-nhanh-noi-dia.jpg" alt="First slide" />
-                    </div>
-                    <div class="carousel-item">
-                        <div class="header-text hidden-xs">
-                            <div class="col-md-12">
-                                <h3>
-                                    VẬN TẢI HÀNG HÓA QUỐC TẾ
-                                </h3>
-                                <!-- <br> -->
-                                <h5>
-                                    Cung cấp dịch vụ vận chuyển đường biển, đường bộ, đường hàng không <br> trong nước và quốc tế, dịch vụ thông quan hàng hóa, dịch vụ nhận và giao <br> hàng tại nước ngoài
-                                </h5>
-                                <br>
-                                <div class="">
-                                    <button>
-                                        <a class="btn btn-theme btn-sm btn-min-block" href="#">XEM CHI TIẾT</a>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <img class="d-block w-100" src="~/img/Qua-canh-hang-hoa.jpg" alt="Second slide" />
-                    </div>
-                </div>
-                <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" id="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" id="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                </a>
-            </div>
-            <div class="container" id="header-form__container">
-                <!-- <div class="row"> -->
-                <div class="col-md-8 offset-md-2 mt-5 fancy-forms">
-                    <ul class="nav nav-tabs  mt-3" id="myTab" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link active" id="login" data-toggle="tab" href="#login_form" role="tab" aria-controls="login" aria-selected="true">
-                                Tra cứu bưu phẩm,
-                                <br>
-                                bưu kiện
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="signup" data-toggle="tab" href="#signup_form" role="tab" aria-controls="signup" aria-selected="false">
-                                Tìm kiếm trung tâm giao dịch
-                                <br>
-                            </a>
-                        </li>
-                    </ul>
-                    <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade show active" id="login_form" role="tabpanel" aria-labelledby="login">
-                            <div class="fancyformcontainer">
-                                <p>Quý khách nhập số vận đơn trên phiếu gửi để tra cứu bưu phẩm, bưu kiện.</p>
-                                <textarea type="text" class="form-control" id="email_id" placeholder="Ví dụ: Số vận đơn là 893020080682251, 893010100170926..."></textarea>
-                                <div class="text-center">
-                                    <button type="submit" class="btn formsubmitbtn">tìm kiếm</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="signup_form" role="tabpanel" aria-labelledby="signup">
-                            <div class="fancyformcontainer">
-                                <label for="state">Quốc gia</label>
-                                @await Component.InvokeAsync(Constants.Home.Country)
-                                <label for="password">Tỉnh/Thành phố</label>
-                                @await Component.InvokeAsync(Constants.Home.Branch)
+            @RenderSection("Slide",required:false)
 
-                                <div class="text-center">
-                                    <button type="submit" class="btn formsubmitbtn">tìm kiếm</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- </div> -->
-            </div>
+           
         </header>
         <!-- search form -->
         <div class="body__search-form">
@@ -156,7 +63,10 @@
                 </div>
             </div>
         </div>
-        @RenderBody()
+        <div class="body__sub-body">
+            @RenderBody()
+        </div>
+
         <footer class="footer">
             <div class="footer__footer">
                 <!-- img -->
@@ -297,9 +207,9 @@
     <script type="text/javascript" src="~/lib/jquery/dist/jquery-2.1.1.js"></script>
     @*<script type="text/javascript" src="~/lib/jquery/dist/jquery-3.6.0.min.js"></script>*@
     <script src="~/js/index.js"></script>
-    <script src="~/js/nav-bar-croll.js"></script>
+    
     <script src="~/js/sub-body.js"></script>
     <script type="text/javascript" src="~/js/country-select.js"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+    @RenderSection("Scripts", required: false)
 </body>
 </html>
