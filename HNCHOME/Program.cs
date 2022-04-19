@@ -30,6 +30,7 @@ builder.Services.AddAuthentication(options =>
     options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
     options.Cookie.MaxAge = options.ExpireTimeSpan; // optional
     options.SlidingExpiration = true;
+    options.LoginPath = "/Admin/Account/Login";
 });
 var app = builder.Build();
 

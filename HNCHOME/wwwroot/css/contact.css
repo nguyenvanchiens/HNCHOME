@@ -1,0 +1,96 @@
+.page-content .contact-page {
+  background-color: white;
+}
+.page-content .contact-page .page__header {
+  position: relative;
+  height: 15vw;
+  background: url(../img/sky.jpg) no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+.page-content .contact-page .page__header .page__title {
+  position: absolute;
+  text-transform: uppercase;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+}
+.page-content .contact-page .page__header .page__title h1 {
+  font-weight: 400;
+}
+.page-content .contact-page .contact-wrapper {
+  margin: 50px 0;
+}
+.page-content .contact-page .contact-wrapper h3 {
+  margin-bottom: 30px;
+  margin-top: 20px;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 18px;
+}
+.page-content .contact-page .contact-wrapper .contact-left .contact__info p strong {
+  font-size: 15px !important;
+  font-weight: 600;
+  font-family: "roboto-medium";
+}
+.page-content .contact-page .contact-wrapper .contact-left .contact__info .list-contact .list-contact__item {
+  font-size: 14px;
+  text-transform: uppercase;
+}
+.page-content .contact-page .contact-wrapper .contact-left .contact__info .list-contact .list-contact__item i {
+  margin-right: 10px;
+  font-size: 20px;
+}
+.page-content .contact-page .contact-wrapper .contact-left .contact__info .list-contact .list-contact__item a {
+  color: #000;
+  text-decoration: none;
+}
+.page-content .contact-page .contact-wrapper .contact-left .contact__info .list-contact .list-contact__item a:hover {
+  color: #2e3192 !important;
+  text-decoration: inherit;
+}
+.page-content .contact-page .contact-wrapper .contact-left .contact__info .list-contact .list-contact__item div {
+  padding: 7px 0;
+}
+.page-content .contact-page .contact-wrapper .contact-left .contact__info .list-contact .list-contact__item .address {
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+}
+.page-content .contact-page .contact-wrapper .contact-left .contact__info .list-contact .list-contact__item .address .title {
+  font-weight: 700;
+  color: #1d1d1d;
+  padding-top: 0;
+}
+.page-content .contact-page .contact-wrapper .contact-right .form-control {
+  height: 100px;
+  padding: 0 15px;
+}
+.page-content .contact-page .contact-wrapper .contact-right .form-control:focus,
+.page-content .contact-page .contact-wrapper .contact-right textarea:focus-visible {
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.08), 0 0 8px rgba(147, 161, 187, 0.6);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.08), 0 0 8px rgba(147, 161, 187, 0.6);
+  -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+  -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+  transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+  border-color: #2e3192;
+}
+.page-content .contact-page .contact-wrapper .contact-right button {
+  padding: 7px 40px;
+}
+.page-content .contact-page .contact-wrapper .contact-right .btn:focus {
+  box-shadow: unset;
+}
+.page-content .contact-page .contact-wrapper .contact-right .btn--original {
+  background: #ff6600 !important;
+  color: #fff !important;
+}
+.page-content .contact-page .contact-wrapper .contact-right textarea {
+  width: 100%;
+  font-size: 16px;
+}
+.page-content .contact-page .contact-wrapper .contact-right textarea:focus-visible {
+  outline: none;
+}
+
+/*# sourceMappingURL=contact.css.map */
