@@ -2,9 +2,9 @@
 
 namespace HNCHOME.Data
 {
-    public class HNCDbContext:DbContext
+    public class HNCDbContext : DbContext
     {
-        public HNCDbContext(DbContextOptions<HNCDbContext> options):base(options)
+        public HNCDbContext(DbContextOptions<HNCDbContext> options) : base(options)
         {
 
         }
@@ -20,5 +20,7 @@ namespace HNCHOME.Data
         public DbSet<Post> Posts { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<FeedBack> FeedBacks { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<ServiceInfo> ServiceInfos { get; set; }
     }
 }

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace HNCHOME.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize]
+    //[Authorize]
     public class BaseController : Controller
     {
         protected HNCDbContext _dbContext;

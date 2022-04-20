@@ -3,6 +3,7 @@ using System;
 using HNCHOME.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HNCHOME.Migrations
 {
     [DbContext(typeof(HNCDbContext))]
-    partial class HNCDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220420072340_adding")]
+    partial class adding
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -130,10 +132,6 @@ namespace HNCHOME.Migrations
 
                     b.Property<int>("PhoneNumber")
                         .HasColumnType("int");
-
-                    b.Property<string>("ServiceInfos")
-                        .IsRequired()
-                        .HasColumnType("longtext");
 
                     b.Property<int>("TaxCode")
                         .HasColumnType("int");
@@ -469,6 +467,9 @@ namespace HNCHOME.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
+                    b.Property<Guid?>("CustomerId")
+                        .HasColumnType("char(36)");
+
                     b.Property<string>("GoodsType")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -486,14 +487,15 @@ namespace HNCHOME.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Size")
-                        .IsRequired()
-                        .HasColumnType("longtext");
+                    b.Property<float>("Size")
+                        .HasColumnType("float");
 
                     b.Property<float>("Weight")
                         .HasColumnType("float");
 
                     b.HasKey("ServiceId");
+
+                    b.HasIndex("CustomerId");
 
                     b.ToTable("ServiceInfos");
                 });
@@ -576,6 +578,18 @@ namespace HNCHOME.Migrations
                     b.Navigation("Employee");
 
                     b.Navigation("Permission");
+                });
+
+            modelBuilder.Entity("HNCHOME.Models.ServiceInfo", b =>
+                {
+                    b.HasOne("HNCHOME.Models.Customer", null)
+                        .WithMany("ServiceInfos")
+                        .HasForeignKey("CustomerId");
+                });
+
+            modelBuilder.Entity("HNCHOME.Models.Customer", b =>
+                {
+                    b.Navigation("ServiceInfos");
                 });
 
             modelBuilder.Entity("HNCHOME.Models.Department", b =>

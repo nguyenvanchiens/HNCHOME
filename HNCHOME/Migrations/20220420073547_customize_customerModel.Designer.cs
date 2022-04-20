@@ -3,6 +3,7 @@ using System;
 using HNCHOME.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HNCHOME.Migrations
 {
     [DbContext(typeof(HNCDbContext))]
-    partial class HNCDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220420073547_customize_customerModel")]
+    partial class customize_customerModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -486,9 +488,8 @@ namespace HNCHOME.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Size")
-                        .IsRequired()
-                        .HasColumnType("longtext");
+                    b.Property<float>("Size")
+                        .HasColumnType("float");
 
                     b.Property<float>("Weight")
                         .HasColumnType("float");
