@@ -1,0 +1,144 @@
+﻿@model HNCHOME.Models.FeedBack
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var feedback = new List<FeedBack>(@ViewBag.FeedBack);
+}
+ <main class="page-content">
+    <div class="page-header">
+      <p class="fw">Phản hồi khách hàng</p>
+     <!-- Modal HTML -->
+     <div id="myModal" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Chi tiết thông tin phản hồi khách hàng</h5>
+                    <button type="button" onclick="HideForm()" class="btn-close btn btn-default" data-bs-dismiss="modal"> <i class="fa fa-times" aria-hidden="true"></i></button>
+                </div>
+                <div class="modal-body">
+                  <form id="myFrom">                                        
+                     <div class="mb-3">
+                      <input asp-for="FeedBackId" type="text" class="form-control" hidden id="FeedBackId" aria-describedby="emailHelp">
+                    </div>
+                    <div class="mb-3">
+                      <label for="exampleInputEmail1" class="form-label">Tên người gửi</label>
+                      <input disabled asp-for="Name" required name="EmployeeCode" type="text" class="form-control"  id="Name" aria-describedby="emailHelp">
+                    </div>
+                    <div class="mb-3">
+                      <label for="exampleInputEmail1" class="form-label">Email</label>
+                      <input disabled asp-for="Email" required name="EmployeeName" type="text" class="form-control" id="Email" aria-describedby="emailHelp">
+                    </div>
+                    <div class="mb-3">
+                      <label for="exampleInputPassword1" class="form-label">Mô tả</label>
+                      <textarea disabled asp-for="Description" class="form-control" rows=10 cols=20 id="Description"></textarea>
+                    </div>
+                 </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="page-search">
+      <div id="accordion">
+        <div class="card">
+          <div class="card-header" id="headingOne">
+            <span><i b-eginzb9zup="" class="fa fa-search" aria-hidden="true"></i></span>
+            <h5 class="mb-0">
+              <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                <i class="fa fa-arrow-down" aria-hidden="true"></i>
+              </button>
+            </h5>
+          </div>
+      
+          <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+            <div class="card-body">
+              <div class="input-groups">
+                 <form method="get" style="display:flex">
+                      <label style="margin-right:10px" for="">Tên Nhân Viên</label>
+                    <div>
+                    <div>
+                    <input type="text" name="filter">
+                    </div> 
+                    <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+                    </div>     
+                 </form>    
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page-content-table">
+      <table class="table table-bordered order-column dataTables" style="width:100%"  id="dataTable" cellpadding=0>
+        <thead>
+            <tr>
+                <th scope="col">Tên</th>
+                <th scope="col">Email</th>
+                <th scope="col">Lý do</th>
+                <th scope="col">Ngày tạo</th>
+                <th scope="col" class="text-center">Chức năng</th>
+                </tr>
+        </thead>
+         <tbody>
+           @foreach (var item in feedback)
+           {
+             <tr>
+                <td>@item.Name</td>
+                <td>@item.Email</td>
+                <td>@item.Description</td>
+                <td>                  
+                    @item.CreatedDate.ToString(string.Format("dd-MM-yyyy"))
+                </td>
+                <td class="text-center">
+                    <button href="#myModal" data-bs-toggle="modal" onclick="ShowView('@item.FeedBackId')" type="button" class="btn btn-default">View</button>
+                </td>
+             </tr>
+           }
+        </tbody>             
+      </table>
+    </div>
+  </main>
+    <div class="alert alert-primary" id="notify" role="alert">
+       Thêm Mới Thành Công
+    </div>
+  @section Scripts {
+    <script>
+      
+    </script>     
+}
+<script>
+{
+    function HideForm() {
+        $('#myFrom')[0].reset();
+    }
+    }
+
+    function ShowView(feedbackId){
+        $.ajax({
+            type:'get',
+            url:'/Admin/FeedBack/Get',
+            dataType:'json',
+            data:{feedbackId:feedbackId},
+            async:false,
+            success:function(res){
+                $('#Name').val(res.name);
+                $('#Description').val(res.description);
+                $('#Email').val(res.email);
+            },error:function(){
+
+            }
+        })
+}
+   
+    
+</script>
+<style>
+    .page-link{
+        color:black;
+    }
+    .page-link:focus{
+        box-shadow:unset;
+    }
+</style>
+
+

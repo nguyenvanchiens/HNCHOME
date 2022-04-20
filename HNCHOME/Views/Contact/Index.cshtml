@@ -138,11 +138,11 @@
                     </div>
                     <div class="col-sm-12 col-xl-7 col-lg-7 col-md-12  contact-right">
                         <h3>gửi phản hồi cho chúng tôi</h3>
-                        <form method="post" asp-action="Index" asp-controller="Contact" id="addFormContact">
-                            @Html.AntiForgeryToken()
+                            
+                        <form method="post" action="Index" id="addFormContact">
                             <div class="form-group">
-                                <input required="required"
-                                       oninvalid="InvalidMsg(this,'Please enter your full name');"
+                                <input required
+                                       oninvalid="InvalidMsg(this,'Please enter name');"
                                        oninput="InvalidMsg(this);"
                                        name="Name" type="text" asp-for="Name" class="form-control" placeholder="Họ và Tên">
                             </div>
@@ -203,7 +203,7 @@
               setTimeout(() => {
                 $('.mes-success').css('display','none');
             }, 3000);
-            
+
         }
 
     };

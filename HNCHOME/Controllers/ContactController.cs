@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace HNCHOME.Controllers
 {
@@ -9,9 +10,9 @@ namespace HNCHOME.Controllers
         {
             _res = res;
         }
-        [HttpGet]
         public IActionResult Index()
         {
+          
             return View();
         }
         [HttpPost]
@@ -27,6 +28,10 @@ namespace HNCHOME.Controllers
                 var result = _res.Insert(feedBack);
                 return View(feedBack);
             }
+        }
+        public IActionResult demo()
+        {
+            return View();
         }
     }
 }
