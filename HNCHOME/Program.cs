@@ -21,6 +21,7 @@ builder.Services.AddTransient<IPermissionRepository, PermissionRepository>();
 builder.Services.AddTransient<ICountryRepository, CountryRepository>();
 builder.Services.AddTransient<ILanguageRepository, LanguageRepository>();
 builder.Services.AddTransient<IEmployeeRepository, EmployeeRepository>();
+builder.Services.AddTransient<IFeedBackRepository, FeedBackRepository>();
 
 builder.Services.AddAuthentication(options =>
 {

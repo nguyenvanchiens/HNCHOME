@@ -189,3 +189,36 @@ body {
     height: 50vh;
     position: absolute;
 }
+
+
+.alert--error {
+    position: fixed !important;
+    top: 10px;
+    z-index: 1000;
+    right: 1%;
+    background-color: rgb(184, 4, 4);
+    color: white;
+    border-radius: 10px;
+    border: 1px solid rgb(187, 18, 18);
+    box-shadow: 1px 1px 1px rgb(187, 18, 18);
+    font-size: 14px;
+    width: 300px;
+    display:none;
+}
+
+.alert--error .title {
+    padding-left: 47px;
+    font-size: 18px;
+}
+
+.alert--error .content {
+    display: flex;
+    justify-items: center;
+    align-items: center;
+}
+
+.alert--error .content i {
+    font-size: 20px;
+    padding: 0 15px;
+    align-self: center;
+}

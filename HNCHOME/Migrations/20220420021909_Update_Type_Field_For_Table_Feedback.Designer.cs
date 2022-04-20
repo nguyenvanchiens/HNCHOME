@@ -3,6 +3,7 @@ using System;
 using HNCHOME.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HNCHOME.Migrations
 {
     [DbContext(typeof(HNCDbContext))]
-    partial class HNCDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220420021909_Update_Type_Field_For_Table_Feedback")]
+    partial class Update_Type_Field_For_Table_Feedback
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

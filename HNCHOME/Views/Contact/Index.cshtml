@@ -1,173 +1,211 @@
-﻿
+﻿@model HNCHOME.Models.FeedBack
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @section Css{
-    <link rel="stylesheet" href="/css/contact.css">
+<link rel="stylesheet" href="/css/contact.css">
 }
 
- <div class="page-content">
-            <div class="contact-page">
-                <div class="page__header">
-                    <div class="page__title">
-                        <h1>liên hệ</h1>
-                    </div>
-                </div>
-                <div class="container">
-                    <div class="contact-wrapper">
-                        <div class="row">
-                            <div class="col-sm-12 col-xl-5 col-lg-5 col-md-12  contact-left">
-                                <div class="contact__info">
-                                    <h3>hỗ trợ trực tuyến</h3>
-                                    <p>
-                                        <strong>
-                                            Chúng tôi luôn ở đây để hỗ trợ
-                                        </strong>
-                                    </p>
-                                    <p>
-                                        <strong>
-                                             Nếu bạn có bất cứ câu hỏi nào về hàng hoá, bưu phẩm của mình, đừng ngần ngại liên hệ với chúng tôi
-                                        </strong>
-                                    </p>
-                                    <br>
-                                    <div class="list-contact">                                      
-                                        <div class="list-contact__item">
-                                            <div class="address">
-                                                <div class="title">Liên hệ tổng đài</div>
-                                                <div class="phone">
-                                                    <i class="fa fa-phone"></i>
-                
-                                                    <span>
-                                                        <a href="Tel:1900 55 88 66">
-                                                            1900 55 88 66
-                                                        </a>
+<div class="page-content">
+    <div class="contact-page">
+        <div class="page__header">
+            <div class="page__title">
+                <h1>liên hệ</h1>
+            </div>
+        </div>
+        <div class="container">
+            <div class="contact-wrapper">
+                <div class="row">
+                    <div class="col-sm-12 col-xl-5 col-lg-5 col-md-12  contact-left">
+                        <div class="contact__info">
+                            <h3>hỗ trợ trực tuyến</h3>
+                            <p>
+                                <strong>
+                                    Chúng tôi luôn ở đây để hỗ trợ
+                                </strong>
+                            </p>
+                            <p>
+                                <strong>
+                                    Nếu bạn có bất cứ câu hỏi nào về hàng hoá, bưu phẩm của mình, đừng ngần ngại liên hệ với chúng tôi
+                                </strong>
+                            </p>
+                            <br>
+                            <div class="list-contact">
+                                <div class="list-contact__item">
+                                    <div class="address">
+                                        <div class="title">Liên hệ tổng đài</div>
+                                        <div class="phone">
+                                            <i class="fa fa-phone"></i>
+
+                                            <span>
+                                                <a href="Tel:1900 55 88 66">
+                                                    1900 55 88 66
+                                                </a>
+                                            </span>
+
+                                        </div>
+                                        <div class="social">
+                                            <i class="fa fa-skype"></i>
+                                            <span>
+                                                <a href="skype:haily1975?chat">
+                                                    <span class="blue">
+                                                        Liên Hệ Tổng Đài
                                                     </span>
-                
-                                                </div>
-                                                <div class="social">
-                                                    <i class="fa fa-skype"></i>
-                                                    <span>
-                                                        <a href="skype:haily1975?chat">
-                                                            <span class="blue">
-                                                                Liên Hệ Tổng Đài
-                                                            </span>
-                                                        </a>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>                                     
-                                        <div class="list-contact__item">
-                                            <div class="address">
-                                                <div class="title">CHI NHÁNH HỒ CHÍ MINH</div>
-                                                <div class="phone">
-                                                    <i class="fa fa-phone"></i>
-                
-                                                    <span>
-                                                        <a href="Tel:1900 55 88 66">
-                                                            1900 55 88 66
-                                                        </a>
-                                                    </span>
-                
-                                                </div>
-                                                <div class="social">
-                                                    <i class="fa fa-skype"></i>
-                                                    <span>
-                                                        <a href="skype:haily1975?chat">
-                                                            <span class="blue">
-                                                                CHI NHÁNH HỒ CHÍ MINH
-                                                            </span>
-                                                        </a>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>    
-                                        <div class="list-contact__item">
-                                            <div class="address">
-                                                <div class="title">Liên hệ tổng đài</div>
-                                                <div class="phone">
-                                                    <i class="fa fa-phone"></i>
-                
-                                                    <span>
-                                                        <a href="Tel:1900 55 88 66">
-                                                            1900 55 88 66
-                                                        </a>
-                                                    </span>
-                
-                                                </div>
-                                                <div class="social">
-                                                    <i class="fa fa-skype"></i>
-                                                    <span>
-                                                        <a href="skype:haily1975?chat">
-                                                            <span class="blue">
-                                                                Liên Hệ Tổng Đài
-                                                            </span>
-                                                        </a>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>  
-                                        <div class="list-contact__item">
-                                            <div class="address">
-                                                <div class="title">CHI NHÁNH CALIFORNIA</div>
-                                                <div class="phone">
-                                                    <i class="fa fa-phone"></i>
-                
-                                                    <span>
-                                                        <a href="Tel:1900 55 88 66">
-                                                            1900 55 88 66
-                                                        </a>
-                                                    </span>
-                
-                                                </div>
-                                                <div class="social">
-                                                    <i class="fa fa-skype"></i>
-                                                    <span>
-                                                        <a href="skype:haily1975?chat">
-                                                            <span class="blue">
-                                                                CHI NHÁNH CALIFORNIA
-                                                            </span>
-                                                        </a>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>    
+                                                </a>
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-sm-12 col-xl-7 col-lg-7 col-md-12  contact-right">
-                                <h3>gửi phản hồi cho chúng tôi</h3>
-                                <div id="addFormContact">
-                                    <div class="form-group">                                       
-                                        <input type="text" class="form-control" placeholder="Họ và Tên">
-                                        <span class="text-danger field-validation-valid" data-valmsg-for="FullName" data-valmsg-replace="true"></span>
+                                <div class="list-contact__item">
+                                    <div class="address">
+                                        <div class="title">CHI NHÁNH HỒ CHÍ MINH</div>
+                                        <div class="phone">
+                                            <i class="fa fa-phone"></i>
+
+                                            <span>
+                                                <a href="Tel:1900 55 88 66">
+                                                    1900 55 88 66
+                                                </a>
+                                            </span>
+
+                                        </div>
+                                        <div class="social">
+                                            <i class="fa fa-skype"></i>
+                                            <span>
+                                                <a href="skype:haily1975?chat">
+                                                    <span class="blue">
+                                                        CHI NHÁNH HỒ CHÍ MINH
+                                                    </span>
+                                                </a>
+                                            </span>
+                                        </div>
                                     </div>
-                                    <div class="form-group">                                       
-                                        <input type="text" class="form-control" placeholder="Email">
-                                        <span class="text-danger field-validation-valid" data-valmsg-for="FullName" data-valmsg-replace="true"></span>
+                                </div>
+                                <div class="list-contact__item">
+                                    <div class="address">
+                                        <div class="title">Liên hệ tổng đài</div>
+                                        <div class="phone">
+                                            <i class="fa fa-phone"></i>
+
+                                            <span>
+                                                <a href="Tel:1900 55 88 66">
+                                                    1900 55 88 66
+                                                </a>
+                                            </span>
+
+                                        </div>
+                                        <div class="social">
+                                            <i class="fa fa-skype"></i>
+                                            <span>
+                                                <a href="skype:haily1975?chat">
+                                                    <span class="blue">
+                                                        Liên Hệ Tổng Đài
+                                                    </span>
+                                                </a>
+                                            </span>
+                                        </div>
                                     </div>
-                                    <div class="form-group">                                       
-                                        <input type="text" class="form-control" placeholder="Số điện thoại">
-                                        <span class="text-danger field-validation-valid" data-valmsg-for="FullName" data-valmsg-replace="true"></span>
-                                    </div>
-                                    <div class="form-group">    
-                                        <textarea name="" id="" class="" cols="30" rows="7" placeholder="Nội dung..."></textarea>                                   
-                                        <!-- <input type="text" class="form-control" placeholder="Nội dung..."> -->
-                                        <span class="text-danger field-validation-valid" data-valmsg-for="FullName" data-valmsg-replace="true"></span>
-                                    </div>
-                                    <div class="form-group">                                       
-                                        <button class="btn btn-default btn--original">Gửi</button>
+                                </div>
+                                <div class="list-contact__item">
+                                    <div class="address">
+                                        <div class="title">CHI NHÁNH CALIFORNIA</div>
+                                        <div class="phone">
+                                            <i class="fa fa-phone"></i>
+
+                                            <span>
+                                                <a href="Tel:1900 55 88 66">
+                                                    1900 55 88 66
+                                                </a>
+                                            </span>
+
+                                        </div>
+                                        <div class="social">
+                                            <i class="fa fa-skype"></i>
+                                            <span>
+                                                <a href="skype:haily1975?chat">
+                                                    <span class="blue">
+                                                        CHI NHÁNH CALIFORNIA
+                                                    </span>
+                                                </a>
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <div class="col-sm-12 col-xl-7 col-lg-7 col-md-12  contact-right">
+                        <h3>gửi phản hồi cho chúng tôi</h3>
+                        <form method="post" asp-action="Index" asp-controller="Contact" id="addFormContact">
+                            @Html.AntiForgeryToken()
+                            <div class="form-group">
+                                <input required="required"
+                                       oninvalid="InvalidMsg(this,'Please enter your full name');"
+                                       oninput="InvalidMsg(this);"
+                                       name="Name" type="text" asp-for="Name" class="form-control" placeholder="Họ và Tên">
+                            </div>
+                            <div class="form-group">
+                                <input required
+                                       oninvalid="InvalidMsg(this,'Please enter email');"
+                                       oninput="InvalidMsg(this);"
+                                       name="Email" type="email" asp-for="Email" class="form-control" placeholder="Email">
+                            </div>
+                            <div class="form-group">
+                                <input required
+                                       oninvalid="InvalidMsg(this,'Please enter the phone number');"
+                                       oninput="InvalidMsg(this);"
+                                       name="Phone" type="text" asp-for="Phone" class="form-control" placeholder="Số điện thoại" />
+                            </div>
+                            <div class="form-group">
+                                <textarea required name="Description" id="" asp-for="Description" class="" cols="30" rows="7" placeholder="Nội dung..."
+                                          oninvalid="InvalidMsg(this,'Please enter the content');"
+                                          oninput="InvalidMsg(this);"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-default btn--original">Gửi</button>
+                            </div>
+                            <div class="alert alert-success mes-success" role="alert">
+                                Phản hồi thành công
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-
+    </div>
+</div>
 
 @section Scripts{
-    <script src="/js/contact.js"></script>
+<script src="/js/contact.js"></script>
+<script type="text/javascript">
+    function InvalidMsg(textbox,message) {
+        if (textbox.value === '') {
+            textbox.setCustomValidity(message);
+        }else {
+           textbox.setCustomValidity('');
+        }
+
+        return true;
+    }
+</script>
+<script type="text/javascript">
+    window.onload = function()
+    {
+        if('@Model'!=''){
+            debugger
+            $('#addFormContact input').val('');
+            $('#addFormContact textarea').val('');
+            setTimeout(() => {
+                $('.mes-success').css('display','block');
+            }, 500);
+              setTimeout(() => {
+                $('.mes-success').css('display','none');
+            }, 3000);
+            
+        }
+
+    };
+</script>
 }
