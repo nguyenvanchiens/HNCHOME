@@ -23,6 +23,7 @@ builder.Services.AddTransient<ILanguageRepository, LanguageRepository>();
 builder.Services.AddTransient<IEmployeeRepository, EmployeeRepository>();
 builder.Services.AddTransient<IFeedBackRepository, FeedBackRepository>();
 
+builder.Services.AddTransient<IServiceRepository, ServiceRepository>();
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;

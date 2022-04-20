@@ -1,0 +1,292 @@
+﻿@model HNCHOME.Models.ServiceInfo
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<main class="page-content">
+    <div class="page-header">
+      <p class="fw">Danh sách nhân viên</p>
+       <!-- Button HTML (to Trigger Modal) -->
+      <button type="button" href="#myModal" role="button" onclick="ShowFormAdd()" class="btn btn-primary" data-bs-toggle="modal">Thêm mới</button>
+     <!-- Modal HTML -->
+     <div id="myModal" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Thêm Mới DỊCH VỤ</h5>
+                    <button type="button" onclick="HideForm()" class="btn-close btn btn-default" data-bs-dismiss="modal"> <i class="fa fa-times" aria-hidden="true"></i></button>
+                </div>
+                <div class="modal-body">
+                  <form id="myFrom">                                        
+                     <div class="mb-3">
+                      <input asp-for="ServiceId" type="text" class="form-control" hidden id="ServiceId" aria-describedby="emailHelp">
+                      <span asp-validation-for="ServiceId" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                      <label for="exampleInputEmail1" class="form-label">Tên loại hình dịch vụ</label>
+                      <input asp-for="ServiceTypeName" required name="ServiceTypeName" type="text" class="form-control"  id="ServiceTypeName" aria-describedby="emailHelp">
+                      <span asp-validation-for="ServiceTypeName" id="erServiceTypeName" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                      <label for="GoodsType" class="form-label">Loại hàng hóa</label>
+                      <input asp-for="GoodsType" required name="GoodsType" type="text" class="form-control" id="GoodsType" aria-describedby="emailHelp">
+                      <span asp-validation-for="GoodsType" id="erGoodsType" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                      <label for="Weight" class="form-label">Trọng lượng</label>
+                      <input asp-for="Weight" required type="text" class="form-control" id="Weight" placeholder="Trọng lượng">
+                      <span asp-validation-for="Size" id="erWeight" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                      <label for="Size" class="form-label">Kích thước</label>
+                      <input asp-for="Size" required type="text" class="form-control" id="Size" placeholder="(Dài x Rộng x Cao) cm">
+                       <span asp-validation-for="Size" id="erSize" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                      <label for="Quantum" class="form-label">Số lượng</label>
+                      <input asp-for="Quantum" required type="text" class="form-control" id="Quantum">
+                    </div>
+                    <div class="mb-3">
+                      <label for="Quantity" class="form-label">Sản lượng</label>
+                      <input asp-for="Quantity" required type="text" class="form-control" id="Quantity">
+                    </div>
+                    <div class="mb-3 text-right">
+                      <button type="button" onclick="AddOrUpdate()" class="btn btn-primary btn-add">Thêm</button>
+                    </div>
+                 </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="page-search">
+      <div id="accordion">
+        <div class="card">
+          <div class="card-header" id="headingOne">
+            <span><i b-eginzb9zup="" class="fa fa-search" aria-hidden="true"></i></span>
+            <h5 class="mb-0">
+              <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                <i class="fa fa-arrow-down" aria-hidden="true"></i>
+              </button>
+            </h5>
+          </div>
+      
+          <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+            <div class="card-body">
+              <div class="input-groups">
+                 <form method="get" style="display:flex">
+                      <label style="margin-right:10px" for="">Tên Nhân Viên</label>
+                    <div>
+                    <div>
+                    <input type="text" name="filter">
+                    </div> 
+                    <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+                    </div>     
+                 </form>    
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page-content-table">
+      <table class="table table-bordered order-column dataTables" style="width:100%"  id="dataTable" cellpadding=0>
+        <thead>
+            <tr>
+                <th scope="col">Mã DV</th>
+                <th scope="col">Tên loại dịch vụ</th>
+                <th scope="col">Loại hàng hóa</th>
+                <th scope="col">Trọng lượng</th>
+                <th scope="col">Kích cỡ</th>
+                <th scope="col">Số lượng</th>
+                <th scope="col">Sản lượng</th>
+                <th scope="col" class="text-center">Chức năng</th>
+                </tr>
+        </thead>
+         <tbody>
+           @foreach (var service in ViewBag.Serviceinfo)
+           {
+             <tr>
+                <td>@service.ServiceId</td>
+                <td>@service.ServiceTypeName</td>
+                <td>                  
+                    @service.GoodsType
+                </td>
+                    
+                <td>@service.Weight</td>
+                <td>@service.Size</td>
+                <td>@service.Quantum</td>
+                <td>@service.Quantity</td>
+                <td class="text-center">
+                    <button href="#myModal" data-bs-toggle="modal" onclick="ShowFormUpdate('@service.ServiceId')" type="button" class="btn btn-default">Chỉnh sửa</button>
+                    <a style="cursor:pointer" onclick="Delete('@service.ServiceId')" class="btn btn-light">Xóa</a>                
+                </td>
+             </tr>
+           }
+        </tbody>             
+      </table>
+    </div>
+  </main>
+    <div class="alert alert-primary" id="notify" role="alert">
+       Thêm Mới Thành Công
+    </div>
+  @section Scripts {
+    <script>
+      
+    </script>     
+}
+<script>
+
+    var employeeId = "";
+    function ShowFormAdd(){
+        var employeeId = "";
+        $('#group-password').show();
+       
+    };
+    function Delete(employeeId) {
+        var result = confirm("Bạn có muốn xóa nhân viên này?");
+        if (result) {
+            var Url = "";
+            Url = "/Admin/ServiceInfo/Delete"
+            $.ajax({
+                type: 'Post',
+                url: Url,
+                data: { EmployeeId: employeeId },
+                async: false,
+                success: function (res) {
+                    if(res==200){
+                        window.location.pathname = "/ServiceInfo/Index"
+                    }
+                    else{
+                        alert('Xóa bản ghi không thành công')
+                    }
+                },
+                error: function (data) {
+                    notAuthozire(data);
+                }
+            })
+        } else {
+    
+        }
+    }
+    function HideForm() {
+        $('#myFrom')[0].reset();
+        $('.btn-add').html('Thêm');
+          $('#DepartmentId').prop('selectedIndex',0)
+    }
+    function ShowFormUpdate(employeeId) {
+        this.employeeId = employeeId;
+        $.ajax({
+            type: 'Get',
+            url: '/Admin/ServiceInfo/Get',
+            contentType: 'application/json; charset=utf-8',
+            data: { employeeId: employeeId },
+            async: false,
+            success: function (data) {
+                debugger
+                $('#group-password').hide();
+                $('.btn-add').html('Sửa');
+                $('#EmployeeId').val(data.employeeId);
+                $('#EmployeeCode').val(data.employeeCode);
+                $('#EmployeeName').val(data.employeeName);
+                $('#DateOfBirth').val(formatDate(data.dateOfBirth));
+                $('#Address').val(data.address);
+                $('#Phone').val(data.phone);
+                $('#UserName').val(data.userName);
+                $('#PassWord').val(data.passWord);
+                var option = $('.modal-body option');
+                for (var i = 0; i < option.length; i++) {
+                    var departmentId = option[i].value;
+                    if (departmentId == data.departmentId) {
+                        option[i].setAttribute('selected', true);
+                    }
+                    else {
+                        option[i].removeAttribute('selected');
+                    }
+                }
+            },error(data){
+                notAuthozire(data);
+            }
+        })
+    }
+    function AddOrUpdate(){
+            var data = {
+                ServiceId:this.employeeId,
+                ServiceTypeName:$('#ServiceTypeName').val(),
+                GoodsType:$('#GoodsType').val(),
+                Weight:$('#Weight').val(),
+                Size:$('#Size').val(),
+                Quantum:$('#Quantum').val(),
+                Quantity:$('#Quantity').val()
+            };
+            console.log(data);
+            Validate();
+              let validateInput = $('input[validate="false"]');
+                if (validateInput && validateInput.length > 0) {
+                  alert("Bạn hãy điền đủ các trường thông tin");
+                  $(validateInput)[0].focus();
+                  return;
+                }
+            if(this.employeeId==""){
+            $.ajax({
+                type: 'Post',
+                url: '/Admin/ServiceInfo/AddService',           
+                dataType:"json",
+                data: { employee: data },
+                async:false,
+                success: function (res) {
+                    if(res==201){
+                        window.location.pathname="/Admin"
+                    }
+                    else{
+                        alert(res);
+                    }
+                },
+                error: function (data) {
+                      notAuthozire(data); 
+                }
+            })
+            }
+            else{           
+            $.ajax({
+                type: 'Post',
+                url: '/Admin/ServiceInfo/UpdateEmployee',           
+                dataType:"json",
+                data: { employee: data },
+                async:false,
+
+                success: function (res) {
+                     if(res==201){
+                        window.location.pathname="/Admin"
+                    }
+                    else{
+                        alert(res)
+                    }
+                },
+                error: function (data) {
+                   notAuthozire(data); 
+                }
+            })
+        }
+    }
+    function notAuthozire(data){
+        if(data.status==403){
+             alert('Bạn không có quyền này');
+             window.location.pathname="/Account/AccessDenied";
+        }
+    }
+    
+</script>
+<style>
+    .page-link{
+        color:black;
+    }
+    .page-link:focus{
+        box-shadow:unset;
+    }
+</style>
+
+
+
