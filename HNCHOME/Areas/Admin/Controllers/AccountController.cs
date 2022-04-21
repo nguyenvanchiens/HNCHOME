@@ -46,7 +46,7 @@ namespace HNCHOME.Areas.Admin.Controllers
                 {
                     IsPersistent = objLoginModel.RememberLogin
                 });
-                return RedirectToAction("Index", "Home");
+                return Redirect("/Admin");
             }
             else
             {
