@@ -289,5 +289,11 @@
   display: table;
   content: " ";
 }
+#select2,
+#password {
+    margin: 0 !important;
+    width:100% !important;
+    height:unset !important;
+}
 
 /*# sourceMappingURL=post.css.map */
