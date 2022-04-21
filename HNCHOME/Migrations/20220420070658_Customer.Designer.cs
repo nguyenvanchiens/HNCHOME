@@ -3,6 +3,7 @@ using System;
 using HNCHOME.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HNCHOME.Migrations
 {
     [DbContext(typeof(HNCDbContext))]
-    partial class HNCDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220420070658_Customer")]
+    partial class Customer
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -114,6 +116,10 @@ namespace HNCHOME.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<string>("GoodsType")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<string>("LastDestination")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -131,12 +137,27 @@ namespace HNCHOME.Migrations
                     b.Property<int>("PhoneNumber")
                         .HasColumnType("int");
 
-                    b.Property<string>("ServiceInfos")
+                    b.Property<float>("Quantity")
+                        .HasColumnType("float");
+
+                    b.Property<float>("Quantum")
+                        .HasColumnType("float");
+
+                    b.Property<Guid>("ServiceId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("ServiceType")
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<float>("Size")
+                        .HasColumnType("float");
+
                     b.Property<int>("TaxCode")
                         .HasColumnType("int");
+
+                    b.Property<float>("Weight")
+                        .HasColumnType("float");
 
                     b.HasKey("CustomerId");
 
@@ -461,41 +482,6 @@ namespace HNCHOME.Migrations
                     b.HasIndex("PermissionId");
 
                     b.ToTable("Roles");
-                });
-
-            modelBuilder.Entity("HNCHOME.Models.ServiceInfo", b =>
-                {
-                    b.Property<Guid>("ServiceId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
-
-                    b.Property<string>("GoodsType")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<bool>("IsChecked")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<float>("Quantity")
-                        .HasColumnType("float");
-
-                    b.Property<float>("Quantum")
-                        .HasColumnType("float");
-
-                    b.Property<string>("ServiceTypeName")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Size")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<float>("Weight")
-                        .HasColumnType("float");
-
-                    b.HasKey("ServiceId");
-
-                    b.ToTable("ServiceInfos");
                 });
 
             modelBuilder.Entity("HNCHOME.Models.Branch", b =>
