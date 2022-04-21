@@ -14,7 +14,11 @@
         public string FirstDestination { get; set; }
         public string LastDestination { get; set; }
         public string OtherRequest { get; set; }
-        public string ServiceInfos { get; set; }
+        public string GoodsType { get; set; }
+        public float Weight { get; set; }
+        public string Size { get; set; }
+        public float Quantum { get; set; }
+        public float Quantity { get; set; }
         public string? CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; }
         public string? ModifiedBy { get; set; }
