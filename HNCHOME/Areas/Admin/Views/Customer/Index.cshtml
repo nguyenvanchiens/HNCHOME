@@ -1,0 +1,345 @@
+﻿@model HNCHOME.Models.Customer
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<main class="page-content">
+    <div class="page-header">
+        <p class="fw">Danh sách khách hàng</p>
+        <button type="button" href="#myModal" role="button" onclick="ShowFormAdd()" class="btn btn-primary" data-bs-toggle="modal">Thêm mới</button>
+
+        <!-- Modal HTML -->
+        <div id="myModal" class="modal fade" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="mb-3">
+                        <input type="text" class="form-control" hidden id="CustomerId" aria-describedby="emailHelp">
+                    </div>
+                    <div class="modal-header">
+                        <h5 class="modal-title">Thêm Mới Khách Hàng</h5>
+                        <button type="button" onclick="HideForm()" class="btn-close btn btn-default" data-bs-dismiss="modal"> <i class="fa fa-times" aria-hidden="true"></i></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="myFrom">
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Tên khách hàng:</label>
+                                <input asp-for="CustomerName" required name="CustomerName" type="text" class="form-control" id="CustomerName" aria-describedby="emailHelp">
+                                <span asp-validation-for="CustomerName" id="erCustomerName" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Tên công ty:</label>
+                                <input asp-for="CompanyName" required name="CompanyName" type="text" class="form-control" id="CompanyName" aria-describedby="emailHelp">
+                                <span asp-validation-for="CompanyName" id="erCompanyName" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Mã số thuế:</label>
+                                <input asp-for="TaxCode" required name="TaxCode" type="text" class="form-control" id="TaxCode" aria-describedby="emailHelp">
+                                <span asp-validation-for="TaxCode" id="erTaxCode" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Số điện thoại:</label>
+                                <input asp-for="PhoneNumber" required name="PhoneNumber" type="tel" class="form-control" id="PhoneNumber" aria-describedby="emailHelp">
+                                <span asp-validation-for="PhoneNumber" id="erPhoneNumber" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Email:</label>
+                                <input asp-for="Email" required name="Email" type="email" class="form-control" id="Email" aria-describedby="emailHelp">
+                                <span asp-validation-for="Email" id="erEmail" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Phương thức vận chuyển:</label>
+                                <input asp-for="DeliveryType" required name="DeliveryType" type="text" class="form-control" id="DeliveryType" aria-describedby="emailHelp">
+                                <span asp-validation-for="DeliveryType" id="erDeliveryType" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Điểm khởi hành:</label>
+                                <input asp-for="FirstDestination" required name="FirstDestination" type="text" class="form-control" id="FirstDestination" aria-describedby="emailHelp">
+                                <span asp-validation-for="FirstDestination" id="erFirstDestination" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Điểm đến:</label>
+                                <input asp-for="LastDestination" required name="LastDestination" type="text" class="form-control" id="LastDestination" aria-describedby="emailHelp">
+                                <span asp-validation-for="LastDestination" id="erLastDestination" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Loại hàng hóa:</label>
+                                <input asp-for="GoodsType" required name="GoodsType" type="text" class="form-control" id="GoodsType" aria-describedby="emailHelp">
+                                <span asp-validation-for="GoodsType" id="erGoodsType" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Trọng lượng:</label>
+                                <input asp-for="Weight"  min="0" placeholder=".Kg" required name="Weight" type="number" class="form-control" id="Weight" aria-describedby="emailHelp">
+                                <span asp-validation-for="Weight" id="erWeight" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Kích thước:</label>
+                                <input asp-for="Size" placeholder="(Dài x Rộng x Cao) cm" required name="Size" type="text" class="form-control" id="Size" aria-describedby="emailHelp">
+                                <span asp-validation-for="Size" id="erSize" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1"  min="0" class="form-label">Số lượng:</label>
+                                <input asp-for="Quantum" required name="Quantum" type="number" class="form-control" id="Quantum" aria-describedby="emailHelp">
+                                <span asp-validation-for="Quantum" id="erQuantum" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" min="0" class="form-label">Sản lượng:</label>
+                                <input asp-for="Quantity" required name="Quantity" type="number" class="form-control" id="Quantity" aria-describedby="emailHelp">
+                                <span asp-validation-for="Quantity" id="erQuantity" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Yêu cầu khác:</label>
+                                <input asp-for="OtherRequest" required name="OtherRequest" type="text" class="form-control" id="OtherRequest" aria-describedby="emailHelp">
+                                <span asp-validation-for="Quantity" id="erOtherRequest" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3 text-right">
+                                <button type="button" onclick="AddOrUpdate()" class="btn btn-primary btn-add">Thêm</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page-search">
+        <div id="accordion">
+            <div class="card">
+                <div class="card-header" id="headingOne">
+                    <span><i b-eginzb9zup="" class="fa fa-search" aria-hidden="true"></i></span>
+                    <h5 class="mb-0">
+                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            <i class="fa fa-arrow-down" aria-hidden="true"></i>
+                        </button>
+                    </h5>
+                </div>
+
+                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                    <div class="card-body">
+                        <div class="input-groups">
+                            <form method="get" style="display:flex">
+                                <label style="margin-right:10px" for="">Tên Quốc Gia</label>
+                                <div>
+                                    <div>
+                                        <input type="text" name="filter">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page-content-table">
+        <table class="table table-bordered order-column dataTables" style="width:100%" id="dataTable" cellpadding=0>
+            <thead>
+                <tr>
+                    <th scope="col">Mã khách hàng</th>
+                    <th scope="col">Tên khách hàng</th>
+                    <th scope="col">Tên công ty</th>
+                    <th scope="col" class="text-center">Mã số thuế</th>
+                    <th scope="col" class="text-center">Số điện thoại</th>
+                    <th scope="col" class="text-center">Email</th>
+                    <th scope="col" class="text-center">Phương thức vận chuyển</th>
+                    <th scope="col" class="text-center">Điểm khởi hành</th>
+                    <th scope="col" class="text-center">Điểm đến</th>
+                    <th scope="col" class="text-center">Chức năng</th>
+                    @*<th scope="col" class="text-center">Loại hàng hóa</th>
+                        <th scope="col" class="text-center">Trọng lượng</th>
+                        <th scope="col" class="text-center">Kích cỡ</th>
+                        <th scope="col" class="text-center">Số lượng</th>
+                        <th scope="col" class="text-center">Sản lượng</th>*@
+                    @*<th scope="col" class="text-center">Yêu cầu khác</th>*@
+                    @*<th scope="col" class="text-center">Loại hình dịch vụ</th>*@
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var customer in ViewBag.customers)
+                {
+                    <tr>
+                        <td>@customer.CustomerId</td>
+                        <td>@customer.CustomerName</td>
+                        <td>
+                            @customer.CompanyName
+                        </td>
+                        <td>@customer.TaxCode</td>
+                        <td>@customer.PhoneNumber</td>
+                        <td>
+                            @customer.Email
+                        </td>
+                        <td>@customer.DeliveryType</td>
+                        <td>@customer.FirstDestination</td>
+                        <td>
+                            @customer.LastDestination
+                        </td>
+                        @*<td>@customer.GoodsType</td>*@
+                        @*<td>
+                            @customer.Weight
+                            </td>*@
+                        @*<td>@customer.Size</td>*@
+                        @*<td>@customer.Quantum</td>
+                            <td>
+                            @customer.Quantity
+                            </td>*@
+                        @*<td>@customer.OtherRequest</td>*@
+                        <td class="text-center">
+                            @*<button href="#myModal" data-bs-toggle="modal" onclick="ShowFormUpdate('@customer.CustomerId')" type="button" class="btn btn-default">Chỉnh sửa</button>*@
+                            <a style="cursor:pointer" onclick="Delete('@customer.CustomerId')" class="btn btn-light">Xóa</a>
+                            <button href="#myModal" data-bs-toggle="modal" onclick="ShowFormUpdate('@customer.CustomerId')" type="button" class="btn btn-default">Xem chi tiết</button>
+
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</main>
+<div class="alert alert-primary" id="notify" role="alert">
+    Thêm Mới Thành Công
+</div>
+<script>
+
+    var employeeId = "";
+    function ShowFormAdd(){
+        var employeeId = "";
+        $('#group-password').show();
+
+    };
+    function Delete(employeeId) {
+        var result = confirm("Bạn có muốn xóa nhân viên này?");
+        if (result) {
+            var Url = "";
+            Url = "/Admin/Customer/DeleteCustomer"
+            $.ajax({
+                type: 'Post',
+                url: Url,
+                data: { id: employeeId },
+                async: false,
+                success: function (res) {
+                    alert(res.res)
+                    window.location.pathname = "/Admin/Customer/Index"
+                },
+                error: function (res) {
+                    alert(res.res);
+                }
+            })
+        } else {
+
+        }
+    }
+    function HideForm() {
+        $('#myFrom')[0].reset();
+        $('.btn-add').html('Thêm');
+        $('.btn-add').css('display','block');
+          $('#DepartmentId').prop('selectedIndex',0)
+    }
+    function ShowFormUpdate(employeeId) {
+        this.employeeId = employeeId;
+        $.ajax({
+            type: 'Get',
+            url: '/Admin/Customer/GetCustomerDetail',
+            contentType: 'application/json; charset=utf-8',
+            data: { employeeId: employeeId },
+            async: false,
+            success: function (data) {
+                $('#group-password').hide();
+                $('.btn-add').html('Sửa');
+                $('.btn-add').css('display','none')
+                $('#EmployeeId').val(data.employeeId);
+                $('#EmployeeCode').val(data.employeeCode);
+                $('#EmployeeName').val(data.employeeName);
+                $('#DateOfBirth').val(formatDate(data.dateOfBirth));
+                $('#Address').val(data.address);
+                $('#Phone').val(data.phone);
+                $('#UserName').val(data.userName);
+                $('#PassWord').val(data.passWord);
+                var option = $('.modal-body option');
+                for (var i = 0; i < option.length; i++) {
+                    var departmentId = option[i].value;
+                    if (departmentId == data.departmentId) {
+                        option[i].setAttribute('selected', true);
+                    }
+                    else {
+                        option[i].removeAttribute('selected');
+                    }
+                }
+            },error(data){
+                notAuthozire(data);
+            }
+        })
+    }
+    function AddOrUpdate(){
+            var customer = {
+                CustomerId:this.employeeId,
+                CustomerName:$('#CustomerName').val(),
+                CompanyName:$('#CompanyName').val(),
+                TaxCode:$('#TaxCode').val(),
+                PhoneNumber:$('#PhoneNumber').val(),
+                Email:$('#Email').val(),
+                DeliveryType:$('#DeliveryType').val(),
+                FirstDestination:$('#FirstDestination').val(),
+                LastDestination:$('#LastDestination').val(),
+                GoodsType:$('#GoodsType').val(),
+                Weight:$('#Weight').val(),
+                Size:$('#Size').val(),
+                Quantum:$('#Quantum').val(),
+                Quantity:$('#Quantity').val(),
+                OtherRequest:$('#OtherRequest').val()
+            };
+            Validate();
+              let validateInput = $('input[validate="false"]');
+                if (validateInput && validateInput.length > 0) {
+                  alert("Bạn hãy điền đủ các trường thông tin");
+                  $(validateInput)[0].focus();
+                  return;
+                }
+            if(this.employeeId==""){
+
+            $.ajax({
+                type: 'Post',
+                url: '/Admin/Customer/AddCustomer',
+                dataType:"json",
+                data: { customer: customer },
+                async:false,
+                success: function (res) {
+                    alert(res.res);
+                    window.location.pathname="/Admin/Customer/Index"
+                },
+                error: function (res) {
+                      console.log(res)
+                }
+            })
+            }
+            else{
+
+            $.ajax({
+                type: 'Post',
+                url: '/Admin/Customer/UpdateEmployee',
+                dataType:"json",
+                data: { id: data },
+                async:false,
+
+                success: function (res) {
+                    // if(res==201){
+                    //    //window.location.pathname="/Admin/Customer/"
+                    //}
+                    //else{
+                    //    alert(res)
+                    //}
+                },
+                error: function (data) {
+                   notAuthozire(data);
+                }
+            })
+        }
+    }
+    function notAuthozire(data){
+        if(data.status==403){
+             alert('Bạn không có quyền này');
+             window.location.pathname="/Account/AccessDenied";
+        }
+    }
+
+</script>

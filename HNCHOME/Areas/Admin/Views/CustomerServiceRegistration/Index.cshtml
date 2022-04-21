@@ -1,16 +1,14 @@
-﻿@model HNCHOME.Models.Employee
+﻿@model HNCHOME.Models.CustomerServiceRegistration
+
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-
- <main class="page-content">
+@* <main class="page-content">
     <div class="page-header">
       <p class="fw">Danh sách nhân viên</p>
-       <!-- Button HTML (to Trigger Modal) -->
       <button type="button" href="#myModal" role="button" onclick="ShowFormAdd()" class="btn btn-primary" data-bs-toggle="modal">Thêm mới</button>
-     <!-- Modal HTML -->
      <div id="myModal" class="modal fade" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -26,7 +24,7 @@
                     </div>
                     <div class="mb-3">
                       <label for="exampleInputEmail1" class="form-label">Mã nhân viên</label>
-                      <input readonly="False" asp-for="EmployeeCode" required name="EmployeeCode" type="text" class="form-control"  id="EmployeeCode" aria-describedby="emailHelp">
+                      <input asp-for="EmployeeCode" required name="EmployeeCode" type="text" class="form-control"  id="EmployeeCode" aria-describedby="emailHelp">
                       <span asp-validation-for="EmployeeCode" id="erEmployeeCode" class="text-danger"></span>
                     </div>
                     <div class="mb-3">
@@ -37,7 +35,6 @@
                     <div class="mb-3">
                       <label for="exampleInputPassword1" class="form-label">Ngày sinh</label>
                       <input asp-for="DateOfBirth" checkdate required type="date" class="form-control" id="DateOfBirth">
-                       <span asp-validation-for="EmployeeCode" id="erEmployeeCode" class="text-danger"></span>
                     </div>
                     <div class="mb-3">
                       <label for="exampleInputPassword1" class="form-label">Nơi ở</label>
@@ -47,17 +44,14 @@
                     <div class="mb-3">
                       <label for="exampleInputPassword1" class="form-label">Số điện thoại</label>
                       <input asp-for="Phone" required type="text" class="form-control" id="Phone">
-                       <span asp-validation-for="EmployeeCode" id="erEmployeeCode" class="text-danger"></span>
                     </div>
                     <div class="mb-3">
                       <label for="UserName" class="form-label">Tài khoản</label>
                       <input asp-for="UserName" required type="text" class="form-control" id="UserName">
-                       <span asp-validation-for="EmployeeCode" id="erEmployeeCode" class="text-danger"></span>
                     </div>
                     <div class="mb-3" id="group-password">
                       <label for="PassWord" class="form-label">Mật khẩu</label>
-                      <input asp-for="PassWord" required type="password" class="form-control" id="PassWord">
-                      <span asp-validation-for="EmployeeCode" id="erEmployeeCode" class="text-danger"></span>
+                      <input asp-for="PassWord" type="password" class="form-control" id="PassWord">
                     </div>
                     <div class="mb-3">
                       <label for="exampleInputPassword1" class="form-label">Chọn phòng ban</label>
@@ -144,26 +138,20 @@
       </table>
     </div>
   </main>
-   @* <div class="alert alert-primary" id="notify" role="alert">
+    <div class="alert alert-primary" id="notify" role="alert">
        Thêm Mới Thành Công
-    </div>*@   
+    </div>
+  @section Scripts {
+    <script>
+      
+    </script>     
 }
 <script>
+
     var employeeId = "";
     function ShowFormAdd(){
         var employeeId = "";
         $('#group-password').show();
-        $.ajax({
-            type:"get",
-            url:'/Admin/Home/NewCodeEmployee',
-            success:function(res){
-                console.log(res);
-                $('#EmployeeCode').val(res);
-            },
-            error:function(res){
-                console.log(res);
-            }
-        })
        
     };
     function Delete(employeeId) {
@@ -178,13 +166,7 @@
                 async: false,
                 success: function (res) {
                     if(res==200){
-                         setTimeout(() => {
-                        $('.alert--success').css('display','block');
-                            }, 0);
-                        setTimeout(() => {
-                             $('.alert--success').css('display','none');
-                                window.location.pathname="/Admin"
-                        }, 1000);
+                        window.location.pathname = "/Home/Index"
                     }
                     else{
                         alert('Xóa bản ghi không thành công')
@@ -201,9 +183,7 @@
     function HideForm() {
         $('#myFrom')[0].reset();
         $('.btn-add').html('Thêm');
-        $('#DepartmentId').prop('selectedIndex',0);
-        $('#myFrom input').removeClass('s-input-error');
-        $('#myFrom input').siblings('span').text('');
+          $('#DepartmentId').prop('selectedIndex',0)
     }
     function ShowFormUpdate(employeeId) {
         this.employeeId = employeeId;
@@ -254,14 +234,8 @@
             };   
             Validate();
               let validateInput = $('input[validate="false"]');
-              debugger;
                 if (validateInput && validateInput.length > 0) {
-                    setTimeout(() => {
-                        $('.alert--error').css('display','block');
-                    }, 0);
-                    setTimeout(() => {
-                        $('.alert--error').css('display','none');
-                    }, 1500);
+                  alert("Bạn hãy điền đủ các trường thông tin");
                   $(validateInput)[0].focus();
                   return;
                 }
@@ -274,24 +248,10 @@
                 async:false,
                 success: function (res) {
                     if(res==201){
-                         setTimeout(() => {
-                        $('.alert--success').css('display','block');
-                            }, 0);
-                        setTimeout(() => {
-                             $('.alert--success').css('display','none');
-                                window.location.pathname="/Admin"
-                        }, 1000);
-                        
+                        window.location.pathname="/Admin"
                     }
                     else{
-                        var parent = $('.alert--error').children()[1];
-                        $(parent).children('span').html(res);
-                        setTimeout(() => {
-                        $('.alert--error').css('display','block');
-                        }, 0);
-                        setTimeout(() => {
-                            $('.alert--error').css('display','none');
-                        }, 1000);
+                        alert(res);
                     }
                 },
                 error: function (data) {
@@ -309,23 +269,10 @@
 
                 success: function (res) {
                      if(res==201){
-                        setTimeout(() => {
-                        $('.alert--success').css('display','block');
-                            }, 0);
-                        setTimeout(() => {
-                             $('.alert--success').css('display','none');
-                                window.location.pathname="/Admin"
-                        }, 1000);
+                        window.location.pathname="/Admin"
                     }
                     else{
-                        var parent = $('.alert--error').children()[1];
-                        $(parent).children('span').html(res);
-                        setTimeout(() => {
-                        $('.alert--error').css('display','block');
-                        }, 0);
-                        setTimeout(() => {
-                            $('.alert--error').css('display','none');
-                        }, 1000);
+                        alert(res)
                     }
                 },
                 error: function (data) {
@@ -349,8 +296,4 @@
     .page-link:focus{
         box-shadow:unset;
     }
-</style>
-
-
-
-
+</style>*@

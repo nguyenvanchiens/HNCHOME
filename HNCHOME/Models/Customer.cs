@@ -1,6 +1,6 @@
 ﻿namespace HNCHOME.Models
 {
-    public class Customer
+    public class Customer:BaseClass
     {
         [Key]
         public Guid CustomerId { get; set; }
@@ -10,14 +10,14 @@
         public int TaxCode { get; set; }
         public int PhoneNumber { get; set; }
         public string Email { get; set; }
-        public Guid DeliveryType { get; set; }
+        public string DeliveryType { get; set; }
         public string FirstDestination { get; set; }
         public string LastDestination { get; set; }
-        public string OtherRequest { get; set; }
-        public string ServiceInfos { get; set; }
-        public string? CreatedBy { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public string? ModifiedBy { get; set; }
-        public DateTime? ModifiedDate { get; set; }
+        public string GoodsType { get; set; }
+        public float Weight { get; set; }
+        public string Size { get; set; }
+        public float Quantum { get; set; }
+        public float Quantity { get; set; }
+        public string OtherRequest{ get; set; }
     }
 }
