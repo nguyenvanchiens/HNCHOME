@@ -197,17 +197,7 @@ body {
     top: 0;
     z-index:100
 }
-.alert{
-    display:none;
-    position: absolute !important;
-    top: 20px !important;
-    right: 40% !important;
-}
-.alert-active {
-    display: block;
-    top: 42px !important;
-    z-index:110;
-}
+
 .header-nav-left ul {
     display: flex;
 }
@@ -733,3 +723,40 @@ form .btn {
     align-items:center;
     margin-bottom:30px;
 }
+
+.alert-mes {
+    position: fixed !important;
+    top: 10px !important;
+    z-index: 10000;
+    right: 1% !important;
+    color: white;
+    border-radius: 10px;
+    font-size: 14px;
+    width: 300px;
+}
+.alert--success {
+    display: none;
+}
+.alert--error {
+    background-color: rgb(184, 4, 4);
+    border: 1px solid rgb(187, 18, 18);
+    box-shadow: 1px 1px 1px rgb(187, 18, 18);
+    display: none;
+}
+
+    .alert--error .title {
+        padding-left: 47px;
+        font-size: 18px;
+    }
+
+    .alert--error .content {
+        display: flex;
+        justify-items: center;
+        align-items: center;
+    }
+
+        .alert--error .content i {
+            font-size: 20px;
+            padding: 0 15px;
+            align-self: center;
+        }

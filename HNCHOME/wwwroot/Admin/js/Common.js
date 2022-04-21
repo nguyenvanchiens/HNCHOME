@@ -41,15 +41,17 @@ function Validate() {
             $(this).attr("validate", false);
             $(this).attr("title", "Không thể bỏ trống");
         }
-        else if (new Date(checkDate.val()) > new Date()) {
-            checkDate[0].addClass("s-input-error");
-            checkDate[0].attr("validate", false);
-            checkDate[0].attr("title", "Ngày không được lớn hơn ngày hiện tại");
-        }
         else {
             $(this).removeClass("s-input-error");
             $(this).attr("validate", true);
         }
+        if (new Date(checkDate.val()) > new Date()) {
+            var checkdate = checkDate[0];
+            $(checkdate).addClass("s-input-error");
+            $(checkdate).attr("validate", false);
+            $(checkdate).attr("title", "Ngày không được lớn hơn ngày hiện tại");
+        }
+        
     });
 }
 function formatDate(val) {

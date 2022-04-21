@@ -30,7 +30,19 @@
      <partial name="_Sidebar" />
   <!-- sidebar-wrapper  -->
   @RenderBody()
- 
+ <div class="alert alert-mes alert--error">
+      <div class="title">
+          Thông báo
+      </div>
+      <div class="content">
+          <i class="fa-solid fa-triangle-exclamation"></i><span> Xảy ra lỗi. Xin vui lòng thử lại sau!</span>
+      </div>
+</div>
+<div class="alert alert-mes alert--success  alert-success">
+      <div class="content">
+          <i class="fa-solid fa-triangle-exclamation"></i><span> Thành Công!</span>
+      </div>
+</div>
   <!-- page-content" -->
    </div>
 <!-- page-wrapper -->
