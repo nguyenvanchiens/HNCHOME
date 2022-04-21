@@ -2,7 +2,7 @@
 
 namespace HNCHOME.Areas.Admin.Controllers
 {
-    //[Area("Admin")]
+    [Area("Admin")]
     public class ServiceInfoController : BaseController
     {
         private readonly IServiceRepository _serviceRepository;
@@ -13,7 +13,7 @@ namespace HNCHOME.Areas.Admin.Controllers
 
         public IActionResult Index()
         {
-            ViewBag.Serviceinfo=_serviceRepository.GetAll();
+            ViewBag.Serviceinfo = _serviceRepository.GetAll();
             return View();
         }
         public IActionResult AddService(ServiceInfo data)
@@ -21,11 +21,11 @@ namespace HNCHOME.Areas.Admin.Controllers
             try
             {
                 _serviceRepository.Insert(data);
-                return Ok("Successfully");
+                return Ok(new { Res = "Successfully" });
             }
             catch (Exception e)
             {
-                return BadRequest("Unsuccessfully");
+                return BadRequest(new { Res = "Unsuccessfully" });
                 throw;
             }
         }
@@ -35,11 +35,40 @@ namespace HNCHOME.Areas.Admin.Controllers
             try
             {
                 _serviceRepository.Delete(id);
-                return Ok("Successfully");
+                return Ok(new { Res = "Successfully" });
             }
             catch (Exception e)
             {
-                return BadRequest("Unsuccessfully");
+                return BadRequest(new { Res = "Unsuccessfully" });
+                throw;
+            }
+        }
+        [HttpPost]
+        public IActionResult UpdateServiceInfo(ServiceInfo serviceInfo)
+        {
+            try
+            {
+                var obj = _serviceRepository.GetById(serviceInfo.ServiceId);
+                obj.ServiceTypeName=serviceInfo.ServiceTypeName;
+                _serviceRepository.Save();
+                return Ok(new { Res = "Successfully" });
+            }
+            catch (Exception)
+            {
+                return BadRequest(new { Res = "Unsuccessfully" });
+                throw;
+            }
+        }
+        [HttpGet]
+        public IActionResult GetServiceInfoById(Guid id)
+        {
+            try
+            {
+                return Ok(new { Res = _serviceRepository.GetById(id) });
+            }
+            catch (Exception)
+            {
+                return BadRequest(new { Res = "Object was detected or modified" });
                 throw;
             }
         }
