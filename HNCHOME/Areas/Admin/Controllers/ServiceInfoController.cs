@@ -16,9 +16,32 @@ namespace HNCHOME.Areas.Admin.Controllers
             ViewBag.Serviceinfo=_serviceRepository.GetAll();
             return View();
         }
-        public void AddService(ServiceInfo data)
+        public IActionResult AddService(ServiceInfo data)
         {
-            ViewBag.Serviceinfo = _serviceRepository.Insert(data);
+            try
+            {
+                _serviceRepository.Insert(data);
+                return Ok("Successfully");
+            }
+            catch (Exception e)
+            {
+                return BadRequest("Unsuccessfully");
+                throw;
+            }
+        }
+        [HttpPost]
+        public IActionResult Delete(Guid id)
+        {
+            try
+            {
+                _serviceRepository.Delete(id);
+                return Ok("Successfully");
+            }
+            catch (Exception e)
+            {
+                return BadRequest("Unsuccessfully");
+                throw;
+            }
         }
     }
 }
