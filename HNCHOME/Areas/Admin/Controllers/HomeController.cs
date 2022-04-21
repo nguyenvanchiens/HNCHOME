@@ -56,7 +56,6 @@ namespace HNCHOME.Areas.Admin.Controllers
             }
             catch (Exception e)
             {
-
                 return Json(e.Message);
             }
         }

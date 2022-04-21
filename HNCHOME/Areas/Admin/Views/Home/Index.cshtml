@@ -37,6 +37,7 @@
                     <div class="mb-3">
                       <label for="exampleInputPassword1" class="form-label">Ngày sinh</label>
                       <input asp-for="DateOfBirth" checkdate required type="date" class="form-control" id="DateOfBirth">
+                       <span asp-validation-for="EmployeeCode" id="erEmployeeCode" class="text-danger"></span>
                     </div>
                     <div class="mb-3">
                       <label for="exampleInputPassword1" class="form-label">Nơi ở</label>
@@ -46,14 +47,17 @@
                     <div class="mb-3">
                       <label for="exampleInputPassword1" class="form-label">Số điện thoại</label>
                       <input asp-for="Phone" required type="text" class="form-control" id="Phone">
+                       <span asp-validation-for="EmployeeCode" id="erEmployeeCode" class="text-danger"></span>
                     </div>
                     <div class="mb-3">
                       <label for="UserName" class="form-label">Tài khoản</label>
                       <input asp-for="UserName" required type="text" class="form-control" id="UserName">
+                       <span asp-validation-for="EmployeeCode" id="erEmployeeCode" class="text-danger"></span>
                     </div>
                     <div class="mb-3" id="group-password">
                       <label for="PassWord" class="form-label">Mật khẩu</label>
                       <input asp-for="PassWord" required type="password" class="form-control" id="PassWord">
+                      <span asp-validation-for="EmployeeCode" id="erEmployeeCode" class="text-danger"></span>
                     </div>
                     <div class="mb-3">
                       <label for="exampleInputPassword1" class="form-label">Chọn phòng ban</label>
@@ -142,14 +146,9 @@
   </main>
    @* <div class="alert alert-primary" id="notify" role="alert">
        Thêm Mới Thành Công
-    </div>*@
-  @section Scripts {
-    <script>
-      
-    </script>     
+    </div>*@   
 }
 <script>
-
     var employeeId = "";
     function ShowFormAdd(){
         var employeeId = "";
@@ -202,7 +201,9 @@
     function HideForm() {
         $('#myFrom')[0].reset();
         $('.btn-add').html('Thêm');
-          $('#DepartmentId').prop('selectedIndex',0)
+        $('#DepartmentId').prop('selectedIndex',0);
+        $('#myFrom input').removeClass('s-input-error');
+        $('#myFrom input').siblings('span').text('');
     }
     function ShowFormUpdate(employeeId) {
         this.employeeId = employeeId;
@@ -283,11 +284,13 @@
                         
                     }
                     else{
+                        var parent = $('.alert--error').children()[1];
+                        $(parent).children('span').html(res);
                         setTimeout(() => {
                         $('.alert--error').css('display','block');
                         }, 0);
                         setTimeout(() => {
-                            $('.alert--success').css('display','none');
+                            $('.alert--error').css('display','none');
                         }, 1000);
                     }
                 },
@@ -315,6 +318,8 @@
                         }, 1000);
                     }
                     else{
+                        var parent = $('.alert--error').children()[1];
+                        $(parent).children('span').html(res);
                         setTimeout(() => {
                         $('.alert--error').css('display','block');
                         }, 0);

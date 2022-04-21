@@ -735,14 +735,18 @@ form .btn {
     width: 300px;
 }
 .alert--success {
-    display: none;
+    display:none;
+    width: 250px;
 }
-.alert--error {
-    background-color: rgb(184, 4, 4);
-    border: 1px solid rgb(187, 18, 18);
-    box-shadow: 1px 1px 1px rgb(187, 18, 18);
-    display: none;
-}
+    .alert--success .title{
+        font-size:18px;
+    }
+    .alert--error {
+        background-color: rgb(184, 4, 4);
+        border: 1px solid rgb(187, 18, 18);
+        box-shadow: 1px 1px 1px rgb(187, 18, 18);
+        display: none;
+    }
 
     .alert--error .title {
         padding-left: 47px;
