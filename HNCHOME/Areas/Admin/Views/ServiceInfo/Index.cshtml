@@ -153,7 +153,7 @@
             $.ajax({
                 type: 'Post',
                 url: Url,
-                data: { EmployeeId: employeeId },
+                data: { id: employeeId },
                 async: false,
                 success: function (res) {
                     if(res==200){
@@ -234,7 +234,7 @@
                 type: 'Post',
                 url: '/Admin/ServiceInfo/AddService',           
                 dataType:"json",
-                data: { employee: data },
+                data: { data: data },
                 async:false,
                 success: function (res) {
                     if(res==201){
