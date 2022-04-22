@@ -1,4 +1,6 @@
-﻿@model HNCHOME.Areas.Admin.Models.ViewModel.CustomerServiceRegistrationViewModel
+﻿const { forEach } = require("../../../../wwwroot/Admin/vendor/fontawesome-free/js/v4-shims");
+
+@model HNCHOME.Areas.Admin.Models.ViewModel.CustomerServiceRegistrationViewModel
 
 @{
     ViewData["Title"] = "Index";
@@ -6,71 +8,86 @@
 }
 
 <main class="page-content">
-    @*<div class="page-header">
+    <div class="page-header">
         <p class="fw">Danh sách khách hàng đăng ký</p>
-        <button type="button" href="#myModal" role="button" onclick="ShowFormAdd()" class="btn btn-primary" data-bs-toggle="modal">Thêm mới</button>
-        <div id="myModal" class="modal fade" tabindex="-1">
+        @*<button type="button" href="#myModal" role="button" onclick="ShowFormAdd()" class="btn btn-primary" data-bs-toggle="modal">Thêm mới</button>*@
+        <div id="myModal" class="modal fade">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Thêm Mới Khách Hàng Đăng Ký</h5>
-                        <button type="button" onclick="HideForm()" class="btn-close btn btn-default" data-bs-dismiss="modal"> <i class="fa fa-times" aria-hidden="true"></i></button>
-                    </div>
                     <div class="modal-body">
                         <form id="myFrom">
                             <div class="mb-3">
                                 <input asp-for="Customer.CustomerId" type="text" class="form-control" hidden id="CustomerId" aria-describedby="emailHelp">
-                                <span asp-validation-for="CustomerId" class="text-danger"></span>
+                                <span asp-validation-for="Customer.CustomerId" class="text-danger"></span>
                             </div>
                             <div class="mb-3">
-                                <label for="exampleInputEmail1" class="form-label">Mã nhân viên</label>
-                                <input asp-for="CustomerName" required name="EmployeeCode" type="text" class="form-control" id="EmployeeCode" aria-describedby="emailHelp">
-                                <span asp-validation-for="CustomerName" id="erEmployeeCode" class="text-danger"></span>
+                                <label for="exampleInputEmail1" class="form-label">Tên khách hàng</label>
+                                <input asp-for="Customer.CustomerId" required name="CustomerName" type="text" class="form-control" id="CustomerName" aria-describedby="emailHelp">
+                                <span asp-validation-for="Customer.CustomerId" id="erCustomerId" class="text-danger"></span>
                             </div>
                             <div class="mb-3">
-                                <label for="exampleInputEmail1" class="form-label">Tên nhân viên</label>
-                                <input asp-for="EmployeeName" required name="EmployeeName" type="text" class="form-control" id="EmployeeName" aria-describedby="emailHelp">
-                                <span asp-validation-for="EmployeeName" id="erEmployeeName" class="text-danger"></span>
+                                <label for="exampleInputEmail1" class="form-label">Tên công ty</label>
+                                <input asp-for="Customer.CompanyName" required name="CompanyName" type="text" class="form-control" id="CompanyName" aria-describedby="emailHelp">
+                                <span asp-validation-for="Customer.CompanyName" id="erCompanyName" class="text-danger"></span>
                             </div>
                             <div class="mb-3">
-                                <label for="exampleInputPassword1" class="form-label">Ngày sinh</label>
-                                <input asp-for="DateOfBirth" checkdate required type="date" class="form-control" id="DateOfBirth">
+                                <label for="exampleInputPassword1" class="form-label">Mã số thuế</label>
+                                <input asp-for="Customer.TaxCode" checkdate required type="text" class="form-control" id="TaxCode">
                             </div>
                             <div class="mb-3">
                                 <label for="exampleInputPassword1" class="form-label">Nơi ở</label>
-                                <input asp-for="Address" required type="text" class="form-control" id="Address">
-                                <span asp-validation-for="EmployeeName" id="erAddress" class="text-danger"></span>
+                                <input asp-for="Customer.PhoneNumber" required type="tel" class="form-control" id="PhoneNumber">
+                                <span asp-validation-for="Customer.PhoneNumber" id="erCustomer.PhoneNumber" class="text-danger"></span>
                             </div>
                             <div class="mb-3">
-                                <label for="exampleInputPassword1" class="form-label">Số điện thoại</label>
-                                <input asp-for="Phone" required type="text" class="form-control" id="Phone">
-                            </div>
-                            <div class="mb-3">
-                                <label for="UserName" class="form-label">Tài khoản</label>
-                                <input asp-for="UserName" required type="text" class="form-control" id="UserName">
+                                <label for="UserName" class="form-label">Email</label>
+                                <input asp-for="Customer.Email" required type="email" class="form-control" id="Email">
                             </div>
                             <div class="mb-3" id="group-password">
-                                <label for="PassWord" class="form-label">Mật khẩu</label>
-                                <input asp-for="PassWord" type="password" class="form-control" id="PassWord">
+                                <label for="DeliveryType" class="form-label">Phương thức vận chuyển</label>
+                                <input asp-for="Customer.DeliveryType" type="text" class="form-control" id="DeliveryType">
                             </div>
-                            <div class="mb-3">
-                                <label for="exampleInputPassword1" class="form-label">Chọn phòng ban</label>
-                                <select class="form-select form-control select" id="DepartmentId" asp-for="DepartmentId" aria-label="Default select example">
-                                    @foreach (var deparment in ViewBag.Deparments)
-                                    {
-                                        <option class="form-control Department" value="@deparment.DepartmentId">@deparment.DepartmentName</option>
-                                    }
-                                </select>
+                            <div class="mb-3" id="group-password">
+                                <label for="FirstDestination" class="form-label">Điểm khởi hành</label>
+                                <input asp-for="Customer.FirstDestination" type="text" class="form-control" id="FirstDestination">
                             </div>
-                            <div class="mb-3 text-right">
-                                <button type="button" onclick="AddOrUpdate()" class="btn btn-primary btn-add">Thêm</button>
+                            <div class="mb-3" id="group-password">
+                                <label for="LastDestination" class="form-label">Điểm đến</label>
+                                <input asp-for="Customer.LastDestination" type="text" class="form-control" id="LastDestination">
+                            </div>
+                            <div class="mb-3" id="group-password">
+                                <label for="GoodsType" class="form-label">Loại hàng hóa</label>
+                                <input asp-for="Customer.GoodsType" type="text" class="form-control" id="GoodsType">
+                            </div>
+                            <div class="mb-3" id="group-password">
+                                <label for="Weight" class="form-label">Trọng lượng</label>
+                                <input asp-for="Customer.Weight" type="text" class="form-control" id="Weight">
+                            </div>
+                            <div class="mb-3" id="group-password">
+                                <label for="Size" class="form-label">Kích cỡ</label>
+                                <input asp-for="Customer.Size" type="text" class="form-control" id="Size">
+                            </div>
+                            <div class="mb-3" id="group-password">
+                                <label for="Quantum" class="form-label">Số lượng</label>
+                                <input asp-for="Customer.Quantum" type="text" class="form-control" id="Quantum">
+                            </div>
+                            <div class="mb-3" id="group-password">
+                                <label for="Quantity" class="form-label">Sản lượng</label>
+                                <input asp-for="Customer.Quantity" type="text" class="form-control" id="Quantity">
+                            </div>
+                            <div class="mb-3" id="group-password">
+                                <label for="OtherRequest" class="form-label">Yêu cầu khác</label>
+                                <input asp-for="Customer.OtherRequest" type="text" class="form-control" id="OtherRequest">
+                            </div>
+                            <div class="mb-3" id="Service">
+                               
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-    </div>*@
+    </div>
     <div class="page-search">
         <div id="accordion">
             <div class="card">
@@ -109,38 +126,32 @@
                     <th scope="col">Tên khách hàng</th>
                     <th scope="col">Tên công ty</th>
                     <th scope="col">Mã số thuế</th>
-                    <th scope="col">Số điện thoại</th
+                    <th scope="col">Số điện thoại</th>
                     <th scope="col">Email</th>
                     <th scope="col">Phương thức vận chuyển</th>
                     <th scope="col">Điểm khởi hành</th>
-                    <th scope="col">Điểm đến</th
-                    <th scope="col">Loại hàng</th>
-                    <th scope="col">Trọng lượng</th>
-                    <th scope="col">Kích cỡ</th>
-                    <th scope="col">Số lượng</th>
-                    <th scope="col">Sản lượng</th>
-                    <th scope="col">Yêu cầu khác</th>
+                    <th scope="col">Điểm đến</th>
                     <th scope="col" class="text-center">Chức năng</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var employee in ViewBag.Employeess)
+                @foreach (var customer in Model.Customers)
                 {
                     <tr>
-                        <td>@employee.EmployeeCode</td>
-                        <td>@employee.EmployeeName</td>
+                        <td>@customer.CustomerId</td>
+                        <td>@customer.CustomerName</td>
                         <td>
-                            @employee.DateOfBirth.ToString(string.Format("dd-MM-yyyy"))
+                            @customer.CompanyName
                         </td>
 
-                        <td>@employee.Address</td>
-                        <td>@employee.DepartmentName</td>
+                        <td>@customer.TaxCode</td>
+                        <td>@customer.PhoneNumber</td>
+                        <td>@customer.Email</td>
+                        <td>@customer.DeliveryType</td>
+                        <td>@customer.FirstDestination</td>
+                        <td>@customer.LastDestination</td>
                         <td class="text-center">
-                            <button href="#myModal" data-bs-toggle="modal" onclick="ShowFormUpdate('@employee.EmployeeId')" type="button" class="btn btn-default">Chỉnh sửa</button>
-                            <a style="cursor:pointer" onclick="Delete('@employee.EmployeeId')" class="btn btn-light">Xóa</a>
-                            <a style="cursor:pointer" href="/Home/Role/@employee.EmployeeId" class="btn btn-light">
-                                Phân quyền
-                            </a>
+                            <button href="#myModal" data-bs-toggle="modal" onclick="ShowFormUpdate('@customer.CustomerId')" type="button" class="btn btn-default">Xem chi tiết</button>
                         </td>
                     </tr>
                 }
@@ -193,38 +204,47 @@
     function HideForm() {
         $('#myFrom')[0].reset();
         $('.btn-add').html('Thêm');
+        $('.btn-add').css('display','none');
           $('#DepartmentId').prop('selectedIndex',0)
     }
     function ShowFormUpdate(employeeId) {
         this.employeeId = employeeId;
         $.ajax({
             type: 'Get',
-            url: '/Admin/Home/Get',
+            url: '/Admin/CustomerServiceRegistration/GetInfoById',
             contentType: 'application/json; charset=utf-8',
-            data: { employeeId: employeeId },
+            data: { id: employeeId },
             async: false,
-            success: function (data) {
-                debugger
+            success: function (res) {
+                console.log(res.services);
                 $('#group-password').hide();
                 $('.btn-add').html('Sửa');
-                $('#EmployeeId').val(data.employeeId);
-                $('#EmployeeCode').val(data.employeeCode);
-                $('#EmployeeName').val(data.employeeName);
-                $('#DateOfBirth').val(formatDate(data.dateOfBirth));
-                $('#Address').val(data.address);
-                $('#Phone').val(data.phone);
-                $('#UserName').val(data.userName);
-                $('#PassWord').val(data.passWord);
-                var option = $('.modal-body option');
-                for (var i = 0; i < option.length; i++) {
-                    var departmentId = option[i].value;
-                    if (departmentId == data.departmentId) {
-                        option[i].setAttribute('selected', true);
-                    }
-                    else {
-                        option[i].removeAttribute('selected');
-                    }
+                $('.btn-add').css('display','none');
+                $('#CustomerId').val(res.customer.customerId);
+                $('#CustomerName').val(res.customer.companyName);
+                $('#CompanyName').val(res.customer.companyName);
+                $('#TaxCode').val(res.customer.taxCode);
+                $('#PhoneNumber').val(res.customer.phoneNumber);
+                $('#Email').val(res.customer.deliveryType);
+                $('#DeliveryType').val(res.customer.deliveryType);
+                $('#FirstDestination').val(res.customer.firstDestination);
+                $('#LastDestination').val(res.customer.lastDestination);
+                $('#GoodsType').val(res.customer.goodsType);
+                $('#Weight').val(res.customer.weight);
+                $('#Size').val(res.customer.size);
+                $('#Quantum').val(res.customer.quantum);
+                $('#Quantity').val(res.customer.quantity);
+                $('#OtherRequest').val(res.customer.otherRequest);
+                var service="";
+                for(let i=0; i<res.services.length; i++){
+                    service+='<div class="form-check">'+
+                              '<input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>'+
+                                            '<label class="form-check-label" for="flexCheckChecked">'+
+                                               res.services[i].serviceTypeName+
+                                                    '</label></div>'
                 }
+                document.getElementById("Service").innerHTML=service;
+                console.log(service);
             },error(data){
                 notAuthozire(data);
             }
