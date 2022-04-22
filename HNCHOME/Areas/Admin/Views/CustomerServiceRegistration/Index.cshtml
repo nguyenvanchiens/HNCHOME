@@ -1,150 +1,160 @@
-﻿@model HNCHOME.Models.CustomerServiceRegistration
+﻿@model HNCHOME.Areas.Admin.Models.ViewModel.CustomerServiceRegistrationViewModel
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-@* <main class="page-content">
-    <div class="page-header">
-      <p class="fw">Danh sách nhân viên</p>
-      <button type="button" href="#myModal" role="button" onclick="ShowFormAdd()" class="btn btn-primary" data-bs-toggle="modal">Thêm mới</button>
-     <div id="myModal" class="modal fade" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Thêm Mới Nhân Viên</h5>
-                    <button type="button" onclick="HideForm()" class="btn-close btn btn-default" data-bs-dismiss="modal"> <i class="fa fa-times" aria-hidden="true"></i></button>
-                </div>
-                <div class="modal-body">
-                  <form id="myFrom">                                        
-                     <div class="mb-3">
-                      <input asp-for="EmployeeId" type="text" class="form-control" hidden id="EmployeeId" aria-describedby="emailHelp">
-                      <span asp-validation-for="EmployeeId" class="text-danger"></span>
+<main class="page-content">
+    @*<div class="page-header">
+        <p class="fw">Danh sách khách hàng đăng ký</p>
+        <button type="button" href="#myModal" role="button" onclick="ShowFormAdd()" class="btn btn-primary" data-bs-toggle="modal">Thêm mới</button>
+        <div id="myModal" class="modal fade" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Thêm Mới Khách Hàng Đăng Ký</h5>
+                        <button type="button" onclick="HideForm()" class="btn-close btn btn-default" data-bs-dismiss="modal"> <i class="fa fa-times" aria-hidden="true"></i></button>
                     </div>
-                    <div class="mb-3">
-                      <label for="exampleInputEmail1" class="form-label">Mã nhân viên</label>
-                      <input asp-for="EmployeeCode" required name="EmployeeCode" type="text" class="form-control"  id="EmployeeCode" aria-describedby="emailHelp">
-                      <span asp-validation-for="EmployeeCode" id="erEmployeeCode" class="text-danger"></span>
+                    <div class="modal-body">
+                        <form id="myFrom">
+                            <div class="mb-3">
+                                <input asp-for="Customer.CustomerId" type="text" class="form-control" hidden id="CustomerId" aria-describedby="emailHelp">
+                                <span asp-validation-for="CustomerId" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Mã nhân viên</label>
+                                <input asp-for="CustomerName" required name="EmployeeCode" type="text" class="form-control" id="EmployeeCode" aria-describedby="emailHelp">
+                                <span asp-validation-for="CustomerName" id="erEmployeeCode" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Tên nhân viên</label>
+                                <input asp-for="EmployeeName" required name="EmployeeName" type="text" class="form-control" id="EmployeeName" aria-describedby="emailHelp">
+                                <span asp-validation-for="EmployeeName" id="erEmployeeName" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputPassword1" class="form-label">Ngày sinh</label>
+                                <input asp-for="DateOfBirth" checkdate required type="date" class="form-control" id="DateOfBirth">
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputPassword1" class="form-label">Nơi ở</label>
+                                <input asp-for="Address" required type="text" class="form-control" id="Address">
+                                <span asp-validation-for="EmployeeName" id="erAddress" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputPassword1" class="form-label">Số điện thoại</label>
+                                <input asp-for="Phone" required type="text" class="form-control" id="Phone">
+                            </div>
+                            <div class="mb-3">
+                                <label for="UserName" class="form-label">Tài khoản</label>
+                                <input asp-for="UserName" required type="text" class="form-control" id="UserName">
+                            </div>
+                            <div class="mb-3" id="group-password">
+                                <label for="PassWord" class="form-label">Mật khẩu</label>
+                                <input asp-for="PassWord" type="password" class="form-control" id="PassWord">
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputPassword1" class="form-label">Chọn phòng ban</label>
+                                <select class="form-select form-control select" id="DepartmentId" asp-for="DepartmentId" aria-label="Default select example">
+                                    @foreach (var deparment in ViewBag.Deparments)
+                                    {
+                                        <option class="form-control Department" value="@deparment.DepartmentId">@deparment.DepartmentName</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="mb-3 text-right">
+                                <button type="button" onclick="AddOrUpdate()" class="btn btn-primary btn-add">Thêm</button>
+                            </div>
+                        </form>
                     </div>
-                    <div class="mb-3">
-                      <label for="exampleInputEmail1" class="form-label">Tên nhân viên</label>
-                      <input asp-for="EmployeeName" required name="EmployeeName" type="text" class="form-control" id="EmployeeName" aria-describedby="emailHelp">
-                      <span asp-validation-for="EmployeeName" id="erEmployeeName" class="text-danger"></span>
-                    </div>
-                    <div class="mb-3">
-                      <label for="exampleInputPassword1" class="form-label">Ngày sinh</label>
-                      <input asp-for="DateOfBirth" checkdate required type="date" class="form-control" id="DateOfBirth">
-                    </div>
-                    <div class="mb-3">
-                      <label for="exampleInputPassword1" class="form-label">Nơi ở</label>
-                      <input asp-for="Address" required type="text" class="form-control" id="Address">
-                       <span asp-validation-for="EmployeeName" id="erAddress" class="text-danger"></span>
-                    </div>
-                    <div class="mb-3">
-                      <label for="exampleInputPassword1" class="form-label">Số điện thoại</label>
-                      <input asp-for="Phone" required type="text" class="form-control" id="Phone">
-                    </div>
-                    <div class="mb-3">
-                      <label for="UserName" class="form-label">Tài khoản</label>
-                      <input asp-for="UserName" required type="text" class="form-control" id="UserName">
-                    </div>
-                    <div class="mb-3" id="group-password">
-                      <label for="PassWord" class="form-label">Mật khẩu</label>
-                      <input asp-for="PassWord" type="password" class="form-control" id="PassWord">
-                    </div>
-                    <div class="mb-3">
-                      <label for="exampleInputPassword1" class="form-label">Chọn phòng ban</label>
-                      <select class="form-select form-control select" id="DepartmentId" asp-for="DepartmentId" aria-label="Default select example">
-                      @foreach (var deparment in ViewBag.Deparments)
-                      {
-                          <option class="form-control Department" value="@deparment.DepartmentId">@deparment.DepartmentName</option>
-                      }                  
-                      </select>
-                    </div>
-                    <div class="mb-3 text-right">
-                      <button type="button" onclick="AddOrUpdate()" class="btn btn-primary btn-add">Thêm</button>
-                    </div>
-                 </form>
                 </div>
             </div>
         </div>
-    </div>
-    </div>
+    </div>*@
     <div class="page-search">
-      <div id="accordion">
-        <div class="card">
-          <div class="card-header" id="headingOne">
-            <span><i b-eginzb9zup="" class="fa fa-search" aria-hidden="true"></i></span>
-            <h5 class="mb-0">
-              <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                <i class="fa fa-arrow-down" aria-hidden="true"></i>
-              </button>
-            </h5>
-          </div>
-      
-          <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-            <div class="card-body">
-              <div class="input-groups">
-                 <form method="get" style="display:flex">
-                      <label style="margin-right:10px" for="">Tên Nhân Viên</label>
-                    <div>
-                    <div>
-                    <input type="text" name="filter">
-                    </div> 
-                    <button type="submit" class="btn btn-primary">Tìm kiếm</button>
-                    </div>     
-                 </form>    
-              </div>
+        <div id="accordion">
+            <div class="card">
+                <div class="card-header" id="headingOne">
+                    <span><i b-eginzb9zup="" class="fa fa-search" aria-hidden="true"></i></span>
+                    <h5 class="mb-0">
+                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            <i class="fa fa-arrow-down" aria-hidden="true"></i>
+                        </button>
+                    </h5>
+                </div>
+
+                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                    <div class="card-body">
+                        <div class="input-groups">
+                            <form method="get" style="display:flex">
+                                <label style="margin-right:10px" for="">Tên Nhân Viên</label>
+                                <div>
+                                    <div>
+                                        <input type="text" name="filter">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
     <div class="page-content-table">
-      <table class="table table-bordered order-column dataTables" style="width:100%"  id="dataTable" cellpadding=0>
-        <thead>
-            <tr>
-                <th scope="col">Mã NV</th>
-                <th scope="col">Tên nhân viên</th>
-                <th scope="col">Ngày sinh</th>
-                <th scope="col">Quê quán</th>
-                <th scope="col">Tên phòng ban</th>
-                <th scope="col" class="text-center">Chức năng</th>
+        <table class="table table-bordered order-column dataTables" style="width:100%" id="dataTable" cellpadding=0>
+            <thead>
+                <tr>
+                    <th scope="col">Mã khách hàng</th>
+                    <th scope="col">Tên khách hàng</th>
+                    <th scope="col">Tên công ty</th>
+                    <th scope="col">Mã số thuế</th>
+                    <th scope="col">Số điện thoại</th
+                    <th scope="col">Email</th>
+                    <th scope="col">Phương thức vận chuyển</th>
+                    <th scope="col">Điểm khởi hành</th>
+                    <th scope="col">Điểm đến</th
+                    <th scope="col">Loại hàng</th>
+                    <th scope="col">Trọng lượng</th>
+                    <th scope="col">Kích cỡ</th>
+                    <th scope="col">Số lượng</th>
+                    <th scope="col">Sản lượng</th>
+                    <th scope="col">Yêu cầu khác</th>
+                    <th scope="col" class="text-center">Chức năng</th>
                 </tr>
-        </thead>
-         <tbody>
-           @foreach (var employee in ViewBag.Employeess)
-           {
-             <tr>
-                <td>@employee.EmployeeCode</td>
-                <td>@employee.EmployeeName</td>
-                <td>                  
-                    @employee.DateOfBirth.ToString(string.Format("dd-MM-yyyy"))
-                </td>
-                    
-                <td>@employee.Address</td>
-                <td>@employee.DepartmentName</td>
-                <td class="text-center">
-                    <button href="#myModal" data-bs-toggle="modal" onclick="ShowFormUpdate('@employee.EmployeeId')" type="button" class="btn btn-default">Chỉnh sửa</button>
-                    <a style="cursor:pointer" onclick="Delete('@employee.EmployeeId')" class="btn btn-light">Xóa</a>
-                    <a style="cursor:pointer" href="/Home/Role/@employee.EmployeeId" class="btn btn-light">
-                        Phân quyền
-                    </a>                
-                </td>
-             </tr>
-           }
-        </tbody>             
-      </table>
+            </thead>
+            <tbody>
+                @foreach (var employee in ViewBag.Employeess)
+                {
+                    <tr>
+                        <td>@employee.EmployeeCode</td>
+                        <td>@employee.EmployeeName</td>
+                        <td>
+                            @employee.DateOfBirth.ToString(string.Format("dd-MM-yyyy"))
+                        </td>
+
+                        <td>@employee.Address</td>
+                        <td>@employee.DepartmentName</td>
+                        <td class="text-center">
+                            <button href="#myModal" data-bs-toggle="modal" onclick="ShowFormUpdate('@employee.EmployeeId')" type="button" class="btn btn-default">Chỉnh sửa</button>
+                            <a style="cursor:pointer" onclick="Delete('@employee.EmployeeId')" class="btn btn-light">Xóa</a>
+                            <a style="cursor:pointer" href="/Home/Role/@employee.EmployeeId" class="btn btn-light">
+                                Phân quyền
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
-  </main>
-    <div class="alert alert-primary" id="notify" role="alert">
-       Thêm Mới Thành Công
-    </div>
-  @section Scripts {
-    <script>
-      
-    </script>     
+</main>
+<div class="alert alert-primary" id="notify" role="alert">
+    Thêm Mới Thành Công
+</div>
+@section Scripts {
+<script>
+
+</script>
 }
 <script>
 
@@ -152,7 +162,7 @@
     function ShowFormAdd(){
         var employeeId = "";
         $('#group-password').show();
-       
+
     };
     function Delete(employeeId) {
         var result = confirm("Bạn có muốn xóa nhân viên này?");
@@ -177,7 +187,7 @@
                 }
             })
         } else {
-    
+
         }
     }
     function HideForm() {
@@ -231,7 +241,7 @@
                 UserName:$('#UserName').val(),
                 PassWord:$('#PassWord').val(),
                 DepartmentId:$('#DepartmentId').val()
-            };   
+            };
             Validate();
               let validateInput = $('input[validate="false"]');
                 if (validateInput && validateInput.length > 0) {
@@ -242,7 +252,7 @@
             if(this.employeeId==""){
             $.ajax({
                 type: 'Post',
-                url: '/Admin/Home/AddEmployee',           
+                url: '/Admin/Home/AddEmployee',
                 dataType:"json",
                 data: { employee: data },
                 async:false,
@@ -255,14 +265,14 @@
                     }
                 },
                 error: function (data) {
-                      notAuthozire(data); 
+                      notAuthozire(data);
                 }
             })
             }
-            else{           
+            else{
             $.ajax({
                 type: 'Post',
-                url: '/Admin/Home/UpdateEmployee',           
+                url: '/Admin/Home/UpdateEmployee',
                 dataType:"json",
                 data: { employee: data },
                 async:false,
@@ -276,7 +286,7 @@
                     }
                 },
                 error: function (data) {
-                   notAuthozire(data); 
+                   notAuthozire(data);
                 }
             })
         }
@@ -287,13 +297,14 @@
              window.location.pathname="/Account/AccessDenied";
         }
     }
-    
+
 </script>
 <style>
-    .page-link{
-        color:black;
+    .page-link {
+        color: black;
     }
-    .page-link:focus{
-        box-shadow:unset;
-    }
-</style>*@
+
+        .page-link:focus {
+            box-shadow: unset;
+        }
+</style>
