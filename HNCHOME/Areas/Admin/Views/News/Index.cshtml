@@ -1,0 +1,228 @@
+﻿@model HNCHOME.Areas.Admin.Models.ViewModel.NewsViewModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<main class="page-content">
+    <div class="page-header">
+        <p class="fw">Danh sách tin tức</p>
+        <!-- Button HTML (to Trigger Modal) -->
+        <button type="button" href="#myModal" role="button" class="btn btn-primary" data-bs-toggle="modal">Thêm mới</button>
+
+        <!-- Modal HTML -->
+        <div id="myModal" class="modal fade" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Thêm Mới Tin Tức</h5>
+                        <button type="button" onclick="HideForm()" class="btn-close btn btn-default" data-bs-dismiss="modal"> <i class="fa fa-times" aria-hidden="true"></i></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="myFrom">
+                            @*@Html.AntiForgeryToken()*@
+                            <div class="mb-3">
+                                <input asp-for="NewsModel.NewsId" type="text" class="form-control" hidden id="NewsId" aria-describedby="emailHelp">
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Tiêu đề</label>
+                                <input asp-for="NewsModel.Title" required type="text" class="form-control" id="Title" aria-describedby="emailHelp">
+                                <span asp-validation-for="NewsModel.Title" id="erTitle" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Nội dung</label>
+                                <input asp-for="NewsModel.Content" required name="Content" type="text" class="form-control" id="Content" aria-describedby="emailHelp">
+                                <span asp-validation-for="NewsModel.Content" id="erContent" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Ảnh</label>
+                                <input asp-for="NewsModel.ImgUrl" required name="ImgUrl" type="file" class="form-control" id="ImgUrl" aria-describedby="emailHelp">
+                                <span asp-validation-for="NewsModel.ImgUrl" id="erImgUrl" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3 text-right">
+                                <button type="button" onclick="AddOrUpdate()" class="btn btn-primary btn-add">Thêm</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page-search">
+        <div id="accordion">
+            <div class="card">
+                <div class="card-header" id="headingOne">
+                    <span><i b-eginzb9zup="" class="fa fa-search" aria-hidden="true"></i></span>
+                    <h5 class="mb-0">
+                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            <i class="fa fa-arrow-down" aria-hidden="true"></i>
+                        </button>
+                    </h5>
+                </div>
+
+                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                    <div class="card-body">
+                        <div class="input-groups">
+                            <form action="/Admin/Department/Index" method="get" style="display:flex">
+                                <label style="margin-right:10px" for="">Tên tin tức</label>
+                                <div>
+                                    <div>
+                                        <input type="text" name="filter">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page-content-table">
+        <table class="table table-bordered" id="dataTable" cellpadding=0>
+            <thead>
+                <tr>
+                    <th scope="col">Mã tin tức</th>
+                    <th scope="col">Tiêu đề</th>
+                    <th scope="col">Nội dung</th>
+                    <th scope="col">Ảnh</th>
+                    <th scope="col">Ngày tạo</th>
+                    <th scope="col" class="text-center">Chức năng</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.NewsModels)
+                {
+                    <tr>
+                        <td>@item.NewsId</td>
+                        <td>@item.Title</td>
+                        <td>@item.Content</td>
+                        <td><img style="width:100%; height:100%;" src="@item.ImgUrl" /></td>
+                        <td>@item.CreatedDate.ToString(string.Format("dd-mm-yyyy"))</td>
+                        <td class="text-center">
+                            <button href="#myModal" data-bs-toggle="modal" onclick="ShowUpdate('@item.NewsId')" type="button" class="btn btn-default">Chỉnh sửa</button>
+                            <a style="cursor:pointer" onclick="Delete('@item.NewsId')" class="btn btn-light">Xóa</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</main>
+
+<script>
+    var departmentId = "";
+    function AddOrUpdate(){
+        var data = {
+             NewsId:$('#NewsId').val(),
+             Title:$('#Title').val(),
+             Content:$('#Content').val(),
+             ImgUrl:$('#ImgUrl').val(),
+        }
+        Validate();
+         let validateInput = $('input[validate="false"]');
+            if (validateInput && validateInput.length > 0) {
+              alert("Bạn hãy điền đủ các trường thông tin");
+              $(validateInput)[0].focus();
+              return;
+            }
+            if(this.departmentId==""){
+                var formFile=$('input[type=file]')[0].files[0];
+                console.log(formFile);
+                var formData=new FormData();
+                formData.append("formFile",formFile);
+                setTimeout(()=>{
+                    formData.append("formFile",formFile);
+                    $.ajax({
+                        type: 'Post',
+                        url: '/Admin/News/UploadFile',
+                        //dataType:"json",
+                        //enctype: 'multipart/form-data',
+                        data:  formData ,
+                        processData: false,  // tell jQuery not to process the data
+                        contentType: false,
+                        async:false,
+                        success: function (res) {
+                            alert(res.res);
+                        },
+                        error: function (res) {
+                            console.log(res.res);
+                        }
+                    });
+                }, 500)
+
+
+                //debugger;
+            }
+            else{
+            $.ajax({
+                type: 'Post',
+                url: '/Admin/Department/UpdateDepartment',
+                dataType:"json",
+                data: { department: data },
+                async:false,
+                success: function (result) {
+                    if(result==201){
+                         window.location.pathname="/Admin/Department/Index"
+                    }
+                    else{
+                        alert(result);
+                    }
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            })
+        }
+    }
+    function Delete(departmentId) {
+        debugger
+        var result = confirm("Bạn có muốn xóa phòng ban này không?");
+        if (result) {
+            var Url = "/Admin/Department/Delete"
+            $.ajax({
+                type: 'Post',
+                url: Url,
+                data: { DepartmentId: departmentId },
+                async: false,
+                success: function (res) {
+                    if(res==200){
+                        window.location.pathname = "/Admin/Department/Index"
+                    }
+                    else{
+                        alert('Xóa không thành công');
+                    }
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            })
+        } else {
+
+        }
+    }
+    function HideForm() {
+       $('.btn-add').html('Thêm mới');
+       var departmentId = "";
+    }
+    function ShowUpdate(departmentId) {
+        this.departmentId = departmentId;
+        $.ajax({
+            type: 'Get',
+            url: '/Admin/Department/Get',
+            contentType: 'application/json; charset=utf-8',
+            data: { departmentId: departmentId },
+            async: false,
+            success: function (data) {
+                $('.btn-add').html('Sửa');
+                $('#DepartmentId').val(data.departmentId);
+                $('#DepartmentCode').val(data.departmentCode);
+                $('#DepartmentName').val(data.departmentName);
+            }
+        })
+    }
+</script>

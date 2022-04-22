@@ -23,5 +23,6 @@ namespace HNCHOME.Data
         public DbSet<Customer> Customers { get; set; }
         public DbSet<ServiceInfo> ServiceInfos { get; set; }
         public DbSet<CustomerServiceRegistration> customerServiceRegistrations { get; set; }
+        public DbSet<NewsModel> NewsModels { get; set; }
     }
 }

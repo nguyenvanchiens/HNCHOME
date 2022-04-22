@@ -26,6 +26,7 @@ builder.Services.AddTransient<IFeedBackRepository, FeedBackRepository>();
 builder.Services.AddTransient<IServiceRepository, ServiceRepository>();
 builder.Services.AddTransient<ICustomerRepository, CustomerRepository>();
 builder.Services.AddTransient<ICustomerServiceRegistrationRepository, CustomerRegistrationRepository>();
+builder.Services.AddTransient<INewsRepository, NewsRepository>();
 
 builder.Services.AddAuthentication(options =>
 {
