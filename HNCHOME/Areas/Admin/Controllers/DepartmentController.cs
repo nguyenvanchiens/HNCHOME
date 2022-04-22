@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace HNCHOME.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class DepartmentController : BaseController
     {
         private readonly IDepartmentRepository _repository = null;
@@ -13,9 +15,9 @@ namespace HNCHOME.Controllers
         // GET: DepartmentController
         public ActionResult Index([FromQuery] string filter)
         {
-            var res = _repository.GetAll();
-            ViewBag.Departments = _repository.GetAllPaeging(filter);
-            return View();
+            var model = new DepartmentControllerVM();
+            model.Departments = _repository.GetAll();
+            return View(model);
         }
 
         [HttpPost]

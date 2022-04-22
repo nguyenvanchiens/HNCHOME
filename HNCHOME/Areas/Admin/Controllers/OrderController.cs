@@ -11,7 +11,8 @@ namespace HNCHOME.Controllers
 
         public IActionResult Index()
         {
-            ViewBag.Order = (from order in _dbContext.Orders
+            var model = new OrderControllerVM();
+            model.Orders = (from order in _dbContext.Orders
                      join od in _dbContext.OrderDetails on order.OrderId equals od.OrderId
                      group od by new { order.OrderCode,order.Payment,order.Delivery, order.OrderId,order.Status,order.CreatedDate,order.UserName } into order
                      select new Order
@@ -26,7 +27,7 @@ namespace HNCHOME.Controllers
                          TotalPrice = order.Sum(x=>x.Quantity*x.Price)
                      }).OrderByDescending(x=>x.CreatedDate).ToList();
             
-            return View();
+            return View(model);
         }
         public IActionResult OrderDetail(Guid orderId)
         {

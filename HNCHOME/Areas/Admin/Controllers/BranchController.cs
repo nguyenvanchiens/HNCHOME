@@ -4,15 +4,18 @@ namespace HNCHOME.Areas.Admin.Controllers
 {
     public class BranchController : BaseController
     {
+        #region Constructor
         private readonly IBranchRepository _branchRepository;
         public BranchController(HNCDbContext dbContext, IBranchRepository branchRepository) : base(dbContext)
         {
             _branchRepository = branchRepository;
         }
-
+        #endregion
+        #region Method
         public IActionResult Index()
         {
-            ViewBag.Branchs = (from branch in _dbContext.Branches
+            var model = new BranchControllerVM();
+            model.BranchList = (from branch in _dbContext.Branches
                                join country in _dbContext.Countries
                                on branch.CountryId equals country.CountryId
                                join language in _dbContext.Languages
@@ -28,12 +31,9 @@ namespace HNCHOME.Areas.Admin.Controllers
                                    CountryName = country.CountryName,
                                    LanguageName = language.Name
                                }).ToList();
-            ViewBag.Language = _dbContext.Languages.ToList();
-            ViewBag.Country = _dbContext.Countries.ToList();
-
-
-
-            return View();
+            model.Languages = _dbContext.Languages.ToList();
+            model.Country = _dbContext.Countries.ToList();
+            return View(model);
         }
 
         [HttpPost]
@@ -90,5 +90,6 @@ namespace HNCHOME.Areas.Admin.Controllers
                 return Json(e.Message);
             }
         }
+        #endregion
     }
 }

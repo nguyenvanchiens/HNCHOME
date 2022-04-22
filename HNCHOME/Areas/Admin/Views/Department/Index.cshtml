@@ -1,4 +1,4 @@
-﻿@model HNCHOME.Models.Department;
+﻿@model HNCHOME.Areas.Admin.Models.ViewModel.DepartmentControllerVM
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
@@ -22,17 +22,17 @@
                   <form id="myFrom">
                       @Html.AntiForgeryToken()
                      <div class="mb-3">
-                      <input asp-for="DepartmentId" type="text" class="form-control" hidden id="DepartmentId" aria-describedby="emailHelp">                     
+                      <input asp-for="Department.DepartmentId" type="text" class="form-control" hidden id="DepartmentId" aria-describedby="emailHelp">                     
                     </div>
                     <div class="mb-3">
                       <label for="exampleInputEmail1" class="form-label">Mã Phòng Ban</label>
-                      <input asp-for="DepartmentCode" required  type="text" class="form-control" id="DepartmentCode" aria-describedby="emailHelp">
-                      <span asp-validation-for="DepartmentCode" id="erDepartmentCode" class="text-danger"></span>
+                      <input asp-for="Department.DepartmentCode" required  type="text" class="form-control" id="DepartmentCode" aria-describedby="emailHelp">
+                      <span asp-validation-for="Department.DepartmentCode" id="erDepartmentCode" class="text-danger"></span>
                     </div>
                     <div class="mb-3">
                       <label for="exampleInputEmail1" class="form-label">Tên Phòng Ban</label>
-                      <input asp-for="DepartmentName" required name="DepartmentName" type="text" class="form-control" id="DepartmentName" aria-describedby="emailHelp">
-                      <span asp-validation-for="DepartmentName" id="erDepartmentName" class="text-danger"></span>
+                      <input asp-for="Department.DepartmentName" required name="DepartmentName" type="text" class="form-control" id="DepartmentName" aria-describedby="emailHelp">
+                      <span asp-validation-for="Department.DepartmentName" id="erDepartmentName" class="text-danger"></span>
                     </div>                                    
                     <div class="mb-3 text-right">
                       <button type="button" onclick="AddOrUpdate()" class="btn btn-primary btn-add">Thêm</button>
@@ -84,7 +84,7 @@
             </tr>                   
         </thead>
         <tbody>
-           @foreach (var department in ViewBag.Departments)
+           @foreach (var department in Model.Departments)
             {
              <tr>
                 <td>@department.DepartmentCode</td>

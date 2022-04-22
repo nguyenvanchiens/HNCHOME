@@ -1,6 +1,7 @@
 ﻿using HNCHOME.Properties;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -60,7 +61,11 @@ namespace HNCHOME.Areas.Admin.Controllers
             //SignOutAsync is Extension method for SignOut    
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             //Redirect to home page    
-            return LocalRedirect("/Account/Login");
+            return LocalRedirect("/Admin/Account/Login");
+        }
+        public IActionResult NotAuthozire()
+        {
+            return View();
         }
     }
 }

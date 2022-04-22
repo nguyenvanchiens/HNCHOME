@@ -90,12 +90,12 @@ $(document).ready(function(){
               }
                $.ajax({
                 type: 'Post',
-                url: '@Url.Action("Role", "Home")',           
+                url: '/Admin/Home/Role',           
                 dataType:"json",
                 data: { id:employeeId,listId: listId },
                 async:false,
                 success: function (result) {
-                    window.location.pathname="/Home/Index"
+                    window.location.pathname="/Admin/Home/Index"
                 },
                 error: function (data) {
                     console.log(data);

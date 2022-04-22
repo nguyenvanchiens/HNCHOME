@@ -1,8 +1,7 @@
-﻿@model HNCHOME.Models.FeedBack
+﻿@model HNCHOME.Areas.Admin.Models.ViewModel.FeedBackControllerVM
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
-    var feedback = new List<FeedBack>(@ViewBag.FeedBack);
 }
  <main class="page-content">
     <div class="page-header">
@@ -18,19 +17,19 @@
                 <div class="modal-body">
                   <form id="myFrom">                                        
                      <div class="mb-3">
-                      <input asp-for="FeedBackId" type="text" class="form-control" hidden id="FeedBackId" aria-describedby="emailHelp">
+                      <input asp-for="FeedBack.FeedBackId" type="text" class="form-control" hidden id="FeedBackId" aria-describedby="emailHelp">
                     </div>
                     <div class="mb-3">
                       <label for="exampleInputEmail1" class="form-label">Tên người gửi</label>
-                      <input disabled asp-for="Name" required name="EmployeeCode" type="text" class="form-control"  id="Name" aria-describedby="emailHelp">
+                      <input disabled asp-for="FeedBack.Name" required name="EmployeeCode" type="text" class="form-control"  id="Name" aria-describedby="emailHelp">
                     </div>
                     <div class="mb-3">
                       <label for="exampleInputEmail1" class="form-label">Email</label>
-                      <input disabled asp-for="Email" required name="EmployeeName" type="text" class="form-control" id="Email" aria-describedby="emailHelp">
+                      <input disabled asp-for="FeedBack.Email" required name="EmployeeName" type="text" class="form-control" id="Email" aria-describedby="emailHelp">
                     </div>
                     <div class="mb-3">
                       <label for="exampleInputPassword1" class="form-label">Mô tả</label>
-                      <textarea disabled asp-for="Description" class="form-control" rows=10 cols=20 id="Description"></textarea>
+                      <textarea disabled asp-for="FeedBack.Description" class="form-control" rows=10 cols=20 id="Description"></textarea>
                     </div>
                  </form>
                 </div>
@@ -80,7 +79,7 @@
                 </tr>
         </thead>
          <tbody>
-           @foreach (var item in feedback)
+           @foreach (var item in Model.FeedBacks)
            {
              <tr>
                 <td>@item.Name</td>
@@ -98,9 +97,7 @@
       </table>
     </div>
   </main>
-    <div class="alert alert-primary" id="notify" role="alert">
-       Thêm Mới Thành Công
-    </div>
+    
   @section Scripts {
     <script>
       
@@ -111,8 +108,6 @@
     function HideForm() {
         $('#myFrom')[0].reset();
     }
-    }
-
     function ShowView(feedbackId){
         $.ajax({
             type:'get',

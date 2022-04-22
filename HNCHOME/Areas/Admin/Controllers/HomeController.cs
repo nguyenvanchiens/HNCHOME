@@ -1,5 +1,7 @@
 ﻿
+
 using HNCHOME.Properties;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 namespace HNCHOME.Areas.Admin.Controllers
@@ -15,27 +17,25 @@ namespace HNCHOME.Areas.Admin.Controllers
 
         public IActionResult Index([FromQuery] string filter)
         {
-            ViewBag.isAdmin = GetClaimAdmin();
             ViewBag.isCreate = GetClaimAdd();
-            ViewBag.Deparments = _dbContext.Department.ToList();
-            if (filter != null)
-            {
-                ViewBag.Employeess = from e in _dbContext.Employees
-                                     join d in _dbContext.Department
-                                     on e.DepartmentId equals d.DepartmentId
-                                     where (e.EmployeeName.Contains(filter) || e.EmployeeCode.Contains(filter) || e.Address.Contains(filter))
-                                     orderby e.CreatedDate ascending
-                                     select new { e.EmployeeId, e.EmployeeCode, e.EmployeeName, e.Address, e.DateOfBirth, d.DepartmentName };
-            }
-            else
-            {
-                ViewBag.Employeess = (from e in _dbContext.Employees
-                                      join d in _dbContext.Department
-                                      on e.DepartmentId equals d.DepartmentId
-                                      orderby e.CreatedDate ascending
-                                      select new { e.EmployeeId, e.EmployeeCode, e.EmployeeName, e.Address, e.DateOfBirth, d.DepartmentName }).ToList();
-            }
-            return View();
+
+            var model = new HomeControllerVM();
+            model.DepartmentList = _dbContext.Department.ToList();
+            model.ListEmployeeVM = (from e in _dbContext.Employees
+                               join d in _dbContext.Department
+                               on e.DepartmentId equals d.DepartmentId
+                               orderby e.CreatedDate ascending
+                               select new EmployeeViewModel
+                               {
+                                   EmployeeId = e.EmployeeId,
+                                   EmployeeCode = e.EmployeeCode,
+                                   EmployeeName = e.EmployeeName,
+                                   Address = e.Address,
+                                   CreatedDate = e.CreatedDate,
+                                   DateOfBirth = e.DateOfBirth,
+                                   DepartmentName = d.DepartmentName
+                               }).OrderByDescending(x => x.CreatedDate).ToList();            
+            return View(model);
         }
         [HttpGet]
         public Employee GetEmployeeCode(Guid employeeId, string employeeCode)
@@ -135,6 +135,7 @@ namespace HNCHOME.Areas.Admin.Controllers
             return newCode;
         }
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public ActionResult Role(Guid id)
         {
             ViewBag.Permissions = _dbContext.Permissions.Where(x => x.ParentId == null).ToList();
