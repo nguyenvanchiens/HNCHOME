@@ -34,7 +34,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="exampleInputEmail1" class="form-label">Nội dung</label>
-                                <input asp-for="NewsModel.Content" required name="Content" type="text" class="form-control" id="Content" aria-describedby="emailHelp">
+                                <textarea asp-for="NewsModel.Content" required name="Content" type="text" class="form-control" id="Content" aria-describedby="emailHelp"></textarea>
                                 <span asp-validation-for="NewsModel.Content" id="erContent" class="text-danger"></span>
                             </div>
                             <div class="mb-3">
@@ -100,7 +100,7 @@
                         <td>@item.NewsId</td>
                         <td>@item.Title</td>
                         <td>@item.Content</td>
-                        <td><img style="width:100%; height:100%;" src="@item.ImgUrl" /></td>
+                        <td><img style="width:20%; height:20%;" src="~/NewsImg/@item.ImgUrl" /></td>
                         <td>@item.CreatedDate.ToString(string.Format("dd-mm-yyyy"))</td>
                         <td class="text-center">
                             <button href="#myModal" data-bs-toggle="modal" onclick="ShowUpdate('@item.NewsId')" type="button" class="btn btn-default">Chỉnh sửa</button>
@@ -140,62 +140,127 @@
                     $.ajax({
                         type: 'Post',
                         url: '/Admin/News/UploadFile',
-                        //dataType:"json",
-                        //enctype: 'multipart/form-data',
                         data:  formData ,
                         processData: false,  // tell jQuery not to process the data
                         contentType: false,
                         async:false,
                         success: function (res) {
-                            alert(res.res);
+                            //alert(res.res);
+                            var newsModel = {
+                                NewsId:$('#NewsId').val(),
+                                Title:$('#Title').val(),
+                                Content:$('#Content').val(),
+                                ImgUrl:res.res,
+                            }
+                            $.ajax({
+                                type: 'Post',
+                                url: '/Admin/News/AddNews',
+                                data:  newsModel ,
+                                async:false,
+                                success: function (result) {
+                                    alert(result.result);
+                                    window.location.pathname="/Admin/News/Index"
+                                },
+                                error: function (result) {
+                                    console.log(result.result);
+                                }
+                            });
                         },
                         error: function (res) {
-                            console.log(res.res);
+                            console.log(res);
+                            alert(res.responseJSON.res);
+                            window.location.pathname="/Admin/News/Index"
                         }
                     });
                 }, 500)
-
-
-                //debugger;
             }
             else{
-            $.ajax({
-                type: 'Post',
-                url: '/Admin/Department/UpdateDepartment',
-                dataType:"json",
-                data: { department: data },
-                async:false,
-                success: function (result) {
-                    if(result==201){
-                         window.location.pathname="/Admin/Department/Index"
-                    }
-                    else{
-                        alert(result);
-                    }
-                },
-                error: function (data) {
-                    console.log(data);
+                if($('input[type=file]')[0].files.length!=0){
+                    debugger;
+                    setTimeout(()=>{
+                            var formData= new FormData();
+                            var formFile=$('input[type=file]')[0].files[0];
+                            formData.append("formFile",formFile);
+                            $.ajax({
+                            type: 'Post',
+                            url: '/Admin/News/UploadFile',
+                            data:  formData ,
+                            processData: false,
+                            contentType: false,
+                            async:false,
+                            success: function (res) {
+                            var newsModel = {
+                                NewsId:$('#NewsId').val(),
+                                Title:$('#Title').val(),
+                                Content:$('#Content').val(),
+                                ImgUrl:res.res,
+                            }
+                            $.ajax({
+                                type: 'Post',
+                                url: '/Admin/News/UpdateNews',
+                                dataType:"json",
+                                data: { newsModel: newsModel },
+                                async:false,
+                                success: function (res) {
+                                    alert(res.res);
+                                    window.location.pathname="/Admin/News/Index"
+                                },
+                                error: function (res) {
+                                    console.log(res.res);
+                                }
+                            });
+                    },
+                    error: function (res) {
+                         console.log(res);
+                         alert(res.responseJSON.res);
+                         window.location.pathname="/Admin/News/Index"
+                      }
+                     });
+                    }, 500);
                 }
-            })
-        }
+                else{
+                    debugger;
+                    //var newsModel = {
+                    //            NewsId:$('#NewsId').val(),
+                    //            Title:$('#Title').val(),
+                    //            Content:$('#Content').val(),
+                    //            ImgUrl:"",
+                    $.ajax({
+                        type: 'Post',
+                        url: '/Admin/News/UpdateNews',
+                        //dataType:"json",
+                        data: { newsModel: data },
+                        async:false,
+                        success: function (res) {
+                            debugger;
+                            console.log(res);
+                            alert(res.res);
+                            window.location.pathname="/Admin/News/Index";
+                        },
+                        error: function (res) {
+                            
+                            debugger;
+                            console.log(res);
+                        }
+                    });
+                }
+             
+
+         }
     }
     function Delete(departmentId) {
         debugger
-        var result = confirm("Bạn có muốn xóa phòng ban này không?");
+        var result = confirm("Bạn có chắc muốn xóa không?");
         if (result) {
-            var Url = "/Admin/Department/Delete"
+            var Url = "/Admin/News/DeleteNews"
             $.ajax({
                 type: 'Post',
                 url: Url,
-                data: { DepartmentId: departmentId },
+                data: { id: departmentId },
                 async: false,
                 success: function (res) {
-                    if(res==200){
-                        window.location.pathname = "/Admin/Department/Index"
-                    }
-                    else{
-                        alert('Xóa không thành công');
-                    }
+                    alert(res.responseJSON.res);
+                    window.location.pathname = "/Admin/News/Index";
                 },
                 error: function (data) {
                     console.log(data);
@@ -207,22 +272,28 @@
     }
     function HideForm() {
        $('.btn-add').html('Thêm mới');
+       $('#ImgUrl').attr('required','required');
        var departmentId = "";
     }
     function ShowUpdate(departmentId) {
         this.departmentId = departmentId;
         $.ajax({
             type: 'Get',
-            url: '/Admin/Department/Get',
+            url: '/Admin/News/GetNewsById',
             contentType: 'application/json; charset=utf-8',
-            data: { departmentId: departmentId },
+            data: { id: departmentId },
             async: false,
             success: function (data) {
                 $('.btn-add').html('Sửa');
-                $('#DepartmentId').val(data.departmentId);
-                $('#DepartmentCode').val(data.departmentCode);
-                $('#DepartmentName').val(data.departmentName);
+                $('#ImgUrl').removeAttr('required');
+                $('#NewsId').val(data.res.newsId);
+                $('#Title').val(data.res.title);
+                $('#Content').val(data.res.content);
+                //console.log(data.res);
             }
         })
     }
 </script>
+
+
+

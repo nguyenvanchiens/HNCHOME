@@ -11,5 +11,9 @@
         {
             public const string CHILDREN_MENU_PARTIAL = "_childrenMenu";
         }
+        public static partial class FileExtension
+        {
+            public static List<string> imgExtension = new List<string>() {".jpg",".png", ".jpeg", ".gif", ".tiff", ".raw", "svg" };
+        }
     }
 }

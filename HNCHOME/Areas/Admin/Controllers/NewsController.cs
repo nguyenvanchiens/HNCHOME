@@ -6,7 +6,7 @@ namespace HNCHOME.Areas.Admin.Controllers
     public class NewsController : BaseController
     {
         private readonly INewsRepository _newsRepository;
-        string path;
+        public string path;
         private readonly IConfiguration _configuration;
         public NewsController(HNCDbContext dbContext, INewsRepository newsRepository, IConfiguration configuration) : base(dbContext)
         {
@@ -16,7 +16,7 @@ namespace HNCHOME.Areas.Admin.Controllers
 
         public IActionResult Index()
         {
-            var obj=new NewsViewModel();
+            var obj = new NewsViewModel();
             obj.NewsModels = _newsRepository.GetAll().ToList();
             return View(obj);
         }
@@ -25,12 +25,14 @@ namespace HNCHOME.Areas.Admin.Controllers
         {
             try
             {
+                newsModel.CreatedDate = DateTime.Now;
+                newsModel.ModifiedDate = DateTime.Now;
                 _newsRepository.Insert(newsModel);
-                return Ok(new { Res = "Successfully" });
+                return Ok(new { Result = "Successfully" });
             }
             catch (Exception e)
             {
-                return BadRequest(new {Res="Unsuccessfully"});
+                return BadRequest(new { Result = "Unsuccessfully" });
                 throw;
             }
         }
@@ -40,29 +42,96 @@ namespace HNCHOME.Areas.Admin.Controllers
         {
             try
             {
-                if(formFile.Length > 0)
+                var extension = Path.GetExtension(formFile.FileName);
+                if (formFile.Length > 0)
                 {
-                    string path = CreateFilePath(formFile.FileName);
-                    using (var stream = new FileStream(path, FileMode.Create))
+                    if (ValidateImgExtension(extension))
                     {
-                        formFile.CopyTo(stream);
+                        var newName = Guid.NewGuid() + Path.GetExtension(formFile.FileName);
+                        path = CreateFilePath(newName);
+                        using (var stream = new FileStream(path, FileMode.Create))
+                        {
+                            formFile.CopyTo(stream);
+                        }
+                        return Ok(new { Res = newName });
                     }
-                    return Ok(new { Res = path });
                 }
-                return BadRequest(new { Res = "Unsuccessfully" });
+                throw new Exception("Unsuccessfully");
             }
             catch (Exception)
+            {
+                return BadRequest(new { Res = "Unsuccessfully" });
+            }
+        }
+        public string CreateFilePath(string fileName)
+        {
+            path = _configuration["NewsImgPath"];
+            path = Path.Combine(path, fileName);
+            return path;
+        }
+        public bool ValidateImgExtension(string fileName)
+        {
+            if (string.IsNullOrEmpty(fileName))
+            {
+                return false;
+            }
+            else if (!Constants.FileExtension.imgExtension.Contains(fileName))
+            {
+                return false;
+            }
+            return true;
+        }
+        [HttpPost]
+        public IActionResult DeleteNews(Guid id)
+        {
+            try
+            {
+                _newsRepository.Delete(id);
+                return Ok(new { Res = "Successfully" });
+            }
+            catch (Exception e)
+            {
+                return BadRequest("Unsuccessfully");
+                throw;
+            }
+        }
+        [HttpPost]
+        public IActionResult UpdateNews(NewsModel newsModel)
+        {
+            try
+            {
+                var news = _newsRepository.GetById(newsModel.NewsId);
+                if (newsModel != null)
+                {
+                    if (!string.IsNullOrEmpty(newsModel.ImgUrl))
+                    {
+                        news.ImgUrl = newsModel.ImgUrl;
+                    }
+                    news.Content = newsModel.Content;
+                    news.Title = newsModel.Title;
+                    news.ModifiedDate = DateTime.Now;
+                };
+                _newsRepository.Update(news);
+                return Ok(new { Res = "Successfully" });
+            }
+            catch (Exception e)
             {
                 return BadRequest(new { Res = "Unsuccessfully" });
                 throw;
             }
         }
-        public string CreateFilePath(string fileName)
+        [HttpGet]
+        public IActionResult GetNewsById(Guid id)
         {
-
-            this.path = _configuration["NewsImgPath"];
-            string path = Path.Combine(this.path, fileName);
-            return path;
+            try
+            {
+                return Ok(new { Res = _newsRepository.GetById(id) });
+            }
+            catch (Exception e)
+            {
+                return BadRequest(new { Res = "Unsuccessfully" });
+                throw;
+            }
         }
     }
 }
