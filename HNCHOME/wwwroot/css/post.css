@@ -159,7 +159,7 @@
   position: relative;
   opacity: 0.9;
   height: 16vw;
-  background-size: auto 100% !important;
+  background-size: 100% 110% !important;
   background-position: center center !important;
   border-radius: 1px;
 }
@@ -295,5 +295,12 @@
     width:100% !important;
     height:unset !important;
 }
-
+figure:hover {
+    transform: scale(1.05,1.05);
+    transition: 0.5s;
+}
+figure:not(hover) {
+    transform: scale(1,1);
+    transition: 0.5s;
+}
 /*# sourceMappingURL=post.css.map */

@@ -4,9 +4,16 @@ namespace HNCHOME.Controllers
 {
     public class NewsController : Controller
     {
-        public IActionResult Index()
+        private readonly HNCDbContext _context;
+        public NewsController(HNCDbContext dbContext)
         {
-            return View();
+            _context = dbContext;
+        }
+
+        public IActionResult Index(int pageIndex=1)
+        {
+            var news=Paging<NewsModel>.PagingModel(_context.NewsModels.OrderByDescending(m=>m.CreatedDate).ToList(), pageIndex, 1);
+            return View(news);
         }
     }
 }
