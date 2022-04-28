@@ -6,6 +6,7 @@
         {
             public const string CountryComponent = "Country";
             public const string BranchComponent = "Branch";
+            public const string PagingComponent = "Paging";
         }
         public static class PartialViewName
         {

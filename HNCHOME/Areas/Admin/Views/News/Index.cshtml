@@ -220,7 +220,7 @@
                 }
                 else{
                     debugger;
-                    
+
                     $.ajax({
                         type: 'Post',
                         url: '/Admin/News/UpdateNews',
@@ -234,13 +234,13 @@
                             window.location.pathname="/Admin/News/Index";
                         },
                         error: function (res) {
-                            
+
                             debugger;
                             console.log(res);
                         }
                     });
                 }
-             
+
 
          }
     }
@@ -289,6 +289,10 @@
             }
         })
     }
+</script>
+
+<script>
+    CKEDITOR.replace("Content");
 </script>
 
 

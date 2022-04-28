@@ -1,4 +1,4 @@
-﻿@model HNCHOME.ViewModel.PagingModel<HNCHOME.Models.NewsModel>
+﻿@model HNCHOME.ViewModel.PagingNewsViewModel<HNCHOME.Models.NewsModel>
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -20,7 +20,7 @@
                 <div class="posts__content col-lg-12 col-md-12 col-xl-8">
                     <div class="list__post">
 
-                        @foreach (var item in Model.ListModel)
+                        @foreach (var item in Model.PagingModels)
                         {
                             <div class="list__post__item row">
                                 <div class="col-md-12 col-lg-6 col-xl-6 list__post__item--left">
@@ -72,33 +72,11 @@
                                 </div>
                             </div>
                         }
-                        <div class="page-post">
-                            <span class="page-numbers current left" style="display:none" id="start">
-                                <i class="fa-solid fa-caret-left"></i>
-                                <i class="fa-solid fa-caret-left"></i>
-                            </span>
-
-                            <span id="previous" style="display:none" class="page-numbers current left"><i class="fa-solid fa-caret-left"></i></span>
-
-                            <span style="display:none" class="page-numbers current left_dotted">
-                                ...
-                            </span>
-                            @for (var i = 1; i <= Model.PageCount; i++)
-                            {
-                                <a href="~/News/Index?pageIndex=@i">@i</a>
-                            }
-                            <span style="display:none" class="page-numbers current right_dotted">
-                                ...
-                            </span>
-
-                            <span id="next" style="display:none" class="right"><i class="fa-solid fa-caret-right"></i></span>
-
-                            <span style="display:none" class="page-numbers current right" id="end">
-
-                                <i class="fa-solid fa-caret-right"></i>
-                                <i class="fa-solid fa-caret-right"></i>
-                            </span>
-                        </div>
+                        @*<span>
+                            @await Component.InvokeAsync(Constants.HomeComponent.PagingComponent)
+                        </span>*@
+                         @*@await Component.InvokeAsync(Constants.HomeComponent.PagingComponent)*@
+                        @await Component.InvokeAsync(Constants.HomeComponent.PagingComponent,new {total=Model.Total, pageSize=Model.PageSize, currentIndex=Model.PageIndex})
                     </div>
                 </div>
                 <div class="sidebar__post__right col-lg-12 col-md-12 col-xl-4">
@@ -202,43 +180,4 @@
 
 @section Scripts{
 <script src="/js/contact.js"></script>
-<script>
-    $(document).ready(function(){
-
-        var currentIndex=1;
-        if(window.location.href.split('=')[1]){
-            currentIndex=window.location.href.split('=')[1];
-        }
-        if(currentIndex>1){
-            $(".left").removeAttr("style");
-        }
-        if(currentIndex<@Model.PageCount){
-            $(".right").removeAttr("style");
-        }
-        $(".page-post>a").each(function(){
-            var hrefIndex=$(this).attr("href").split('=')[1];
-            console.log(hrefIndex);
-            if(hrefIndex<(currentIndex-2)){
-                $(this).css("display","none");
-                $(".left_dotted").removeAttr("style");
-            };
-            //if(hrefIndex>(currentIndex+2)){
-            //    $(this).css("display","none");
-            //    $(".right_dotted").removeAttr("style");
-            //};
-        }),
-        $("#end").click(function(){
-            window.location="/News/Index?pageIndex=@Model.PageCount"
-        })
-        $("#start").click(function(){
-            window.location="/News/Index?pageIndex=1"
-        }),
-        $("#next").click(function(){
-            window.location="/News/Index?pageIndex="+(++currentIndex)
-        }),
-        $("#previous").click(function(){
-            window.location="/News/Index?pageIndex="+(--currentIndex)
-        })
-    });
-</script>
 }

@@ -1,0 +1,63 @@
+﻿@model HNCHOME.ViewModel.PagingItem
+
+<div class="page-post">
+    @if (Model.FirstPage.IsActive == true)
+    {
+        <a href="~/News/Index?pageIndex=@Model.FirstPage.Name">
+            <i class="fa-solid fa-caret-left"></i>
+            <i class="fa-solid fa-caret-left"></i>
+        </a>
+    }
+
+
+    @if (@Model.PreviousPage.IsActive == true)
+    {
+        var previous = Model.PageIndex - 1;
+        <a href="~/News/Index?pageIndex=@previous"><i class="fa-solid fa-caret-left"></i></a>
+    }
+
+    @if (Model.LeftDoted.IsActive == true)
+    {
+        <span class="page-numbers current left_dotted">
+            @Model.LeftDoted.Name
+        </span>
+    }
+    @foreach (var item in Model.pagingModels)
+    {
+        if (item.IsActive == true)
+        {
+            if (item.IsMark == true)
+            {
+                <a style="background:#2e368f; color:white" id="@item.IsMark" href="~/News/Index?pageIndex=@item.Name">@item.Name</a>
+            }
+            else
+            {
+                <a href="~/News/Index?pageIndex=@item.Name">@item.Name</a>
+            }
+
+        }
+    }
+    @if (Model.RightDoted.IsActive == true)
+    {
+        <span class="page-numbers current right_dotted">
+            @Model.RightDoted.Name
+        </span>
+    }
+
+
+    @if (Model.NextPage.IsActive == true)
+    {
+        var next = Model.PageIndex + 1;
+        <a href="~/News/Index?pageIndex=@next"><i class="fa-solid fa-caret-right"></i></a>
+    }
+
+
+    @if (Model.LastPage.IsActive == true)
+    {
+        <a href="~/News/Index?pageIndex=@Model.LastPage.Name">
+            <i class="fa-solid fa-caret-right"></i>
+            <i class="fa-solid fa-caret-right"></i>
+        </a>
+    }
+
+</div>
