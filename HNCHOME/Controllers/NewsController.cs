@@ -11,16 +11,17 @@ namespace HNCHOME.Controllers
             _context = dbContext;
         }
 
-        public IActionResult Index(int? pageIndex=1, int? pageSize = 2)
+        public IActionResult Index(int? pageIndex = 1, int? pageSize = 4)
         {
-            var news = _context.NewsModels.OrderByDescending(m => m.ModifiedDate).Skip(pageSize.Value*(pageIndex.Value-1)).Take(pageSize.Value).ToList();
+            var news = _context.NewsModels.OrderByDescending(m => m.ModifiedDate).Skip(pageSize.Value * (pageIndex.Value - 1)).Take(pageSize.Value).ToList();
 
             foreach (var item in news)
             {
-                var contenArr = item.Content.Split('.');
-                if (contenArr.Length != 0 && contenArr.Length>=2)
+                var contentArr = item.Content.Split('.');
+                if (contentArr.Length != 0 && contentArr.Length >= 2)
                 {
-                    item.Content = contenArr[0]+contenArr[1];
+                    item.Content = contentArr[0] + "." + contentArr[1] + ".";
+                    item.Content = item.Content.Split('>')[1];
                 }
             }
 

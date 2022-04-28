@@ -1,9 +1,9 @@
-﻿@model HNCHOME.ViewModel.PagingNewsViewModel<HNCHOME.Models.NewsModel>
+﻿@model HNCHOME.Models.NewsModel
+
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 @section Css{
 <link rel="stylesheet" href="/css/post.css">
 }
@@ -20,43 +20,28 @@
                 <div class="posts__content col-lg-12 col-md-12 col-xl-8">
                     <div class="list__post">
 
-                        @foreach (var item in Model.PagingModels)
-                        {
+                        
                             <div class="list__post__item row">
-                                <div class="col-md-12 col-lg-6 col-xl-5 list__post__item--left">
-                                    <figure style='background: url("../NewsImg/@item.ImgUrl") no-repeat center;'>
-                                        <a href="~/NewsDetail/Index?id=@item.NewsId">
-                                            <div class="text__overlay">
-                                                <div class="text__info">
-                                                    <span>xem thêm</span>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </figure>
-                                </div>
-                                <div class="col-md-12 col-lg-6 col-xl-7 list__post__item--right">
-                                    <div>
-                                        <div class="post__content__tile" style="word-break: break-word;overflow: hidden;text-overflow: ellipsis;display: -webkit-box;line-height: 16px; 
-    
-   -webkit-line-clamp: 3; 
-   -webkit-box-orient: vertical;text-overflow:'...'">
-                                            <a href="~/NewsDetail/Index?id=@item.NewsId" class="tile__link title_content" style="text-transform:uppercase; font-weight: 500;">@Html.Raw(@item.Title)</a>
+                                <div class="col-md-12 col-lg-12 col-xl-12 list__post__item--right">
+                                    <div class="post__content">
+                                        <div class="post__content__tile">
+                                            <a href="#" class="tile__link title_content" style="text-transform:uppercase">@Model.Title</a>
                                         </div>
                                         <div class="post__content__meta">
                                             <div class="new-text-wrap">
                                                 <div class="new-text-left">
                                                     <i class="fa fa-folder"></i>
-                                                    <span> Bản tin Hợp Nhất</span>
+                                                    <span style="overflow: visible;"> Bản tin Hợp Nhất</span>
                                                 </div>
                                                 <div class="new-text-right">
                                                     <i class="fa fa-clock-o"></i>
-                                                    <span>@item.ModifiedDate.Value.ToString("dd/MM/yyyy")</span>
+                                                    <span>@Model.CreatedDate.ToString("dd/MM/yyyy")</span>
                                                 </div>
                                             </div>
                                         </div>
-                                        <p class="post__content__summary" style="font-weight:300 ;font-size: 14px;">
+                                        <p class="post__content__summary">
 
-                                            @Html.Raw(@item.Content)
+                                            @Html.Raw(@Model.Content)
                                         </p>
                                         <div class="post__content__footer">
                                             <div class="post__content__footer-icon">
@@ -67,22 +52,19 @@
                                                     <a href="" rel="nofollow" target="_blank"><i class="fa fa-google-plus"></i></a>
                                                 </div>
                                             </div>
-                                            <div class="post__content__footer-btn__view">
-                                                <button class="btn btn-default btn--view-more"><a href="~/NewsDetail/Index?id=@item.NewsId" style="text-decoration:none; color:black">xem chi tiết</a></button>
-                                            </div>
+                                            
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        }
-                        @await Component.InvokeAsync(Constants.HomeComponent.PagingComponent,new {total=Model.Total, pageSize=Model.PageSize, currentIndex=Model.PageIndex})
+                       
                     </div>
                 </div>
                 <div class="sidebar__post__right col-lg-12 col-md-12 col-xl-4">
                     <div class="row">
                         <section class="col-md-6 col-sm-6 col-lg-6 col-xl-12">
                             <div class="track-form">
-                                <lable class="title_content" style="font-size:14px">TRA CỨU BƯU PHẨM, BƯU KIỆN</lable>
+                                <lable class="title_content">TRA CỨU BƯU PHẨM, BƯU KIỆN</lable>
                                 <textarea name="" class="form-control" id="" cols="30" rows="2" placeholder="Ví dụ: Số vận đơn là 893020080682251, 893010100170926..."></textarea>
                                 <a href="#" class="btn btn-default btn-search">Tìm Kiếm</a>
                             </div>
@@ -90,7 +72,7 @@
                         <section class="col-md-6 col-sm-6 col-lg-6 col-xl-12">
                             <div class="country-form mt-40">
                                 <div class="title_content__pb--3">
-                                    <lable class="title_content" style="font-size:14px">TÌM KIẾM TRUNG TÂM GIAO DỊCH:</lable>
+                                    <lable class="title_content ">TÌM KIẾM TRUNG TÂM GIAO DỊCH:</lable>
                                 </div>
                                 <div class="form-wrap">
 

@@ -18,6 +18,37 @@ namespace HNCHOME.Areas.Admin.Controllers
         {
             var obj = new NewsViewModel();
             obj.NewsModels = _newsRepository.GetAll().ToList();
+            foreach (var item in obj.NewsModels)
+            {
+                var titleArr = item.Title.Split(' ');
+                item.Title = "";
+                if (titleArr.Length > 16)
+                {
+                    for (int i = 0; i < titleArr.Length; i++)
+                    {
+                        if (i < 15)
+                        {
+                            item.Title += titleArr[i] + " ";
+                        }
+                    }
+                    item.Title.Trim();
+                    item.Title += "...";
+                }
+                var ContentArr = item.Content.Split(' ');
+                item.Content = "";
+                if (ContentArr.Length > 35)
+                {
+                    for (int i = 0; i < ContentArr.Length; i++)
+                    {
+                        if (i < 30)
+                        {
+                            item.Content += ContentArr[i] + " ";
+                        }
+                    }
+                    item.Content.Trim();
+                    item.Content += "...";
+                }
+            }
             return View(obj);
         }
         [HttpPost]

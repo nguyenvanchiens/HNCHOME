@@ -99,7 +99,7 @@
                     <tr>
                         <td>@item.NewsId</td>
                         <td>@item.Title</td>
-                        <td>@item.Content</td>
+                        <td>@Html.Raw(@item.Content)</td>
                         <td><img style="width:20%; height:20%;" src="~/NewsImg/@item.ImgUrl" /></td>
                         <td>@item.CreatedDate.ToString(string.Format("dd-mm-yyyy"))</td>
                         <td class="text-center">
@@ -120,7 +120,7 @@
         var data = {
              NewsId:$('#NewsId').val(),
              Title:$('#Title').val(),
-             Content:$('#Content').val(),
+             Content:CKEDITOR.instances.Content.getData(),
              ImgUrl:$('#ImgUrl').val(),
         }
         Validate();
@@ -149,7 +149,7 @@
                             var newsModel = {
                                 NewsId:$('#NewsId').val(),
                                 Title:$('#Title').val(),
-                                Content:$('#Content').val(),
+                                Content:CKEDITOR.instances.Content.getData(),
                                 ImgUrl:res.res,
                             }
                             $.ajax({
@@ -175,8 +175,8 @@
                 }, 500)
             }
             else{
+
                 if($('input[type=file]')[0].files.length!=0){
-                    debugger;
                     setTimeout(()=>{
                             var formData= new FormData();
                             var formFile=$('input[type=file]')[0].files[0];
@@ -192,7 +192,7 @@
                             var newsModel = {
                                 NewsId:$('#NewsId').val(),
                                 Title:$('#Title').val(),
-                                Content:$('#Content').val(),
+                                Content:CKEDITOR.instances.Content.getData(),
                                 ImgUrl:res.res,
                             }
                             $.ajax({
@@ -206,6 +206,7 @@
                                     window.location.pathname="/Admin/News/Index"
                                 },
                                 error: function (res) {
+
                                     console.log(res.res);
                                 }
                             });
@@ -219,7 +220,6 @@
                     }, 500);
                 }
                 else{
-                    debugger;
 
                     $.ajax({
                         type: 'Post',
@@ -235,7 +235,6 @@
                         },
                         error: function (res) {
 
-                            debugger;
                             console.log(res);
                         }
                     });
@@ -284,7 +283,7 @@
                 $('#ImgUrl').removeAttr('required');
                 $('#NewsId').val(data.res.newsId);
                 $('#Title').val(data.res.title);
-                $('#Content').val(data.res.content);
+                CKEDITOR.instances.Content.setData(data.res.content);
                 //console.log(data.res);
             }
         })
