@@ -1,4 +1,7 @@
-﻿@{
+﻿@model IEnumerable<HNCHOME.Models.ServiceInfo>
+
+
+@{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -37,11 +40,13 @@
                         THÔNG TIN KHÁCH HÀNG
                     </div>
                     <div class="text__form col-md-9 col-lg-9 row">
+                        <input type="text" id="CustomerId" name="CustomerId" hidden>
+                        <input type="text" id="RegistrationId" name="RegistrationId" hidden>
                         <div class="row col-md-12">
                             <div class="form__name col-md-8 col-lg-8">
                                 <label for="">Họ và tên: (<span style="color: red;">*</span>)</label>
                                 <br>
-                                <input type="text">
+                                <input type="text" id="" required>
                             </div>
                         </div>
 
@@ -49,12 +54,12 @@
                             <div class="company__name col-md-8 col-lg-8">
                                 <label for="">Tên công ty:</label>
                                 <br>
-                                <input type="text ">
+                                <input type="text" required>
                             </div>
                             <div class="company__tax-number col-md-4 col-lg-4">
                                 <label for=" ">Mã số thuế:</label>
                                 <br>
-                                <input type="text ">
+                                <input type="text" required>
                             </div>
                         </div>
                         <br>
@@ -62,13 +67,13 @@
                             <div class="company__name col-md-6 col-lg-6">
                                 <label for=" ">Phone: (<span style="color: red; ">*</span>)</label>
                                 <br>
-                                <input type="text ">
+                                <input type="text" required>
 
                             </div>
                             <div class="company__tax-number col-md-6 col-lg-6">
                                 <label for=" ">Email: (<span style="color: red; ">*</span>)</label>
                                 <br>
-                                <input type="text ">
+                                <input type="text" required>
                             </div>
                         </div>
                     </div>
@@ -82,44 +87,16 @@
                         <div class="text__form__service-form col-md-12 row">
                             <div class="form__service-check-formcheck-form__title col-md-12 col-lg-12">Loại hình dịch vụ:</div>
                             <div class="check-box col-md-12 col-lg-12">
-                                <div class="check-form__form col-md-4 col-lg-4">
-                                    <label style="font-size: 1.2em; ">
-                                        <input type="checkbox" style="transform: scale(1.2,1.2); "> Thương mại điện tử
-                                    </label>
-                                    <br>
-                                    <label style="font-size: 1.2em; ">
-                                        <input type="checkbox" style="transform: scale(1.2,1.2); "> Vận chuyển hàng hóa quốc tế Aircago
-                                    </label>
-                                    <br>
-                                    <label style="font-size: 1.2em; ">
-                                        <input type="checkbox" style="transform: scale(1.2,1.2); "> Vận chuyển hàng hóa ECOM
-                                    </label>
-                                    <br>
-                                    <label style="font-size: 1.2em; ">
-                                        <input type="checkbox" style="transform: scale(1.2,1.2); "> Dịch vụ khác
-                                    </label>
-                                </div>
-                                <div class="check-form__form col-md-4 col-lg-4">
-                                    <label style="font-size: 1.2em; ">
-                                        <input type="checkbox" style="transform: scale(1.2,1.2); "> Dịch vụ FBA & FBM
-                                    </label>
-                                    <br>
-                                    <label style="font-size: 1.2em; ">
-                                        <input type="checkbox" style="transform: scale(1.2,1.2); ">  Vận chuyển hàng hóa nội địa
-                                    </label>
-                                    <br>
-                                    <label style="font-size: 1.2em; ">
-                                        <input type="checkbox" style="transform: scale(1.2,1.2); "> Vận tải hàng hóa quốc tế đường bộ
-                                    </label>
-                                </div>
-                                <div class="check-form__form col-md-4 col-lg-4">
-                                    <label style="font-size: 1.2em; ">
-                                        <input type="checkbox" style="transform: scale(1.2,1.2); "> Thương mại điện tử
-                                    </label>
-                                    <br>
-                                    <label style="font-size: 1.2em; ">
-                                        <input type="checkbox" style="transform: scale(1.2,1.2); "> Vận tải hàng hóa quốc tế đường biển
-                                    </label>
+                                <div class="check-form__form row" style="flex-wrap:wrap; display:flex; width:100%">
+                                    @for (var i = 0; i < Model.ToList().Count; i++)
+                                    {
+                                        <div style="height:fit-content; display:flex;margin-right: 0.8rem; margin-bottom: 2%" class="col-4 row">
+                                            <label style="font-size: 1.2em" class="col-12">
+                                                <input id="@Model.ToList()[i].ServiceId" type="checkbox" style="transform: scale(1.2,1.2); "> @Model.ToList()[i].ServiceTypeName
+                                            </label>
+                                        </div>
+
+                                    }
                                 </div>
                             </div>
                         </div>
@@ -128,7 +105,7 @@
                                 <div class="form__name col-md-12 col-lg-12">
                                     <label for="">Loại hàng hóa: (<span style="color: red;">*</span>)</label>
                                     <br>
-                                    <input type="text">
+                                    <input type="text" required>
                                 </div>
                             </div>
 
@@ -136,12 +113,12 @@
                                 <div class="company__name col-md-6 col-lg-6">
                                     <label for="">Trọng lượng:</label>
                                     <br>
-                                    <input type="text ">
+                                    <input type="text" required>
                                 </div>
                                 <div class="company__tax-number col-md-6 col-lg-6">
                                     <label for=" ">Size:</label>
                                     <br>
-                                    <input type="text ">
+                                    <input type="text" required>
                                 </div>
                             </div>
                             <br>
@@ -149,13 +126,13 @@
                                 <div class="company__name col-md-6 col-lg-6">
                                     <label for=" ">Số lượng:</label>
                                     <br>
-                                    <input type="text ">
+                                    <input type="text" required>
 
                                 </div>
                                 <div class="company__tax-number col-md-6 col-lg-6">
                                     <label for=" ">Sản lượng:</label>
                                     <br>
-                                    <input type="text ">
+                                    <input type="text" required>
                                 </div>
                             </div>
                         </div>
@@ -171,7 +148,7 @@
                             <div class="form__name col-md-12 col-lg-12">
                                 <label for="">Phương thức vận chuyển: (<span style="color: red;">*</span>)</label>
                                 <br>
-                                <input type="text">
+                                <input type="text" required>
                             </div>
                         </div>
 
@@ -179,7 +156,7 @@
                             <div class="company__name col-md-12 col-lg-12">
                                 <label for="">Điểm khởi hành: (<span style="color: red;">*</span>)</label>
                                 <br>
-                                <input type="text ">
+                                <input type="text" required>
                             </div>
                         </div>
                         <br>
@@ -187,7 +164,7 @@
                             <div class="company__name col-md-12 col-lg-12">
                                 <label for=" ">Điểm đến: (<span style="color: red; ">*</span>)</label>
                                 <br>
-                                <input type="text ">
+                                <input type="text" required>
 
                             </div>
                         </div>
@@ -273,5 +250,13 @@
     </div>
 </div>
 @section Scripts{
-<script type="text/javascript" src="~/js/Service.js"></script>
+<script type="text/javascript" src="~/js/Service.js">
+</script>
+<script>
+    $(document).ready(function(){
+        debugger;
+        console.log($("input")),
+        Validate(),
+    })
+</script>
 }
