@@ -79,6 +79,15 @@ namespace HNCHOME.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tên phòng ban {0} đã tồn tại.
+        /// </summary>
+        public static string checkDepartmentName {
+            get {
+                return ResourceManager.GetString("checkDepartmentName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mã nhân viên {0} đã tồn tại.
         /// </summary>
         public static string checkEmployeeCode {

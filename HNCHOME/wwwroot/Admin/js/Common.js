@@ -32,24 +32,36 @@
     $('.slug').val(slug);
 }
 function Validate() {
-    
     $("input[required]").each(function () {
         let value = $(this).val();
         var checkDate = $("input[checkdate]");
+        $(this).blur(function () {
+            let value = $(this).val();
+            if (value) {
+                $(this).removeClass("s-input-error");
+                $(this).attr("validate", true);
+                $(this).siblings('span').text('');
+            }
+        })
         if (!value) {
             $(this).addClass("s-input-error");
             $(this).attr("validate", false);
             $(this).attr("title", "Không thể bỏ trống");
-        }
-        else if (new Date(checkDate.val()) > new Date()) {
-            checkDate[0].addClass("s-input-error");
-            checkDate[0].attr("validate", false);
-            checkDate[0].attr("title", "Ngày không được lớn hơn ngày hiện tại");
+            $(this).siblings('span').text('Không thể bỏ trống');
         }
         else {
             $(this).removeClass("s-input-error");
             $(this).attr("validate", true);
+            $(this).siblings('span').text('');
         }
+        if (new Date(checkDate.val()) > new Date()) {
+            var checkdate = checkDate[0];
+            $(checkdate).addClass("s-input-error");
+            $(checkdate).attr("validate", false);
+            $(checkdate).attr("title", "Ngày không được lớn hơn ngày hiện tại");
+            $(checkdate).siblings('span').text('Ngày không được lớn hơn ngày hiện tại');
+        }
+        
     });
 }
 function formatDate(val) {
@@ -67,3 +79,16 @@ function formatDate(val) {
     }
     return result;
 }
+function checkBlurInput() {
+    $("input[required]").each(function () {
+        $(this).blur(function () {
+            let value = $(this).val();
+            if (value) {
+                $(this).removeClass("s-input-error");
+                $(this).attr("validate", true);
+                $(this).siblings('span').text('');
+            }
+        })
+    })
+}
+checkBlurInput();

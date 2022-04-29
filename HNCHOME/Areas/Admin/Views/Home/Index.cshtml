@@ -1,4 +1,4 @@
-﻿@model HNCHOME.Models.Employee
+﻿@model HNCHOME.Areas.Admin.Models.ViewModel.HomeControllerVM
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
@@ -21,44 +21,48 @@
                 <div class="modal-body">
                   <form id="myFrom">                                        
                      <div class="mb-3">
-                      <input asp-for="EmployeeId" type="text" class="form-control" hidden id="EmployeeId" aria-describedby="emailHelp">
-                      <span asp-validation-for="EmployeeId" class="text-danger"></span>
+                      <input asp-for="EmployeeVM.EmployeeId" type="text" class="form-control" hidden id="EmployeeId" aria-describedby="emailHelp">
+                      <span asp-validation-for="EmployeeVM.EmployeeId" class="text-danger"></span>
                     </div>
                     <div class="mb-3">
                       <label for="exampleInputEmail1" class="form-label">Mã nhân viên</label>
-                      <input asp-for="EmployeeCode" required name="EmployeeCode" type="text" class="form-control"  id="EmployeeCode" aria-describedby="emailHelp">
-                      <span asp-validation-for="EmployeeCode" id="erEmployeeCode" class="text-danger"></span>
+                      <input readonly="False" asp-for="EmployeeVM.EmployeeCode" required name="EmployeeCode" type="text" class="form-control" id="EmployeeCode" aria-describedby="emailHelp">
+                      <span asp-validation-for="EmployeeVM.EmployeeCode" id="erEmployeeCode" class="text-danger"></span>
                     </div>
                     <div class="mb-3">
                       <label for="exampleInputEmail1" class="form-label">Tên nhân viên</label>
-                      <input asp-for="EmployeeName" required name="EmployeeName" type="text" class="form-control" id="EmployeeName" aria-describedby="emailHelp">
-                      <span asp-validation-for="EmployeeName" id="erEmployeeName" class="text-danger"></span>
+                      <input asp-for="EmployeeVM.EmployeeName" required name="EmployeeName" type="text" class="form-control" id="EmployeeName" aria-describedby="emailHelp">
+                      <span asp-validation-for="EmployeeVM.EmployeeName" id="erEmployeeName" class="text-danger"></span>
                     </div>
                     <div class="mb-3">
                       <label for="exampleInputPassword1" class="form-label">Ngày sinh</label>
-                      <input asp-for="DateOfBirth" checkdate required type="date" class="form-control" id="DateOfBirth">
+                      <input asp-for="EmployeeVM.DateOfBirth" checkdate required type="date" class="form-control" id="DateOfBirth">
+                       <span asp-validation-for="EmployeeVM.EmployeeCode" id="erEmployeeCode" class="text-danger"></span>
                     </div>
                     <div class="mb-3">
                       <label for="exampleInputPassword1" class="form-label">Nơi ở</label>
-                      <input asp-for="Address" required type="text" class="form-control" id="Address">
-                       <span asp-validation-for="EmployeeName" id="erAddress" class="text-danger"></span>
+                      <input asp-for="EmployeeVM.Address" required type="text" class="form-control" id="Address">
+                       <span asp-validation-for="EmployeeVM.EmployeeName" id="erAddress" class="text-danger"></span>
                     </div>
                     <div class="mb-3">
                       <label for="exampleInputPassword1" class="form-label">Số điện thoại</label>
-                      <input asp-for="Phone" required type="text" class="form-control" id="Phone">
+                      <input asp-for="EmployeeVM.Phone" required type="text" class="form-control" id="Phone">
+                       <span asp-validation-for="EmployeeVM.EmployeeCode" id="erEmployeeCode" class="text-danger"></span>
                     </div>
                     <div class="mb-3">
                       <label for="UserName" class="form-label">Tài khoản</label>
-                      <input asp-for="UserName" required type="text" class="form-control" id="UserName">
+                      <input asp-for="EmployeeVM.UserName" required type="text" class="form-control" id="UserName">
+                       <span asp-validation-for="EmployeeVM.EmployeeCode" id="erEmployeeCode" class="text-danger"></span>
                     </div>
                     <div class="mb-3" id="group-password">
                       <label for="PassWord" class="form-label">Mật khẩu</label>
-                      <input asp-for="PassWord" type="password" class="form-control" id="PassWord">
+                      <input asp-for="EmployeeVM.PassWord" required type="password" class="form-control" id="PassWord">
+                      <span asp-validation-for="EmployeeVM.EmployeeCode" id="erEmployeeCode" class="text-danger"></span>
                     </div>
                     <div class="mb-3">
                       <label for="exampleInputPassword1" class="form-label">Chọn phòng ban</label>
-                      <select class="form-select form-control select" id="DepartmentId" asp-for="DepartmentId" aria-label="Default select example">
-                      @foreach (var deparment in ViewBag.Deparments)
+                      <select class="form-select form-control select" id="DepartmentId" asp-for="EmployeeVM.DepartmentId" aria-label="Default select example">
+                      @foreach (var deparment in @Model.DepartmentList)
                       {
                           <option class="form-control Department" value="@deparment.DepartmentId">@deparment.DepartmentName</option>
                       }                  
@@ -116,7 +120,7 @@
                 </tr>
         </thead>
          <tbody>
-           @foreach (var employee in ViewBag.Employeess)
+           @foreach (var employee in @Model.ListEmployeeVM)
            {
              <tr>
                 <td>@employee.EmployeeCode</td>
@@ -130,7 +134,7 @@
                 <td class="text-center">
                     <button href="#myModal" data-bs-toggle="modal" onclick="ShowFormUpdate('@employee.EmployeeId')" type="button" class="btn btn-default">Chỉnh sửa</button>
                     <a style="cursor:pointer" onclick="Delete('@employee.EmployeeId')" class="btn btn-light">Xóa</a>
-                    <a style="cursor:pointer" href="/Home/Role/@employee.EmployeeId" class="btn btn-light">
+                    <a style="cursor:pointer" href="/Admin/Home/Role/@employee.EmployeeId" class="btn btn-light">
                         Phân quyền
                     </a>                
                 </td>
@@ -140,20 +144,26 @@
       </table>
     </div>
   </main>
-    <div class="alert alert-primary" id="notify" role="alert">
+   @* <div class="alert alert-primary" id="notify" role="alert">
        Thêm Mới Thành Công
-    </div>
-  @section Scripts {
-    <script>
-      
-    </script>     
+    </div>*@   
 }
 <script>
-
     var employeeId = "";
     function ShowFormAdd(){
         var employeeId = "";
         $('#group-password').show();
+        $.ajax({
+            type:"get",
+            url:'/Admin/Home/NewCodeEmployee',
+            success:function(res){
+                console.log(res);
+                $('#EmployeeCode').val(res);
+            },
+            error:function(res){
+                console.log(res);
+            }
+        })
        
     };
     function Delete(employeeId) {
@@ -168,7 +178,13 @@
                 async: false,
                 success: function (res) {
                     if(res==200){
-                        window.location.pathname = "/Home/Index"
+                         setTimeout(() => {
+                        $('.alert--success').css('display','block');
+                            }, 0);
+                        setTimeout(() => {
+                             $('.alert--success').css('display','none');
+                                window.location.pathname="/Admin"
+                        }, 1000);
                     }
                     else{
                         alert('Xóa bản ghi không thành công')
@@ -185,7 +201,9 @@
     function HideForm() {
         $('#myFrom')[0].reset();
         $('.btn-add').html('Thêm');
-          $('#DepartmentId').prop('selectedIndex',0)
+        $('#DepartmentId').prop('selectedIndex',0);
+        $('#myFrom input').removeClass('s-input-error');
+        $('#myFrom input').siblings('span').text('');
     }
     function ShowFormUpdate(employeeId) {
         this.employeeId = employeeId;
@@ -237,7 +255,12 @@
             Validate();
               let validateInput = $('input[validate="false"]');
                 if (validateInput && validateInput.length > 0) {
-                  alert("Bạn hãy điền đủ các trường thông tin");
+                    setTimeout(() => {
+                        $('.alert--error').css('display','block');
+                    }, 0);
+                    setTimeout(() => {
+                        $('.alert--error').css('display','none');
+                    }, 1500);
                   $(validateInput)[0].focus();
                   return;
                 }
@@ -250,10 +273,23 @@
                 async:false,
                 success: function (res) {
                     if(res==201){
-                        window.location.pathname="/Admin"
+                         setTimeout(() => {
+                        $('.alert--success').css('display','block');
+                            }, 0);
+                        setTimeout(() => {
+                             $('.alert--success').css('display','none');
+                                window.location.pathname="/Admin"
+                        }, 1000);
                     }
                     else{
-                        alert(res);
+                        var parent = $('.alert--error').children()[1];
+                        $(parent).children('span').html(res);
+                        setTimeout(() => {
+                        $('.alert--error').css('display','block');
+                        }, 0);
+                        setTimeout(() => {
+                            $('.alert--error').css('display','none');
+                        }, 1000);
                     }
                 },
                 error: function (data) {
@@ -271,10 +307,26 @@
 
                 success: function (res) {
                      if(res==201){
-                        window.location.pathname="/Admin"
+                         debugger
+                          var parent = $('.alert--error').children()[1];
+                        $(parent).children('span').html("Thêm mới thành công");
+                        setTimeout(() => {
+                        $('.alert--success').css('display','block');
+                            }, 0);
+                        setTimeout(() => {
+                             $('.alert--success').css('display','none');
+                                window.location.pathname="/Admin"
+                        }, 1000);
                     }
                     else{
-                        alert(res)
+                        var parent = $('.alert--error').children()[1];
+                        $(parent).children('span').html(res);
+                        setTimeout(() => {
+                        $('.alert--error').css('display','block');
+                        }, 0);
+                        setTimeout(() => {
+                            $('.alert--error').css('display','none');
+                        }, 1000);
                     }
                 },
                 error: function (data) {

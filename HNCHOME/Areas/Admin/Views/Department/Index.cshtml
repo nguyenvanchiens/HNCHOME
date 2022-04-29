@@ -1,4 +1,4 @@
-﻿@model HNCHOME.Models.Department;
+﻿@model HNCHOME.Areas.Admin.Models.ViewModel.DepartmentControllerVM
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
@@ -8,31 +8,31 @@
     <div class="page-header">
       <p class="fw">Danh sách tên miền đen</p>
        <!-- Button HTML (to Trigger Modal) -->
-    <button type="button" href="#myModal" role="button" class="btn btn-primary" data-bs-toggle="modal">Thêm mới</button>
+    <button type="button" href="#myModal" onclick="ShowFormAdd()" role="button" class="btn btn-primary" data-bs-toggle="modal">Thêm mới</button>
 
    <!-- Modal HTML -->
     <div id="myModal" class="modal fade" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Thêm Mới Nhân Viên</h5>
+                    <h5 class="modal-title">Thêm Mới Phòng Ban</h5>
                     <button type="button" onclick="HideForm()" class="btn-close btn btn-default" data-bs-dismiss="modal"> <i class="fa fa-times" aria-hidden="true"></i></button>
                 </div>
                 <div class="modal-body">
                   <form id="myFrom">
                       @Html.AntiForgeryToken()
                      <div class="mb-3">
-                      <input asp-for="DepartmentId" type="text" class="form-control" hidden id="DepartmentId" aria-describedby="emailHelp">                     
+                      <input asp-for="Department.DepartmentId" type="text" class="form-control" hidden id="DepartmentId" aria-describedby="emailHelp">                     
                     </div>
                     <div class="mb-3">
                       <label for="exampleInputEmail1" class="form-label">Mã Phòng Ban</label>
-                      <input asp-for="DepartmentCode" required  type="text" class="form-control" id="DepartmentCode" aria-describedby="emailHelp">
-                      <span asp-validation-for="DepartmentCode" id="erDepartmentCode" class="text-danger"></span>
+                      <input readonly="False" asp-for="Department.DepartmentCode" required  type="text" class="form-control" id="DepartmentCode" aria-describedby="emailHelp">
+                      <span asp-validation-for="Department.DepartmentCode" id="erDepartmentCode" class="text-danger"></span>
                     </div>
                     <div class="mb-3">
                       <label for="exampleInputEmail1" class="form-label">Tên Phòng Ban</label>
-                      <input asp-for="DepartmentName" required name="DepartmentName" type="text" class="form-control" id="DepartmentName" aria-describedby="emailHelp">
-                      <span asp-validation-for="DepartmentName" id="erDepartmentName" class="text-danger"></span>
+                      <input asp-for="Department.DepartmentName" required name="DepartmentName" type="text" class="form-control" id="DepartmentName" aria-describedby="emailHelp">
+                      <span asp-validation-for="Department.DepartmentName" id="erDepartmentName" class="text-danger"></span>
                     </div>                                    
                     <div class="mb-3 text-right">
                       <button type="button" onclick="AddOrUpdate()" class="btn btn-primary btn-add">Thêm</button>
@@ -84,7 +84,7 @@
             </tr>                   
         </thead>
         <tbody>
-           @foreach (var department in ViewBag.Departments)
+           @foreach (var department in Model.Departments)
             {
              <tr>
                 <td>@department.DepartmentCode</td>
@@ -104,6 +104,18 @@
 
 <script>
     var departmentId = "";
+    function ShowFormAdd(){
+        $.ajax({
+            type:"get",
+            url:'/Admin/Department/NewCodeDepartment',
+            success:function(res){
+                $('#DepartmentCode').val(res);
+            },
+            error:function(res){
+                console.log(res);
+            }
+        })
+    }
     function AddOrUpdate(){
         var data = {
              DepartmentId:$('#DepartmentId').val(),
@@ -113,9 +125,14 @@
         Validate();
          let validateInput = $('input[validate="false"]');
             if (validateInput && validateInput.length > 0) {
-              alert("Bạn hãy điền đủ các trường thông tin");
-              $(validateInput)[0].focus();
-              return;
+               setTimeout(() => {
+                        $('.alert--error').css('display','block');
+                    }, 0);
+                    setTimeout(() => {
+                        $('.alert--error').css('display','none');
+                    }, 1500);
+                  $(validateInput)[0].focus();
+                  return;
             }
             if(this.departmentId==""){
                 $.ajax({
@@ -126,10 +143,23 @@
                     async:false,
                     success: function (result) {
                         if(result==201){
-                            window.location.pathname="/Admin/Department/Index"
+                            setTimeout(() => {
+                            $('.alert--success').css('display','block');
+                                }, 0);
+                            setTimeout(() => {
+                                 $('.alert--success').css('display','none');
+                                    window.location.pathname="/Admin/Department"
+                            }, 1000);
                         }
                         else{
-                            alert(result);
+                            var parent = $('.alert--error').children()[1];
+                            $(parent).children('span').html(result);
+                            setTimeout(() => {
+                            $('.alert--error').css('display','block');
+                            }, 0);
+                            setTimeout(() => {
+                                $('.alert--error').css('display','none');
+                            }, 1000);
                         }
                         
                     },
@@ -171,7 +201,13 @@
                 async: false,
                 success: function (res) {
                     if(res==200){
-                        window.location.pathname = "/Admin/Department/Index"
+                        setTimeout(() => {
+                            $('.alert--success').css('display','block');
+                                }, 0);
+                            setTimeout(() => {
+                                 $('.alert--success').css('display','none');
+                                    window.location.pathname="/Admin/Department"
+                            }, 1000);
                     }
                     else{
                         alert('Xóa không thành công');
@@ -188,6 +224,8 @@
     function HideForm() {
        $('.btn-add').html('Thêm mới');
        var departmentId = "";
+       $('#myFrom input').removeClass('s-input-error');
+        $('#myFrom input').siblings('span').text('');
     }
     function ShowUpdate(departmentId) {
         this.departmentId = departmentId;

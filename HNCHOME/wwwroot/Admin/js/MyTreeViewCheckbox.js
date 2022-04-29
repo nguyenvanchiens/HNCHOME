@@ -14,7 +14,7 @@
             $(this1).removeClass("collapse");
             // Now Load Data Here 
             $.ajax({
-                url: "/Permission/GetSubMenuCheck",
+                url: "/Admin/Permission/GetSubMenuCheck",
                 type: "GET",
                 data: data,
                 dataType: "json",
@@ -79,7 +79,7 @@
 });
 function loadPermission() {
     $.ajax({
-        url: "/Permission/GetAllPermission",
+        url: "/Admin/Permission/GetAllPermission",
         type: "GET",
         dataType: "json",
         async: false,

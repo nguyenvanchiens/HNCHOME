@@ -13,8 +13,9 @@ namespace HNCHOME.Controllers
         }
         public IActionResult Index()
         {
-            ViewBag.Languages = _res.GetAll().OrderBy(x=>x.SortOrder).ToList();
-            return View();
+            var model = new LanguageControllerVM();
+            model.Languages = _res.GetAll().OrderBy(x=>x.SortOrder).ToList();
+            return View(model);
         }
         public JsonResult GetById(Guid id)
         {

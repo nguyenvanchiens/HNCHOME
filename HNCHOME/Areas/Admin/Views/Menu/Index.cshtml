@@ -1,4 +1,4 @@
-﻿@model HNCHOME.Models.Menu;
+﻿@model HNCHOME.Areas.Admin.Models.ViewModel.MenuControllerVM
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
@@ -27,18 +27,18 @@
                     </div>                  
                       <div class="mb-3">
                       <label for="exampleInputEmail1" class="form-label">Tên</label>
-                      <input asp-for="Title"  required name="Title" type="text" class="form-control title" onblur="ChangeToSlug()"  id="MenuTitle" aria-describedby="emailHelp">
+                      <input asp-for="Menu.Title"  required name="Title" type="text" class="form-control title" onblur="ChangeToSlug()"  id="MenuTitle" aria-describedby="emailHelp">
                     
                     </div>
                     <div class="mb-3">
                       <label for="exampleInputEmail1" class="form-label">Link</label>
-                      <input asp-for="Link" required name="Link" type="text" class="form-control slug"  id="MenuLink" aria-describedby="emailHelp">
+                      <input asp-for="Menu.Link" required name="Link" type="text" class="form-control slug"  id="MenuLink" aria-describedby="emailHelp">
                     
                     </div>
                      <div class="mb-3">
                       <label for="exampleInputEmail1" class="form-label">Ngôn Ngữ</label>
-                      <select id="LanguageId" class="form-control parent_language" asp-for="LanguageId">
-                          @foreach (var item in ViewBag.Language)
+                      <select id="LanguageId" class="form-control parent_language" asp-for="Menu.LanguageId">
+                          @foreach (var item in Model.LanguageList)
                           {
                               <option  value="@item.LanguageId">@item.Name</option>
                           }                         
@@ -96,7 +96,7 @@
           </tr>
         </thead>
         <tbody id="tableContext">
-             @foreach (var menu in ViewBag.Menus)
+             @foreach (var menu in Model.MenuList)
              {            
                 <tr>    
                      
@@ -122,10 +122,6 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
   </main>
-    <div class="alert alert-primary" id="notify" role="alert">
-       Thêm Mới Thành Công
-    </div>
-
 
      
 

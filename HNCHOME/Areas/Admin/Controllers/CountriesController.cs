@@ -18,9 +18,10 @@ namespace HNCHOME.Areas.Admin.Controllers
         // GET: Admin/Countries
         public IActionResult Index([FromQuery] string filter)
         {
-            ViewBag.country = _countryRepository.GetAllPaeging(filter);
-            ViewBag.language = _languageRepository.GetAll();
-            return View();
+            var model = new CountriesControllerVM();
+            model.Countries = _countryRepository.GetAll();
+            model.Languages = _languageRepository.GetAll();
+            return View(model);
         }
 
         // GET: Admin/Countries/Details/5

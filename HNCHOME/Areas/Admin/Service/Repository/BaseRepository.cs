@@ -6,8 +6,8 @@ namespace HNCHOME.Service.Repository
 {
     public class BaseRepository<T> : IBaseRepository<T> where T : class
     {
-        protected HNCDbContext _context = null;
-        private DbSet<T> table = null;
+        protected HNCDbContext _context ;
+        private DbSet<T> table;
         public BaseRepository(HNCDbContext context)
         {
             this._context = context;
@@ -26,12 +26,12 @@ namespace HNCHOME.Service.Repository
 
         }
 
-        public IEnumerable<T> GetAll()
+        public virtual IEnumerable<T> GetAll()
         {
             return table.ToList();
         }
 
-        public T GetById(object id)
+        public T GetById(object? id)
         {
             return table.Find(id);
         }

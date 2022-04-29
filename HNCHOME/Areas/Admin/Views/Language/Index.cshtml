@@ -1,4 +1,4 @@
-﻿@model HNCHOME.Models.Language;
+﻿@model HNCHOME.Areas.Admin.Models.ViewModel.LanguageControllerVM;
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
@@ -22,12 +22,12 @@
                   <form id="myFrom" method="post" action="/Admin/Language/AddOrUpdate" enctype="multipart/form-data">
                       @Html.AntiForgeryToken()
                      <div class="mb-3">
-                      <input asp-for="LanguageId" type="text" class="form-control" hidden id="LanguageId" aria-describedby="emailHelp">                     
+                      <input asp-for="Language.LanguageId" type="text" class="form-control" hidden id="LanguageId" aria-describedby="emailHelp">                     
                     </div>
                     <div class="mb-3">
                       <label for="exampleInputEmail1" class="form-label">Name</label>
-                      <input asp-for="Name" required name="Name"  type="text" class="form-control" id="Name" aria-describedby="emailHelp">
-                      <span asp-validation-for="Name" id="erDepartmentCode" class="text-danger"></span>
+                      <input asp-for="Language.Name" required name="Name"  type="text" class="form-control" id="Name" aria-describedby="emailHelp">
+                      <span asp-validation-for="Language.Name" id="erDepartmentCode" class="text-danger"></span>
                     </div>
                     <div class="mb-3 showEditImage" hidden>
                       <label for="exampleInputEmail1" class="form-label">Hình ảnh</label>
@@ -36,13 +36,13 @@
                     </div>
                     <div class="mb-3 hideEditImage" >
                       <label for="exampleInputEmail1" class="form-label">Chọn Ảnh</label>
-                      <input asp-for="Image" name="Image" type="file" class="form-control" id="Image" aria-describedby="emailHelp">
-                      <span asp-validation-for="Image" id="erDepartmentName" class="text-danger"></span>
+                      <input asp-for="Language.Image" name="Image" type="file" class="form-control" id="Image" aria-describedby="emailHelp">
+                      <span asp-validation-for="Language.Image" id="erDepartmentName" class="text-danger"></span>
                     </div>   
                      <div class="mb-3">
                       <label for="exampleInputEmail1" class="form-label">Thứ tự</label>
-                      <input asp-for="SortOrder" required name="SortOrder" type="text" class="form-control" id="SortOrder" aria-describedby="emailHelp">
-                      <span asp-validation-for="SortOrder" id="erDepartmentName" class="text-danger"></span>
+                      <input asp-for="Language.SortOrder" required name="SortOrder" type="text" class="form-control" id="SortOrder" aria-describedby="emailHelp">
+                      <span asp-validation-for="Language.SortOrder" id="erDepartmentName" class="text-danger"></span>
                     </div>
                     <div class="mb-3 text-right">
                       <button type="submit" class="btn btn-primary btn-add">Thêm</button>
@@ -94,7 +94,7 @@
             </tr>                   
         </thead>
         <tbody>
-           @foreach (var item in @ViewBag.Languages)
+           @foreach (var item in Model.Languages)
             {
              <tr>
                 <td>@item.Name</td>

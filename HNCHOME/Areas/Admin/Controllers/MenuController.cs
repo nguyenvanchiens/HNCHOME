@@ -14,7 +14,8 @@ namespace HNCHOME.Controllers
 
         public IActionResult Index()
         {
-            var result = _dbContext.Menus.Where(x => x.ParentId == Guid.Empty)
+            var model = new MenuControllerVM();
+            model.MenuList = _dbContext.Menus.Where(x => x.ParentId == Guid.Empty)
                 .Select(x => new Menu
                 {
                     MenuId = x.MenuId,
@@ -22,10 +23,8 @@ namespace HNCHOME.Controllers
                     Title = x.Title,
                     ParentId = x.ParentId,
                 }).ToList();
-            var language = _dbContext.Languages.ToList();
-            ViewBag.Menus = result;
-            ViewBag.Language = language;
-            return View();
+            model.LanguageList = _dbContext.Languages.ToList();
+            return View(model);
         }
         public JsonResult Get(Guid id)
         {

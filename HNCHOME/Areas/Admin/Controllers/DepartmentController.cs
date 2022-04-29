@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace HNCHOME.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class DepartmentController : BaseController
     {
         private readonly IDepartmentRepository _repository = null;
@@ -13,9 +15,9 @@ namespace HNCHOME.Controllers
         // GET: DepartmentController
         public ActionResult Index([FromQuery] string filter)
         {
-            var res = _repository.GetAll();
-            ViewBag.Departments = _repository.GetAllPaeging(filter);
-            return View();
+            var model = new DepartmentControllerVM();
+            model.Departments = _repository.GetAll();
+            return View(model);
         }
 
         [HttpPost]
@@ -33,8 +35,6 @@ namespace HNCHOME.Controllers
 
                 return Json(e.Message);
             }
-
-           
         }
         [HttpPost]
         public JsonResult UpdateDepartment(Department department)
@@ -73,6 +73,31 @@ namespace HNCHOME.Controllers
                 return Json(e.Message);
             }
            
+        }
+        [HttpGet]
+        public string NewCodeDepartment()
+        {
+            var employeeLast = (from e in _dbContext.Department orderby e.DepartmentCode descending select e.DepartmentCode).FirstOrDefault();
+            string newCode = "";
+            string temp = "";
+            int converNumberCode;
+            if (employeeLast == null)
+            {
+                newCode = "PB01";
+            }
+            else
+            {
+                var subCode = employeeLast.Substring(0, 2);
+                var lengthLastCode = employeeLast.Length;
+                converNumberCode = Convert.ToInt32(employeeLast.Substring(2, lengthLastCode - 2));
+                converNumberCode = converNumberCode + 1;
+                if (converNumberCode < 10)
+                {
+                    temp += subCode + "0";
+                }
+                newCode = temp + converNumberCode.ToString();
+            }
+            return newCode;
         }
     }
 }

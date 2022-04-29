@@ -11,8 +11,9 @@ namespace HNCHOME.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
-            ViewBag.FeedBack = _res.GetAll();
-            return View();
+            var modal = new FeedBackControllerVM();
+            modal.FeedBacks = _res.GetAll();
+            return View(modal);
         }
         [HttpGet]
         public JsonResult Get(Guid feedbackId)

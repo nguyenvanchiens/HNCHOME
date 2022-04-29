@@ -1,4 +1,4 @@
-﻿@model HNCHOME.Models.Country;
+﻿@model HNCHOME.Areas.Admin.Models.ViewModel.CountriesControllerVM
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
@@ -30,18 +30,18 @@
                         <form id="myFrom">
                             <div class="mb-3">
                                 <label for="exampleInputEmail1" class="form-label">Tên quốc gia</label>
-                                <input asp-for="CountryName" required name="EmployeeCode" type="text" class="form-control" id="CountryName" aria-describedby="emailHelp">
-                                <span asp-validation-for="CountryName" id="erCountryName" class="text-danger"></span>
+                                <input asp-for="Country.CountryName" required name="EmployeeCode" type="text" class="form-control" id="CountryName" aria-describedby="emailHelp">
+                                <span asp-validation-for="Country.CountryName" id="erCountryName" class="text-danger"></span>
                             </div>
                             <div class="mb-3">
                                 <label for="exampleInputEmail1" class="form-label">Mô tả quốc gia</label>
-                                <input asp-for="Description" required name="Description" type="text" class="form-control" id="Description" aria-describedby="emailHelp">
-                                <span asp-validation-for="Description" id="erDescription" class="text-danger"></span>
+                                <input asp-for="Country.Description" required name="Description" type="text" class="form-control" id="Description" aria-describedby="emailHelp">
+                                <span asp-validation-for="Country.Description" id="erDescription" class="text-danger"></span>
                             </div>
                             <div class="mb-3">
                                 <label for="exampleInputEmail1" class="form-label">Ngôn ngữ</label>
-                                <select asp-for="Language" required name="Language" type="text" class="form-control" id="Language" aria-describedby="emailHelp">
-                                    @foreach (var item in ViewBag.language)
+                                <select asp-for="Country.Language" required name="Language" type="text" class="form-control" id="Language" aria-describedby="emailHelp">
+                                    @foreach (var item in Model.Languages)
                                     {
                                         <option value="@item.LanguageId">@item.Name</option>
                                     }
@@ -101,7 +101,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var country in ViewBag.country)
+                @foreach (var country in Model.Countries)
                 {
                         <tr>
                             <td>@country.CountryId</td>
@@ -112,12 +112,6 @@
                             <td class="text-center">
                                 <button href="#myModal" data-bs-toggle="modal" onclick="ShowFormUpdate('@country.CountryId')" type="button" class="btn btn-default">Chỉnh sửa</button>
                                 <a style="cursor:pointer" onclick="Delete('@country.CountryId')" class="btn btn-light">Xóa</a>
-                            @*@if (@viewbag.isadmin)
-                                {
-                                <a style="cursor:pointer" href="/home/role/@country.employeeid" class="btn btn-light">
-                                phân quyền
-                                </a>
-                                }    *@
                             </td>
                         </tr>
                 }
@@ -125,9 +119,7 @@
         </table>
     </div>
 </main>
-<div class="alert alert-primary" id="notify" role="alert">
-    Thêm Mới Thành Công
-</div>
+
 
 <script>
     var departmentId = "";

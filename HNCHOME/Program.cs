@@ -25,6 +25,7 @@ builder.Services.AddTransient<IFeedBackRepository, FeedBackRepository>();
 
 builder.Services.AddTransient<IServiceRepository, ServiceRepository>();
 builder.Services.AddTransient<ICustomerRepository, CustomerRepository>();
+builder.Services.AddTransient<IBranchRepository, BranchRepository>();
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
@@ -34,6 +35,7 @@ builder.Services.AddAuthentication(options =>
     options.Cookie.MaxAge = options.ExpireTimeSpan; // optional
     options.SlidingExpiration = true;
     options.LoginPath = "/Admin/Account/Login";
+    options.AccessDeniedPath = "/Admin/Account/NotAuthozire";
 });
 var app = builder.Build();
 

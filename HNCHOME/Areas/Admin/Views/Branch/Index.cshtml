@@ -1,8 +1,8 @@
-﻿@model HNCHOME.Models.Branch
+﻿@model HNCHOME.Areas.Admin.Models.ViewModel.BranchControllerVM
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
-    var brands = new List<BranchViewModel>(@ViewBag.Branchs);
+    var brands = new List<BranchViewModel>(@Model.BranchList);
 }
 
 
@@ -24,27 +24,27 @@
                         <form id="myFrom">
                             @Html.AntiForgeryToken()
                             <div class="mb-3">
-                                <input asp-for="BrandId" type="text" class="form-control" hidden id="BrandId" aria-describedby="emailHelp">
+                                <input asp-for="Branch.BrandId" type="text" class="form-control" hidden id="BrandId" aria-describedby="emailHelp">
                             </div>
                             <div class="mb-3">
                                 <label for="exampleInputEmail1" class="form-label">Tên chi nhánh</label>
-                                <input asp-for="BrandName" required name="BrandName" type="text" class="form-control" id="BrandName" aria-describedby="emailHelp">
-                                <span asp-validation-for="BrandName" id="erDepartmentCode" class="text-danger"></span>
+                                <input asp-for="Branch.BrandName" required name="BrandName" type="text" class="form-control" id="BrandName" aria-describedby="emailHelp">
+                                <span asp-validation-for="Branch.BrandName" id="erDepartmentCode" class="text-danger"></span>
                             </div>
                             <div class="mb-3 hideEditImage">
                                 <label for="exampleInputEmail1" class="form-label">Địa chỉ</label>
-                                <input asp-for="Address" name="Address" type="text" class="form-control" id="Address" aria-describedby="emailHelp">
-                                <span asp-validation-for="Address" id="erDepartmentName" class="text-danger"></span>
+                                <input asp-for="Branch.Address" required name="Address" type="text" class="form-control" id="Address" aria-describedby="emailHelp">
+                                <span asp-validation-for="Branch.Address" id="erDepartmentName" class="text-danger"></span>
                             </div>
                             <div class="mb-3">
                                 <label for="exampleInputEmail1" class="form-label">Điện thoại</label>
-                                <input asp-for="Phone" required name="Phone" type="text" class="form-control" id="Phone" aria-describedby="emailHelp">
-                                <span asp-validation-for="Address" id="erDepartmentName" class="text-danger"></span>
+                                <input asp-for="Branch.Phone" required name="Phone" type="text" class="form-control" id="Phone" aria-describedby="emailHelp">
+                                <span asp-validation-for="Branch.Address" id="erDepartmentName" class="text-danger"></span>
                             </div>
                             <div class="mb-3">
                                 <label for="exampleInputEmail1" class="form-label">Language</label>
-                                <select id="LanguageId" class="form-control parent_language" asp-for="LanguageId">
-                                    @foreach (var item in ViewBag.Language)
+                                <select id="LanguageId" class="form-control parent_language" asp-for="Branch.LanguageId">
+                                    @foreach (var item in @Model.Languages)
                                     {
                                         <option value="@item.LanguageId">@item.Name</option>
                                     }
@@ -52,8 +52,8 @@
                             </div>
                             <div class="mb-3">
                                 <label for="exampleInputEmail1" class="form-label">Country</label>
-                                <select id="CountryId" class="form-control parent_language" asp-for="CountryId">
-                                    @foreach (var item in ViewBag.Country)
+                                <select id="CountryId" class="form-control parent_language" asp-for="Branch.CountryId">
+                                    @foreach (var item in @Model.Country)
                                     {
                                         <option value="@item.CountryId">@item.CountryName</option>
                                     }
@@ -115,7 +115,7 @@
                 @if (brands.Count > 0)
                 {
                     int st = 1;
-                    @for (int i = 0; i < brands.Count; i++)
+                    @for (int i = 0; i < @Model.BranchList.Count; i++)
                     {
                         <tr>
                             <td class="text-center">@st</td>
@@ -132,7 +132,6 @@
                         st++;
                     }
                 }
-
             </tbody>
         </table>
 
@@ -160,9 +159,14 @@
          Validate();
           let validateInput = $('input[validate="false"]');
                  if (validateInput && validateInput.length > 0) {
-                   alert("Bạn hãy điền đủ các trường thông tin");
-                   $(validateInput)[0].focus();
-                   return;
+                   setTimeout(() => {
+                        $('.alert--error').css('display','block');
+                    }, 0);
+                    setTimeout(() => {
+                        $('.alert--error').css('display','none');
+                    }, 1500);
+                    $(validateInput)[0].focus();
+                  return;
                  }
          if(this.branchId==""){
              $.ajax({
@@ -173,10 +177,24 @@
                 async:false,
                 success: function (res) {
                     if(res==201){
-                        window.location.pathname="/Admin/Branch/Index"
+                        setTimeout(() => {
+                            $('.alert--success').css('display','block');
+                                }, 0);
+                            setTimeout(() => {
+                                 $('.alert--success').css('display','none');
+                                    window.location.pathname="/Admin/Branch/Index"
+                            }, 1000);
+                        
                     }
                     else{
-                        alert('Thêm mới không thành công')
+                        var parent = $('.alert--error').children()[1];
+                            $(parent).children('span').html(res);
+                            setTimeout(() => {
+                            $('.alert--error').css('display','block');
+                            }, 0);
+                            setTimeout(() => {
+                                $('.alert--error').css('display','none');
+                            }, 1000);
                     }
                 },
                 error: function (data) {
@@ -193,10 +211,23 @@
                  async:false,
                  success: function (result) {
                      if(result==201){
-                        window.location.pathname="/Admin/Branch/Index"
+                        setTimeout(() => {
+                            $('.alert--success').css('display','block');
+                                }, 0);
+                            setTimeout(() => {
+                                 $('.alert--success').css('display','none');
+                                    window.location.pathname="/Admin/Branch/Index"
+                            }, 1000);
                      }
                      else{
-                         alert(result);
+                         var parent = $('.alert--error').children()[1];
+                            $(parent).children('span').html(result);
+                            setTimeout(() => {
+                            $('.alert--error').css('display','block');
+                            }, 0);
+                            setTimeout(() => {
+                                $('.alert--error').css('display','none');
+                            }, 1000);
                      }
                  },
                  error: function (data) {
@@ -237,6 +268,8 @@
         $('.btn-add').html('Thêm mới');
 
         var languageId = "";
+         $('#myFrom input').removeClass('s-input-error');
+        $('#myFrom input').siblings('span').text('');
      }
      function ShowUpdate(branchId) {
          this.branchId = branchId;

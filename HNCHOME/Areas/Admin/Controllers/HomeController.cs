@@ -1,5 +1,7 @@
 ﻿
+
 using HNCHOME.Properties;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 namespace HNCHOME.Areas.Admin.Controllers
@@ -15,27 +17,25 @@ namespace HNCHOME.Areas.Admin.Controllers
 
         public IActionResult Index([FromQuery] string filter)
         {
-            ViewBag.isAdmin = GetClaimAdmin();
             ViewBag.isCreate = GetClaimAdd();
-            ViewBag.Deparments = _dbContext.Department.ToList();
-            if (filter != null)
-            {
-                ViewBag.Employeess = from e in _dbContext.Employees
-                                     join d in _dbContext.Department
-                                     on e.DepartmentId equals d.DepartmentId
-                                     where (e.EmployeeName.Contains(filter) || e.EmployeeCode.Contains(filter) || e.Address.Contains(filter))
-                                     orderby e.CreatedDate ascending
-                                     select new { e.EmployeeId, e.EmployeeCode, e.EmployeeName, e.Address, e.DateOfBirth, d.DepartmentName };
-            }
-            else
-            {
-                ViewBag.Employeess = (from e in _dbContext.Employees
-                                      join d in _dbContext.Department
-                                      on e.DepartmentId equals d.DepartmentId
-                                      orderby e.CreatedDate ascending
-                                      select new { e.EmployeeId, e.EmployeeCode, e.EmployeeName, e.Address, e.DateOfBirth, d.DepartmentName }).ToList();
-            }
-            return View();
+
+            var model = new HomeControllerVM();
+            model.DepartmentList = _dbContext.Department.ToList();
+            model.ListEmployeeVM = (from e in _dbContext.Employees
+                               join d in _dbContext.Department
+                               on e.DepartmentId equals d.DepartmentId
+                               orderby e.CreatedDate ascending
+                               select new EmployeeViewModel
+                               {
+                                   EmployeeId = e.EmployeeId,
+                                   EmployeeCode = e.EmployeeCode,
+                                   EmployeeName = e.EmployeeName,
+                                   Address = e.Address,
+                                   CreatedDate = e.CreatedDate,
+                                   DateOfBirth = e.DateOfBirth,
+                                   DepartmentName = d.DepartmentName
+                               }).OrderByDescending(x => x.CreatedDate).ToList();            
+            return View(model);
         }
         [HttpGet]
         public Employee GetEmployeeCode(Guid employeeId, string employeeCode)
@@ -56,7 +56,6 @@ namespace HNCHOME.Areas.Admin.Controllers
             }
             catch (Exception e)
             {
-
                 return Json(e.Message);
             }
         }
@@ -100,29 +99,42 @@ namespace HNCHOME.Areas.Admin.Controllers
         [HttpGet]
         public string NewCodeEmployee()
         {
-            string result = "";
-            var employeeLast = (from e in _dbContext.Employees orderby e.EmployeeCode descending select e.EmployeeCode).First();
-            var chars = "";
-            string strRemoveLast = "";
+            var employeeLast = (from e in _dbContext.Employees orderby e.EmployeeCode descending select e.EmployeeCode).FirstOrDefault();
+            string newCode = "";
+            string temp = "";
+            int converNumberCode;
             if (employeeLast == null)
             {
-                result = "NV01";
+                newCode = "NV0001";
             }
-            foreach (var item in employeeLast)
+            else
             {
-                chars += "/" + item;
+                var subCode = employeeLast.Substring(0, 2);
+                var lengthLastCode = employeeLast.Length;
+                converNumberCode = Convert.ToInt32(employeeLast.Substring(2, lengthLastCode - 2));
+                converNumberCode = converNumberCode + 1;
+                if (converNumberCode < 10)
+                {
+                    temp += subCode + "000";
+                }
+                else if (converNumberCode < 100)
+                {
+                    temp += subCode + "00";
+                }
+                else if (converNumberCode < 1000)
+                {
+                    temp += subCode + "0";
+                }
+                else
+                {
+                    temp += subCode;
+                }
+                newCode = temp + converNumberCode.ToString();
             }
-            var str = chars.Split('/').Last();
-            int lastCode = int.Parse(str) + 1;
-            if (lastCode == 0)
-            {
-                strRemoveLast = employeeLast.Substring(0, employeeLast.Length - 2);
-            }
-            strRemoveLast = employeeLast.Substring(0, employeeLast.Length - 1);
-            result = strRemoveLast + lastCode;
-            return result;
+            return newCode;
         }
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public ActionResult Role(Guid id)
         {
             ViewBag.Permissions = _dbContext.Permissions.Where(x => x.ParentId == null).ToList();
