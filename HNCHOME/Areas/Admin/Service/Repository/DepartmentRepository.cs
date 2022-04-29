@@ -14,11 +14,10 @@ namespace HNCHOME.Areas.Admin.Service.Repository
         public string checkDuplicate(Department department)
         {
             var result = "";
-            var departments = _context.Department.ToList();
-            var checkDepartmentCode = departments.Where(x => x.DepartmentCode == department.DepartmentCode && x.DepartmentId != department.DepartmentId).FirstOrDefault();
-            if (checkDepartmentCode != null)
+            var checkDepartmentName = _context.Department.FirstOrDefault(x => x.DepartmentName == department.DepartmentName && x.DepartmentId != department.DepartmentId);
+            if (checkDepartmentName != null)
             {
-                result = String.Format(Resources.checkDepartmentCode, department.DepartmentCode);
+                result = String.Format(Resources.checkDepartmentCode, department.DepartmentName);
             }
             return result;
         }

@@ -130,7 +130,6 @@ namespace HNCHOME.Areas.Admin.Controllers
                     temp += subCode;
                 }
                 newCode = temp + converNumberCode.ToString();
-
             }
             return newCode;
         }

@@ -26,7 +26,7 @@
                     </div>
                     <div class="mb-3">
                       <label for="exampleInputEmail1" class="form-label">Mã nhân viên</label>
-                      <input readonly="False" asp-for="EmployeeVM.EmployeeCode" required name="EmployeeCode" type="text" class="form-control"  id="EmployeeCode" aria-describedby="emailHelp">
+                      <input readonly="False" asp-for="EmployeeVM.EmployeeCode" required name="EmployeeCode" type="text" class="form-control" id="EmployeeCode" aria-describedby="emailHelp">
                       <span asp-validation-for="EmployeeVM.EmployeeCode" id="erEmployeeCode" class="text-danger"></span>
                     </div>
                     <div class="mb-3">
@@ -280,7 +280,6 @@
                              $('.alert--success').css('display','none');
                                 window.location.pathname="/Admin"
                         }, 1000);
-                        
                     }
                     else{
                         var parent = $('.alert--error').children()[1];

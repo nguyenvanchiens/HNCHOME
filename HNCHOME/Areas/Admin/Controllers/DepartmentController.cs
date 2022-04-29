@@ -35,8 +35,6 @@ namespace HNCHOME.Controllers
 
                 return Json(e.Message);
             }
-
-           
         }
         [HttpPost]
         public JsonResult UpdateDepartment(Department department)
@@ -75,6 +73,31 @@ namespace HNCHOME.Controllers
                 return Json(e.Message);
             }
            
+        }
+        [HttpGet]
+        public string NewCodeDepartment()
+        {
+            var employeeLast = (from e in _dbContext.Department orderby e.DepartmentCode descending select e.DepartmentCode).FirstOrDefault();
+            string newCode = "";
+            string temp = "";
+            int converNumberCode;
+            if (employeeLast == null)
+            {
+                newCode = "PB01";
+            }
+            else
+            {
+                var subCode = employeeLast.Substring(0, 2);
+                var lengthLastCode = employeeLast.Length;
+                converNumberCode = Convert.ToInt32(employeeLast.Substring(2, lengthLastCode - 2));
+                converNumberCode = converNumberCode + 1;
+                if (converNumberCode < 10)
+                {
+                    temp += subCode + "0";
+                }
+                newCode = temp + converNumberCode.ToString();
+            }
+            return newCode;
         }
     }
 }

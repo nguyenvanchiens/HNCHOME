@@ -5,6 +5,16 @@
         public CountryRepository(HNCDbContext context) : base(context)
         {
         }
+        public override IEnumerable<Country> GetAll()
+        {
+            var pro = new Branch();
+            var contry = base.GetAll();
+            foreach (var c in contry)
+            {
+                c.Branches = new List<Branch>();
+            }
+            return base.GetAll();
+        }
 
         public IEnumerable<Country> GetAllPaeging(string filter)
         {
