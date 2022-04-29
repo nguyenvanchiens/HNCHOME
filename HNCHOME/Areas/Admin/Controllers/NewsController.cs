@@ -18,37 +18,6 @@ namespace HNCHOME.Areas.Admin.Controllers
         {
             var obj = new NewsViewModel();
             obj.NewsModels = _newsRepository.GetAll().ToList();
-            foreach (var item in obj.NewsModels)
-            {
-                var titleArr = item.Title.Split(' ');
-                item.Title = "";
-                if (titleArr.Length > 16)
-                {
-                    for (int i = 0; i < titleArr.Length; i++)
-                    {
-                        if (i < 15)
-                        {
-                            item.Title += titleArr[i] + " ";
-                        }
-                    }
-                    item.Title.Trim();
-                    item.Title += "...";
-                }
-                var ContentArr = item.Content.Split(' ');
-                item.Content = "";
-                if (ContentArr.Length > 35)
-                {
-                    for (int i = 0; i < ContentArr.Length; i++)
-                    {
-                        if (i < 30)
-                        {
-                            item.Content += ContentArr[i] + " ";
-                        }
-                    }
-                    item.Content.Trim();
-                    item.Content += "...";
-                }
-            }
             return View(obj);
         }
         [HttpPost]
@@ -56,6 +25,10 @@ namespace HNCHOME.Areas.Admin.Controllers
         {
             try
             {
+                if(newsModel == null)
+                {
+                    throw new Exception("Unsuccessfully");
+                }
                 newsModel.CreatedDate = DateTime.Now;
                 newsModel.ModifiedDate = DateTime.Now;
                 _newsRepository.Insert(newsModel);
@@ -64,7 +37,6 @@ namespace HNCHOME.Areas.Admin.Controllers
             catch (Exception e)
             {
                 return BadRequest(new { Result = "Unsuccessfully" });
-                throw;
             }
         }
         [IgnoreAntiforgeryToken]
@@ -117,6 +89,10 @@ namespace HNCHOME.Areas.Admin.Controllers
         {
             try
             {
+                if(id == Guid.Empty)
+                {
+                    throw new Exception("Unsuccessfully");
+                }
                 _newsRepository.Delete(id);
                 return Ok(new { Res = "Successfully" });
             }
@@ -132,6 +108,10 @@ namespace HNCHOME.Areas.Admin.Controllers
             try
             {
                 var news = _newsRepository.GetById(newsModel.NewsId);
+                if (news == null)
+                {
+                    throw new Exception("Unsuccessfully");
+                }
                 if (newsModel != null)
                 {
                     if (!string.IsNullOrEmpty(newsModel.ImgUrl))
@@ -143,7 +123,9 @@ namespace HNCHOME.Areas.Admin.Controllers
                     news.ModifiedDate = DateTime.Now;
                 };
                 _newsRepository.Update(news);
+
                 return Ok(new { Res = "Successfully" });
+               
             }
             catch (Exception e)
             {
@@ -156,12 +138,15 @@ namespace HNCHOME.Areas.Admin.Controllers
         {
             try
             {
+                if(id == Guid.Empty)
+                {
+                    throw new Exception("Unsuccessfully");
+                }
                 return Ok(new { Res = _newsRepository.GetById(id) });
             }
             catch (Exception e)
             {
                 return BadRequest(new { Res = "Unsuccessfully" });
-                throw;
             }
         }
     }

@@ -27,6 +27,10 @@ namespace HNCHOME.Areas.Admin.Controllers
         {
             try
             {
+                if(id == Guid.Empty)
+                {
+                    throw new Exception();
+                }
                 var customer = _customerRepository.GetById(id);
                 var registration = _repository.GetAll().Where(m=>m.CustomerId==id).ToList();
                 var serviceInfos= new List<ServiceInfo>();
@@ -40,7 +44,6 @@ namespace HNCHOME.Areas.Admin.Controllers
             catch (Exception e)
             {
                 return BadRequest(new { Res = e.Message });
-                throw;
             }
         }
     }

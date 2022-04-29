@@ -11,7 +11,7 @@ namespace HNCHOME.Controllers
             _context = dbContext;
         }
 
-        public IActionResult Index(int? pageIndex = 1, int? pageSize = 4)
+        public IActionResult Index(int? pageIndex = 1, int? pageSize = 1)
         {
             var news = _context.NewsModels.OrderByDescending(m => m.ModifiedDate).Skip(pageSize.Value * (pageIndex.Value - 1)).Take(pageSize.Value).ToList();
 
