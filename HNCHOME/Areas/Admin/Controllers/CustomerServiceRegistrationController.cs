@@ -22,5 +22,29 @@ namespace HNCHOME.Areas.Admin.Controllers
             obj.ServiceInfos = _serviceRepository.GetAll().ToList();
             return View(obj);
         }
+        [HttpGet]
+        public IActionResult GetInfoById(Guid id)
+        {
+            try
+            {
+                if(id == Guid.Empty)
+                {
+                    throw new Exception();
+                }
+                var customer = _customerRepository.GetById(id);
+                var registration = _repository.GetAll().Where(m=>m.CustomerId==id).ToList();
+                var serviceInfos= new List<ServiceInfo>();
+                foreach (var service in registration)
+                {
+                    var serviceInfo = _serviceRepository.GetById(service.ServiceId);
+                    serviceInfos.Add(serviceInfo);
+                }
+                return Ok(new {Services=serviceInfos, Customer=customer});
+            }
+            catch (Exception e)
+            {
+                return BadRequest(new { Res = e.Message });
+            }
+        }
     }
 }
