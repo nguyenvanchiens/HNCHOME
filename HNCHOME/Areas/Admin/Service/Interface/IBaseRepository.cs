@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Linq.Expressions;
+using System.Reflection;
 
 namespace HNCHOME.Service.Interface
 {
@@ -10,5 +11,6 @@ namespace HNCHOME.Service.Interface
         int Update(T obj);
         int Delete(object id);
         void Save();
+        public IQueryable<T> Find(Expression<Func<T, bool>> expression);
     }
 }

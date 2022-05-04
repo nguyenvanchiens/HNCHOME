@@ -1,5 +1,6 @@
 ﻿using HNCHOME.Attr;
 using HNCHOME.Service.Interface;
+using System.Linq.Expressions;
 using System.Reflection;
 
 namespace HNCHOME.Service.Repository
@@ -24,6 +25,11 @@ namespace HNCHOME.Service.Repository
             }
             return (int)StatusCodeRespon.BadRequest;
 
+        }
+
+        public IQueryable<T> Find(Expression<Func<T, bool>> expression)
+        {
+            return _context.Set<T>().Where(expression);
         }
 
         public virtual IEnumerable<T> GetAll()
