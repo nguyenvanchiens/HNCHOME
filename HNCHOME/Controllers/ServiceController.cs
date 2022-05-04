@@ -13,37 +13,30 @@ namespace HNCHOME.Controllers
         {
             return View(_context.ServiceInfos.ToList());
         }
+        [HttpPost]
         public IActionResult ServiceRegistration(Customer customer, List<Guid> serviceId)
         {
+            if (customer == null)
+            {
+                throw new Exception();
+            }
             try
             {
-                var customerModel = _context.Customers.Where(m => m.Email == customer.Email).FirstOrDefault();
-                if (customerModel != null)
-                {
-                    customer.CustomerId = customerModel.CustomerId;
-                }
-                else
-                {
-                    if (customer == null)
-                    {
-                        throw new Exception();
-                    }
+                customer.CustomerId = Guid.NewGuid();
+                
 
-                    customer.CustomerId = Guid.NewGuid();
-                    customer.ModifiedBy = DateTime.Now.ToString();
-                    customer.CreatedDate = DateTime.Now;
-                    _context.Customers.Add(customer);
-                    foreach (var id in serviceId)
-                    {
-                        var customerServiceRegistration = new CustomerServiceRegistration();
-                        customerServiceRegistration.CustomerId = customer.CustomerId;
-                        customerServiceRegistration.ServiceId = id;
-                        _context.customerServiceRegistrations.Add(customerServiceRegistration);
-                    }
-                    _context.SaveChanges();
-                    return Ok(new { Res = "Successfully" });
+                customer.ModifiedBy = DateTime.Now.ToString();
+                customer.CreatedDate = DateTime.Now;
+                _context.Customers.Add(customer);
+                foreach (var id in serviceId)
+                {
+                    var customerServiceRegistration = new CustomerServiceRegistration();
+                    customerServiceRegistration.CustomerId = customer.CustomerId;
+                    customerServiceRegistration.ServiceId = id;
+                    _context.customerServiceRegistrations.Add(customerServiceRegistration);
                 }
-                throw new Exception("Error");
+                _context.SaveChanges();
+                return Ok(new { Res = "Successfully" });
             }
             catch (Exception e)
             {

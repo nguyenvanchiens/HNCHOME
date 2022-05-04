@@ -1,4 +1,6 @@
-﻿@model IEnumerable<HNCHOME.Models.ServiceInfo>
+﻿const { forEach } = require("../../wwwroot/Admin/vendor/fontawesome-free/js/v4-shims");
+
+@model IEnumerable<HNCHOME.Models.ServiceInfo>
 
 
 @{
@@ -46,7 +48,7 @@
                             <div class="form__name col-md-8 col-lg-8">
                                 <label for="">Họ và tên: (<span style="color: red;">*</span>)</label>
                                 <br>
-                                <input type="text" id="" required>
+                                <input type="text" id="customerName" required>
                             </div>
                         </div>
 
@@ -54,12 +56,12 @@
                             <div class="company__name col-md-8 col-lg-8">
                                 <label for="">Tên công ty:</label>
                                 <br>
-                                <input type="text" required>
+                                <input type="text" required id="companyName">
                             </div>
                             <div class="company__tax-number col-md-4 col-lg-4">
                                 <label for=" ">Mã số thuế:</label>
                                 <br>
-                                <input type="text" required>
+                                <input type="text" required id="taxCode">
                             </div>
                         </div>
                         <br>
@@ -67,13 +69,13 @@
                             <div class="company__name col-md-6 col-lg-6">
                                 <label for=" ">Phone: (<span style="color: red; ">*</span>)</label>
                                 <br>
-                                <input type="text" required>
+                                <input type="text" required id="phoneNumber">
 
                             </div>
                             <div class="company__tax-number col-md-6 col-lg-6">
                                 <label for=" ">Email: (<span style="color: red; ">*</span>)</label>
                                 <br>
-                                <input type="text" required>
+                                <input type="text" required id="email">
                             </div>
                         </div>
                     </div>
@@ -105,7 +107,7 @@
                                 <div class="form__name col-md-12 col-lg-12">
                                     <label for="">Loại hàng hóa: (<span style="color: red;">*</span>)</label>
                                     <br>
-                                    <input type="text" required>
+                                    <input type="text" required id="goodsType">
                                 </div>
                             </div>
 
@@ -113,12 +115,12 @@
                                 <div class="company__name col-md-6 col-lg-6">
                                     <label for="">Trọng lượng:</label>
                                     <br>
-                                    <input type="text" required>
+                                    <input type="text" required id="weight">
                                 </div>
                                 <div class="company__tax-number col-md-6 col-lg-6">
                                     <label for=" ">Size:</label>
                                     <br>
-                                    <input type="text" required>
+                                    <input type="text" required id="size">
                                 </div>
                             </div>
                             <br>
@@ -126,7 +128,7 @@
                                 <div class="company__name col-md-6 col-lg-6">
                                     <label for=" ">Số lượng:</label>
                                     <br>
-                                    <input type="text" required>
+                                    <input type="text" required id="quantum">
 
                                 </div>
                                 <div class="company__tax-number col-md-6 col-lg-6">
@@ -148,7 +150,7 @@
                             <div class="form__name col-md-12 col-lg-12">
                                 <label for="">Phương thức vận chuyển: (<span style="color: red;">*</span>)</label>
                                 <br>
-                                <input type="text" required>
+                                <input type="text" required id="deliveryType">
                             </div>
                         </div>
 
@@ -156,7 +158,7 @@
                             <div class="company__name col-md-12 col-lg-12">
                                 <label for="">Điểm khởi hành: (<span style="color: red;">*</span>)</label>
                                 <br>
-                                <input type="text" required>
+                                <input type="text" required id="firstDestination">
                             </div>
                         </div>
                         <br>
@@ -164,8 +166,7 @@
                             <div class="company__name col-md-12 col-lg-12">
                                 <label for=" ">Điểm đến: (<span style="color: red; ">*</span>)</label>
                                 <br>
-                                <input type="text" required>
-
+                                <input type="text" required id="lastDestination">
                             </div>
                         </div>
 
@@ -173,13 +174,13 @@
                             <div class="company__name col-xl-12 col-md-12 col-lg-12">
                                 <label for=" ">Yêu cầu khác: (<span style="color: red; ">*</span>)</label>
                                 <br>
-                                <textarea name="" id="" class="col-xl-12 col-md-12 col-lg-12" rows="2"></textarea>
+                                <textarea name="" id="otherRequest" class="col-xl-12 col-md-12 col-lg-12" rows="2"></textarea>
 
                             </div>
                         </div>
                         <div class="form__company row col-md-12 col-lg-12 ">
                             <div class="company__name col-md-7 col-lg-7">
-                                <button id="button" type="submit">ĐĂNG KÝ</button>
+                                <button id="button" type="button" onclick="Submit()">ĐĂNG KÝ</button>
                             </div>
                         </div>
                     </div>
@@ -253,10 +254,58 @@
 <script type="text/javascript" src="~/js/Service.js">
 </script>
 <script>
-    $(document).ready(function(){
-        debugger;
-        console.log($("input")),
-        Validate(),
-    })
+    function Submit(){
+        var serviceId=[];
+        $("input[type=checkbox]").each(function(){
+            if($(this).is(":checked")){
+                console.log($(this).attr("id"));
+                serviceId.push($(this).attr("id"))
+            }
+        });
+        var customer={
+            customerName:$("#customerName").val(),
+            companyName:$("#companyName").val(),
+            taxCode:$("#taxCode").val(),
+            phoneNumber:$("#phoneNumber").val(),
+            email:$("#email").val(),
+            deliveryType:$("#deliveryType").val(),
+            firstDestination:$("#firstDestination").val(),
+            lastDestination:$("#lastDestination").val(),
+            goodsType:$("#goodsType").val(),
+            weight:$("#weight").val(),
+            size:$("#size").val(),
+            quantum:$("#quantum").val(),
+            quantity:$("#quantity").val(),
+            otherRequest:$("#otherRequest").val()
+        }
+        if(serviceId.length==0){
+            alert("Mời bạn chọn loại hình dịch vụ");
+        }
+        var bool=false;
+        for (const [key, value] of Object.entries(customer)) {
+          if((value==null || value=="")&& key!="otherRequest"){
+              bool=true;
+          }
+        }
+        if(bool=true){
+            alert("Thông tin không được để trống");
+        }
+        if(bool==false){
+            $.ajax({
+                type: 'Post',
+                url: '/Service/ServiceRegistration',
+                dataType:"json",
+                data: { customer: customer, serviceId:serviceId  },
+                async:false,
+
+                success: function (res) {
+                    alert(res.res);
+                },
+                error: function (data) {
+                    alert(res.res);
+                }
+            })
+        }
+    }
 </script>
 }
